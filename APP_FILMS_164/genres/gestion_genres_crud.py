@@ -18,68 +18,70 @@ from APP_FILMS_164.genres.gestion_genres_wtf_forms import FormWTFUpdateGenre
 
 """
     Auteur : OM 2021.03.16
-    Définition d'une "route" /genres_afficher
+    Définition d'une "route" /shop_afficher
     
-    Test : ex : http://127.0.0.1:5005/genres_afficher
+    Test : ex : http://127.0.0.1:5005/shop_afficher
     
     Paramètres : order_by : ASC : Ascendant, DESC : Descendant
-                id_genre_sel = 0 >> tous les genres.
-                id_genre_sel = "n" affiche le genre dont l'id est "n"
+                id_shop_sel = 0 >> tous les shop.
+                id_shop_sel = "n" affiche le shop dont l'id est "n"
 """
 
 
-@app.route("/genres_afficher/<string:order_by>/<int:id_genre_sel>", methods=['GET', 'POST'])
-def genres_afficher(order_by, id_genre_sel):
+@app.route("/shop_afficher/<string:order_by>/<int:id_shop_sel>", methods=['GET', 'POST'])
+def shop_afficher(order_by, id_shop_sel):
     if request.method == "GET":
         try:
             with DBconnection() as mc_afficher:
-                if order_by == "ASC" and id_genre_sel == 0:
-                    strsql_genres_afficher = """SELECT id_genre, intitule_genre, date_ins_genre FROM t_genre ORDER BY id_genre ASC"""
-                    mc_afficher.execute(strsql_genres_afficher)
+                if order_by == "ASC" and id_shop_sel == 0:
+                    strsql_shop_afficher = """SELECT * FROM t_shop;"""
+                    mc_afficher.execute(strsql_shop_afficher)
                 elif order_by == "ASC":
                     # C'EST LA QUE VOUS ALLEZ DEVOIR PLACER VOTRE PROPRE LOGIQUE MySql
                     # la commande MySql classique est "SELECT * FROM t_genre"
                     # Pour "lever"(raise) une erreur s'il y a des erreurs sur les noms d'attributs dans la table
                     # donc, je précise les champs à afficher
                     # Constitution d'un dictionnaire pour associer l'id du genre sélectionné avec un nom de variable
-                    valeur_id_genre_selected_dictionnaire = {"value_id_genre_selected": id_genre_sel}
-                    strsql_genres_afficher = """SELECT id_genre, intitule_genre, date_ins_genre  FROM t_genre WHERE id_genre = %(value_id_genre_selected)s"""
+                    valeur_id_shop_selected_dictionnaire = {"value_id_shop_selected": id_shop_sel}
+                    strsql_shop_afficher = """SELECT id_shop, nom_shop, volumes_shop, argent_shop  FROM t_shop 
+                    WHERE id_shop = %(value_id_shop_selected)s"""
 
-                    mc_afficher.execute(strsql_genres_afficher, valeur_id_genre_selected_dictionnaire)
+                    mc_afficher.execute(strsql_shop_afficher, valeur_id_shop_selected_dictionnaire)
                 else:
-                    strsql_genres_afficher = """SELECT id_genre, intitule_genre, date_ins_genre  FROM t_genre ORDER BY id_genre DESC"""
+                    strsql_shop_afficher = """SELECT id_shop, nom_shop, volumes_shop, argent_shop  FROM t_shop 
+                    ORDER BY id_shop DESC"""
 
-                    mc_afficher.execute(strsql_genres_afficher)
+                    mc_afficher.execute(strsql_shop_afficher)
 
-                data_genres = mc_afficher.fetchall()
+                data_shop = mc_afficher.fetchall()
 
-                print("data_genres ", data_genres, " Type : ", type(data_genres))
+                print("data_shop ", data_shop, " Type : ", type(data_shop))
 
                 # Différencier les messages si la table est vide.
-                if not data_genres and id_genre_sel == 0:
-                    flash("""La table "t_genre" est vide. !!""", "warning")
-                elif not data_genres and id_genre_sel > 0:
+                if not data_shop and id_shop_sel == 0:
+                    flash("""La table "t_shop" est vide. !!""", "warning")
+                elif not data_shop and id_shop_sel > 0:
                     # Si l'utilisateur change l'id_genre dans l'URL et que le genre n'existe pas,
-                    flash(f"Le genre demandé n'existe pas !!", "warning")
+                    flash(f"Le shop demandé n'existe pas !!", "warning")
                 else:
                     # Dans tous les autres cas, c'est que la table "t_genre" est vide.
                     # OM 2020.04.09 La ligne ci-dessous permet de donner un sentiment rassurant aux utilisateurs.
-                    flash(f"Données genres affichés !!", "success")
+                    flash(f"Données shop affichés !!", "success")
 
-        except Exception as Exception_genres_afficher:
+        except Exception as Exception_shop_afficher:
             raise ExceptionGenresAfficher(f"fichier : {Path(__file__).name}  ;  "
-                                          f"{genres_afficher.__name__} ; "
-                                          f"{Exception_genres_afficher}")
+                                          f"{shop_afficher.__name__} ; "
+                                          f"{Exception_shop_afficher}")
 
     # Envoie la page "HTML" au serveur.
-    return render_template("genres/genres_afficher.html", data=data_genres)
+    return render_template("shop/shop_afficher.html", data=data_shop)
 
 
 """
     Auteur : OM 2021.03.22
-    Définition d'une "route" /genres_ajouter
+    Définition d'une "route" /shop_ajouter
     
-    Test : ex : http://127.0.0.1:5005/genres_ajouter
+    Test : ex : http://127.0.0.1:5005/shop_ajouter
     
     Paramètres : sans
     
