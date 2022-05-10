@@ -19,9 +19,9 @@
 						{% endfor %}
 					</p>
 					<p>
-						{{ form_update.prenom_personnes_wtf.label }}<br>
-						{{ form_update.prenom_personnes_wtf(size=32) }}<br>
-						{% for error in form_update.prenom_personnes_wtf.errors %}
+						{{ form_update.prenom_personnes_update_wtf.label }}<br>
+						{{ form_update.prenom_personnes_update_wtf(size=32) }}<br>
+						{% for error in form_update.prenom_personnes_update_wtf.errors %}
 							<span style="color: red;">[{{ error }}]</span>
 						{% endfor %}
 					</p>

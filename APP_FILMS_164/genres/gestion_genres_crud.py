@@ -154,7 +154,7 @@ def genres_ajouter_wtf():
 @app.route("/genre_update", methods=['GET', 'POST'])
 def genre_update_wtf():
     # L'utilisateur vient de cliquer sur le bouton "EDIT". Récupère la valeur de "id_genre"
-    value_id_personnes = request.values['id_genre_btn_edit_html']
+    id_personnes_update = request.values['id_genre_btn_edit_html']
 
     # Objet formulaire pour l'UPDATE
     form_update = FormWTFUpdateGenre()
@@ -166,14 +166,15 @@ def genre_update_wtf():
             nom_personnes_update = form_update.nom_personnes_update_wtf.data
             prenom_personnes_update = form_update.prenom_personnes_update_wtf.data
 
-            valeur_update_dictionnaire = {"value_id_personnes": value_id_personnes,
+            valeur_update_dictionnaire = {"value_id_personnes": id_personnes_update,
                                           "value_nom_personnes": nom_personnes_update,
                                           "value_prenom_personnes": prenom_personnes_update
                                           }
             print("valeur_update_dictionnaire ", valeur_update_dictionnaire)
 
             str_sql_update_intitulegenre = """UPDATE t_personnes SET nom_personnes = %(value_nom_personnes)s, 
-            prenom_personne = %(value_prenom_personnes)s WHERE id_personnes = %(value_id_personnes)s """
+            prenom_personnes = %(value_prenom_personnes)s 
+            WHERE id_personnes = %(value_id_personnes)s """
             with DBconnection() as mconn_bd:
                 mconn_bd.execute(str_sql_update_intitulegenre, valeur_update_dictionnaire)
 
@@ -182,18 +183,18 @@ def genre_update_wtf():
 
             # afficher et constater que la donnée est mise à jour.
             # Affiche seulement la valeur modifiée, "ASC" et l'"value_id_personnes"
-            return redirect(url_for('genres_afficher', order_by="ASC", id_genre_sel=value_id_personnes))
+            return redirect(url_for('genres_afficher', order_by="ASC", id_genre_sel=id_personnes_update))
         elif request.method == "GET":
             # Opération sur la BD pour récupérer "id_genre" et "intitule_genre" de la "t_genre"
             str_sql_id_genre = "SELECT id_personnes, nom_personnes, prenom_personnes FROM t_personnes " \
                                "WHERE id_personnes = %(value_id_personnes)s"
-            valeur_select_dictionnaire = {"value_id_personnes": value_id_personnes}
+            valeur_select_dictionnaire = {"value_id_personnes": id_personnes_update}
             with DBconnection() as mybd_conn:
                 mybd_conn.execute(str_sql_id_genre, valeur_select_dictionnaire)
             # Une seule valeur est suffisante "fetchone()", vu qu'il n'y a qu'un seul champ "nom genre" pour l'UPDATE
             data_nom_genre = mybd_conn.fetchone()
-            print("data_nom_genre ", data_nom_genre, " type ", type(data_nom_genre), " genre ",
-                  data_nom_genre["intitule_genre"])
+            print("data_nom_genre ", data_nom_genre, " type ", type(data_nom_genre), " personnes ",
+                  data_nom_genre["nom_personnes"])
 
             # Afficher la valeur sélectionnée dans les champs du formulaire "genre_update_wtf.html"
             form_update.nom_personnes_update_wtf.data = data_nom_genre["nom_personnes"]

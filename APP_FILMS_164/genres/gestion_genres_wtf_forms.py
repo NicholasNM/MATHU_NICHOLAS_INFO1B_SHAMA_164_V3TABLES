@@ -16,13 +16,13 @@ class FormWTFAjouterGenres(FlaskForm):
         Définition d'un "bouton" submit avec un libellé personnalisé.
     """
 
-    nom_personnes_wtf = StringField("Clavioter le genre ", validators=[Length(min=2, max=20, message="min 2 max 20"),
+    nom_personnes_wtf = StringField("Écrivez le nom ", validators=[Length(min=2, max=20, message="min 2 max 20"),
 
                                                                    ])
-    prenom_personnes_wtf = StringField("Clavioter le genre ", validators=[Length(min=2, max=20, message="min 2 max 20"),
+    prenom_personnes_wtf = StringField("Écrivez le prénom ", validators=[Length(min=2, max=20, message="min 2 max 20"),
 
                                                                        ])
-    submit = SubmitField("Enregistrer genre")
+    submit = SubmitField("Enregistrer la personne")
 
 
 class FormWTFUpdateGenre(FlaskForm):
@@ -31,14 +31,14 @@ class FormWTFUpdateGenre(FlaskForm):
         Définition d'un "bouton" submit avec un libellé personnalisé.
     """
 
-    nom_personnes_update_wtf = StringField("Clavioter le genre ", validators=[Length(min=2, max=20, message="min 2 max 20"),
+    nom_personnes_update_wtf = StringField("Changez le nom ", validators=[Length(min=2, max=20, message="min 2 max 20"),
 
                                                                           ])
-    prenom_personnes_update_wtf = StringField("Clavioter le genre ", validators=[Length(min=2, max=20, message="min 2 max 20"),
+    prenom_personnes_update_wtf = StringField("Changez le prénom ", validators=[Length(min=2, max=20, message="min 2 max 20"),
 
                                                                           ])
 
-    submit = SubmitField("Update genre")
+    submit = SubmitField("Enregistrer la modification")
 
 
 class FormWTFDeleteGenre(FlaskForm):
