@@ -1,11 +1,11 @@
 {% extends "base.html" %}
-{% block title %} Afficher GENRES {% endblock %}
+{% block title %} Afficher Personnes {% endblock %}
 {% block body %}
 <div class="container">
 	<div class="row">
 		<div class="col-md-12">
 			<p>
-				Genres à disposition.
+				Personnes dans l'entreprise
 			</p>
             <table class="table table-bordered table-sm">
             {% if data %}
@@ -15,10 +15,10 @@
                             id
                         </th>
                         <th class="align-middle">
-                            Genre
+                            Nom
                         </th>
                         <th class="align-middle">
-							Date insertion (pour exemple)
+							Prénom
                         </th>
                         <th class="align-middle">
 
@@ -49,7 +49,7 @@
 							<a class="btn btn-warning" href="{{ url_for('genre_update_wtf', id_genre_btn_edit_html=row.id_personnes) }}" role="button">Edit</a>
 						</td>
 						<td class="text-center" class="align-middle">
-							<a class="btn btn-danger" href="{{ url_for('genre_delete_wtf', id_genre_btn_delete_html=row.id_genre) }}" role="button">Delete</a>
+							<a class="btn btn-danger" href="{{ url_for('genre_delete_wtf', id_genre_btn_delete_html=row.id_personnes) }}" role="button">Delete</a>
 						</td>
 					</tr>
 				</tbody>
@@ -57,7 +57,7 @@
 				<tbody>
 					<tr>
 						<td>
-							Aucun genre.
+							Aucun personne.
 						</td>
 						<td>
 							<a class="btn btn-primary" href="{{ url_for('genres_ajouter_wtf') }}" role="button">Ajouter</a>

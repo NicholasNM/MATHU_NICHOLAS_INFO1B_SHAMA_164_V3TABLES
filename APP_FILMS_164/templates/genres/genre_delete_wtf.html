@@ -5,7 +5,7 @@
 	<div class="row">
 		<div class="col-md-12">
 			<p>
-				Effacer un GENRE
+				Effacer cette personne
 			</p>
 			<form action="" method="POST" novalidate>
 				<!-- Protection contre les attaques Cross-Site Request Forgery (CSRF) -->
@@ -14,7 +14,7 @@
 					{% if data_films_associes %}
 						<h3>Ce genre est associé avec le(s) film(s) suivant(s) :</h3>
 					{% else %}
-						<h3>Ce genre à effacer n'est associé à aucun film.</h3>
+						<h3>Cette personne à effacer n'est associé à aucune entreprise.</h3>
 					{% endif %}
 					{% if data_films_associes %}
 						<thead>
@@ -28,7 +28,13 @@
 							<tbody>
 								<tr>
 									<td>
-										{{ row.nom_film }}
+										{{ row.nom_entreprise }}
+									</td>
+									<td>
+										{{ row.num_entreprise }}
+									</td>
+									<td>
+										{{ row.email_entreprise }}
 									</td>
 								</tr>
 							</tbody>
@@ -39,9 +45,9 @@
 
 				<div class="form-group">
 					<p>
-						{{ form_delete.nom_genre_delete_wtf.label }}<br>
-						{{ form_delete.nom_genre_delete_wtf(size=32, readonly=true) }}<br>
-						{% for error in form_delete.nom_genre_delete_wtf.errors %}
+						{{ form_delete.nom_personnes_delete_wtf.label }}<br>
+						{{ form_delete.nom_personnes_delete_wtf(size=32, readonly=true) }}<br>
+						{% for error in form_delete.nom_personnes_delete_wtf.errors %}
 							<span style="color: red;">[{{ error }}]</span>
 						{% endfor %}
 					</p>

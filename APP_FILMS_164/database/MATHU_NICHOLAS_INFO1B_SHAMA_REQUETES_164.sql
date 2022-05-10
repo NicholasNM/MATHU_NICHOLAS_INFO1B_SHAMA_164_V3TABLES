@@ -11,7 +11,7 @@ SELECT *
 FROM t_fonctions;
 
 SELECT *
-FROM t_entites;
+FROM t_entreprise;
 
 /*Regarder tout les noms qui ont la lettre M dans la table t_personnes*/
 
@@ -45,7 +45,7 @@ WHERE nom_fonction Like '%Directeur%';
 
 /*Affiche les addresses des différentes entitées"*/
 SELECT *
-FROM t_entites ent
+FROM t_entreprise ent
 LEFT JOIN t_adresse ad ON ad.id_adresse = ent.fk_adresse;
 
 

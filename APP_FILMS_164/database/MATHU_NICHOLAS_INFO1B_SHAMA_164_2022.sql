@@ -84,10 +84,10 @@ INSERT INTO `t_departement` (`id_departement`, `nom_departement`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `t_entites`
+-- Table structure for table `t_entreprise`
 --
 
-CREATE TABLE `t_entites` (
+CREATE TABLE `t_entreprise` (
   `id_entreprise` int(255) NOT NULL,
   `fk_adresse` int(255) DEFAULT NULL,
   `nom_entreprise` varchar(255) DEFAULT NULL,
@@ -96,10 +96,10 @@ CREATE TABLE `t_entites` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `t_entites`
+-- Dumping data for table `t_entreprise`
 --
 
-INSERT INTO `t_entites` (`id_entreprise`, `fk_adresse`, `nom_entreprise`, `num_entreprise`, `email_entreprise`) VALUES
+INSERT INTO `t_entreprise` (`id_entreprise`, `fk_adresse`, `nom_entreprise`, `num_entreprise`, `email_entreprise`) VALUES
 (1, 1, 'Shama Premier', 798956365, 'shamapremier@gmail.com'),
 (2, 2, 'Shama Milk', 796855452, 'shamamilk@gmail.com'),
 (3, 1, 'Direction', NULL, NULL);
@@ -531,9 +531,9 @@ ALTER TABLE `t_departement`
   ADD PRIMARY KEY (`id_departement`);
 
 --
--- Indexes for table `t_entites`
+-- Indexes for table `t_entreprise`
 --
-ALTER TABLE `t_entites`
+ALTER TABLE `t_entreprise`
   ADD PRIMARY KEY (`id_entreprise`),
   ADD KEY `fk_adresse` (`fk_adresse`);
 
@@ -634,9 +634,9 @@ ALTER TABLE `t_adresse`
 ALTER TABLE `t_departement`
   MODIFY `id_departement` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
--- AUTO_INCREMENT for table `t_entites`
+-- AUTO_INCREMENT for table `t_entreprise`
 --
-ALTER TABLE `t_entites`
+ALTER TABLE `t_entreprise`
   MODIFY `id_entreprise` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `t_e_personnes`
@@ -698,23 +698,23 @@ ALTER TABLE `t_volumes`
 --
 
 --
--- Constraints for table `t_entites`
+-- Constraints for table `t_entreprise`
 --
-ALTER TABLE `t_entites`
-  ADD CONSTRAINT `t_entites_ibfk_1` FOREIGN KEY (`fk_adresse`) REFERENCES `t_adresse` (`id_adresse`);
+ALTER TABLE `t_entreprise`
+  ADD CONSTRAINT `t_entreprise_ibfk_1` FOREIGN KEY (`fk_adresse`) REFERENCES `t_adresse` (`id_adresse`);
 
 --
 -- Constraints for table `t_e_personnes`
 --
 ALTER TABLE `t_e_personnes`
-  ADD CONSTRAINT `t_e_personnes_ibfk_1` FOREIGN KEY (`fk_entreprise`) REFERENCES `t_entites` (`id_entreprise`),
+  ADD CONSTRAINT `t_e_personnes_ibfk_1` FOREIGN KEY (`fk_entreprise`) REFERENCES `t_entreprise` (`id_entreprise`),
   ADD CONSTRAINT `t_e_personnes_ibfk_2` FOREIGN KEY (`fk_personnes`) REFERENCES `t_personnes` (`id_personnes`);
 
 --
 -- Constraints for table `t_e_reservoirs`
 --
 ALTER TABLE `t_e_reservoirs`
-  ADD CONSTRAINT `t_e_reservoirs_ibfk_1` FOREIGN KEY (`fk_entreprise`) REFERENCES `t_entites` (`id_entreprise`),
+  ADD CONSTRAINT `t_e_reservoirs_ibfk_1` FOREIGN KEY (`fk_entreprise`) REFERENCES `t_entreprise` (`id_entreprise`),
   ADD CONSTRAINT `t_e_reservoirs_ibfk_2` FOREIGN KEY (`fk_reservoirs`) REFERENCES `t_reservoirs` (`id_reservoirs`);
 
 --
@@ -722,7 +722,7 @@ ALTER TABLE `t_e_reservoirs`
 --
 ALTER TABLE `t_e_shop`
   ADD CONSTRAINT `t_e_shop_ibfk_1` FOREIGN KEY (`fk_shop`) REFERENCES `t_shop` (`id_shop`),
-  ADD CONSTRAINT `t_e_shop_ibfk_2` FOREIGN KEY (`fk_entreprise`) REFERENCES `t_entites` (`id_entreprise`);
+  ADD CONSTRAINT `t_e_shop_ibfk_2` FOREIGN KEY (`fk_entreprise`) REFERENCES `t_entreprise` (`id_entreprise`);
 
 --
 -- Constraints for table `t_pers_adresse`
