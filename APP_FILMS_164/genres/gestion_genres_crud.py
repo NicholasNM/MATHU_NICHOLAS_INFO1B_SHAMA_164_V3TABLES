@@ -28,7 +28,6 @@ from APP_FILMS_164.genres.gestion_genres_wtf_forms import FormWTFUpdateGenre
 """
 
 
-
 @app.route("/genres_afficher/<string:order_by>/<int:id_genre_sel>", methods=['GET', 'POST'])
 def genres_afficher(order_by, id_genre_sel):
     if request.method == "GET":
@@ -105,12 +104,16 @@ def genres_ajouter_wtf():
     if request.method == "POST":
         try:
             if form.validate_on_submit():
-                name_genre_wtf = form.nom_genre_wtf.data
-                name_genre = name_genre_wtf.lower()
-                valeurs_insertion_dictionnaire = {"value_intitule_genre": name_genre}
+                nom_personnes_wtf = form.nom_personnes_wtf.data
+                prenom_personnes_wtf = form.prenom_personnes_wtf.data
+                valeurs_insertion_dictionnaire = {"value_nom_personnes": nom_personnes_wtf,
+                                                  "value_prenom_personnes": prenom_personnes_wtf
+                                                  }
+
                 print("valeurs_insertion_dictionnaire ", valeurs_insertion_dictionnaire)
 
-                strsql_insert_genre = """INSERT INTO t_genre (id_genre,intitule_genre) VALUES (NULL,%(value_intitule_genre)s) """
+                strsql_insert_genre = """INSERT INTO t_personnes (id_personnes, nom_personnes, prenom_personnes) 
+                VALUES (NULL,%(value_nom_personnes)s,%(value_prenom_personnes)s) """
                 with DBconnection() as mconn_bd:
                     mconn_bd.execute(strsql_insert_genre, valeurs_insertion_dictionnaire)
 
@@ -151,7 +154,7 @@ def genres_ajouter_wtf():
 @app.route("/genre_update", methods=['GET', 'POST'])
 def genre_update_wtf():
     # L'utilisateur vient de cliquer sur le bouton "EDIT". Récupère la valeur de "id_genre"
-    id_genre_update = request.values['id_genre_btn_edit_html']
+    value_id_personnes = request.values['id_genre_btn_edit_html']
 
     # Objet formulaire pour l'UPDATE
     form_update = FormWTFUpdateGenre()
@@ -160,18 +163,17 @@ def genre_update_wtf():
         if form_update.validate_on_submit():
             # Récupèrer la valeur du champ depuis "genre_update_wtf.html" après avoir cliqué sur "SUBMIT".
             # Puis la convertir en lettres minuscules.
-            name_genre_update = form_update.nom_genre_update_wtf.data
-            name_genre_update = name_genre_update.lower()
-            date_genre_essai = form_update.date_genre_wtf_essai.data
+            nom_personnes_update = form_update.nom_personnes_update_wtf.data
+            prenom_personnes_update = form_update.prenom_personnes_update_wtf.data
 
-            valeur_update_dictionnaire = {"value_id_genre": id_genre_update,
-                                          "value_name_genre": name_genre_update,
-                                          "value_date_genre_essai": date_genre_essai
+            valeur_update_dictionnaire = {"value_id_personnes": value_id_personnes,
+                                          "value_nom_personnes": nom_personnes_update,
+                                          "value_prenom_personnes": prenom_personnes_update
                                           }
             print("valeur_update_dictionnaire ", valeur_update_dictionnaire)
 
-            str_sql_update_intitulegenre = """UPDATE t_genre SET intitule_genre = %(value_name_genre)s, 
-            date_ins_genre = %(value_date_genre_essai)s WHERE id_genre = %(value_id_genre)s """
+            str_sql_update_intitulegenre = """UPDATE t_personnes SET nom_personnes = %(value_nom_personnes)s, 
+            prenom_personne = %(value_prenom_personnes)s WHERE id_personnes = %(value_id_personnes)s """
             with DBconnection() as mconn_bd:
                 mconn_bd.execute(str_sql_update_intitulegenre, valeur_update_dictionnaire)
 
@@ -179,13 +181,13 @@ def genre_update_wtf():
             print(f"Donnée mise à jour !!")
 
             # afficher et constater que la donnée est mise à jour.
-            # Affiche seulement la valeur modifiée, "ASC" et l'"id_genre_update"
-            return redirect(url_for('genres_afficher', order_by="ASC", id_genre_sel=id_genre_update))
+            # Affiche seulement la valeur modifiée, "ASC" et l'"value_id_personnes"
+            return redirect(url_for('genres_afficher', order_by="ASC", id_genre_sel=value_id_personnes))
         elif request.method == "GET":
             # Opération sur la BD pour récupérer "id_genre" et "intitule_genre" de la "t_genre"
-            str_sql_id_genre = "SELECT id_genre, intitule_genre, date_ins_genre FROM t_genre " \
-                               "WHERE id_genre = %(value_id_genre)s"
-            valeur_select_dictionnaire = {"value_id_genre": id_genre_update}
+            str_sql_id_genre = "SELECT id_personnes, nom_personnes, prenom_personnes FROM t_personnes " \
+                               "WHERE id_personnes = %(value_id_personnes)s"
+            valeur_select_dictionnaire = {"value_id_personnes": value_id_personnes}
             with DBconnection() as mybd_conn:
                 mybd_conn.execute(str_sql_id_genre, valeur_select_dictionnaire)
             # Une seule valeur est suffisante "fetchone()", vu qu'il n'y a qu'un seul champ "nom genre" pour l'UPDATE
@@ -194,8 +196,8 @@ def genre_update_wtf():
                   data_nom_genre["intitule_genre"])
 
             # Afficher la valeur sélectionnée dans les champs du formulaire "genre_update_wtf.html"
-            form_update.nom_genre_update_wtf.data = data_nom_genre["intitule_genre"]
-            form_update.date_genre_wtf_essai.data = data_nom_genre["date_ins_genre"]
+            form_update.nom_personnes_update_wtf.data = data_nom_genre["nom_personnes"]
+            form_update.prenom_personnes_update_wtf.data = data_nom_genre["prenom_personnes"]
 
     except Exception as Exception_genre_update_wtf:
         raise ExceptionGenreUpdateWtf(f"fichier : {Path(__file__).name}  ;  "
@@ -248,7 +250,7 @@ def genre_delete_wtf():
                 btn_submit_del = True
 
             if form_delete.submit_btn_del.data:
-                valeur_delete_dictionnaire = {"value_id_genre": id_genre_delete}
+                valeur_delete_dictionnaire = {"value_id_personnes": id_genre_delete}
                 print("valeur_delete_dictionnaire ", valeur_delete_dictionnaire)
 
                 str_sql_delete_films_genre = """DELETE FROM t_genre_film WHERE fk_genre = %(value_id_genre)s"""
