@@ -15,9 +15,9 @@ FROM t_entites;
 
 /*Regarder tout les noms qui ont la lettre M dans la table t_personnes*/
 
-SELECT nom_personne
+SELECT nom_personnes
 FROM t_personnes
-WHERE nom_personne REGEXP '[A-Z]M[A-Z]';
+WHERE nom_personnes REGEXP '[A-Z]M[A-Z]';
 
 
 
@@ -59,7 +59,7 @@ WHERE nom_shop LIKE '%Anansi%';
 
 
 /*montre les différents personnes dans le département Direction*/
-SELECT nom_personne, prenom_personne
+SELECT nom_personnes, prenom_personnes
 FROM t_personnes pers
 left join t_pers_fonctions persfon ON persfon.fk_personnes = pers.id_personnes
 left join t_fonctions fon ON persfon.fk_fonctions = fon.id_fonctions
