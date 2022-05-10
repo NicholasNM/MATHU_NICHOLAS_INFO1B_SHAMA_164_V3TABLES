@@ -173,7 +173,8 @@ def genre_update_wtf():
                                           }
             print("valeur_update_dictionnaire ", valeur_update_dictionnaire)
 
-            str_sql_update_intitulegenre = """UPDATE t_personnes SET nom_personnes = %(value_nom_personnes)s, 
+            str_sql_update_intitulegenre = """UPDATE t_personnes SET nom_personnes = %(value_nom_personnes)s,
+            prenom_personnes = %(value_prenom_personnes)s
             WHERE id_personnes = %(value_id_personnes)s """
             with DBconnection() as mconn_bd:
                 mconn_bd.execute(str_sql_update_intitulegenre, valeur_update_dictionnaire)
