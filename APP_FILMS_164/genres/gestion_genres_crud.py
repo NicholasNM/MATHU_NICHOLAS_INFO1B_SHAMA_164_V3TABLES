@@ -168,6 +168,7 @@ def genre_update_wtf():
 
             valeur_update_dictionnaire = {"value_id_personnes": id_genre_update,
                                           "value_nom_personnes": nom_personnes_update,
+                                          "value_prenom_personnes": prenom_personnes_update,
 
                                           }
             print("valeur_update_dictionnaire ", valeur_update_dictionnaire)

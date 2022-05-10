@@ -255,7 +255,7 @@ CREATE TABLE `t_personnes` (
 -- Dumping data for table `t_personnes`
 --
 
-INSERT INTO `t_personnes` (`id_personnes`, `nom_personnes`, `prenom_personness`, `num_personne`, `email_personne`, `date_naissance`) VALUES
+INSERT INTO `t_personnes` (`id_personnes`, `nom_personnes`, `prenom_personnes`, `num_personnes`, `email_personnes`, `date_naissance`) VALUES
 (1, 'Mathu', 'Nicholas', 793779960, 'mathu.nicholas@gmail.com', '1997-08-18 20:00:00'),
 (2, 'Nicceta', 'Ricardo', 789586562, 'nicceta.ricardo@gmail.com', '1998-01-10 22:00:00'),
 (3, 'Cordai', 'Thomas', 765985254, 'cordai.thomas@gmail.com', '1999-11-14 22:00:00'),

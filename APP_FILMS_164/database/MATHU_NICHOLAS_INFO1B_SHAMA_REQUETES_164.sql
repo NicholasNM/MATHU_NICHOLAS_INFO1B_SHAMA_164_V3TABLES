@@ -24,7 +24,7 @@ WHERE nom_personnes REGEXP '[A-Z]M[A-Z]';
 /*Regarder tout les noms qui ont pas de numero dans la table t_personnes*/
 SELECT *
 FROM t_personnes
-WHERE num_personne IS NULL;
+WHERE num_personnes IS NULL;
 
 
 

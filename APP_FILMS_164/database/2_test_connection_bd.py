@@ -9,7 +9,7 @@ try:
     """
         Une seule requête pour montrer la récupération des données de la BD en MySql.
     """
-    strsql_genres_afficher = """SELECT nom_personnes
+    strsql_genres_afficher = """SELECT id_personnes, nom_personnes, prenom_personnes
                                 FROM t_personnes
                                 WHERE nom_personnes REGEXP '[A-Z]M[A-Z]';"""
 
