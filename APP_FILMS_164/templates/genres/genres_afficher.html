@@ -5,7 +5,7 @@
 	<div class="row">
 		<div class="col-md-12">
 			<p>
-				Personnes dans l'entreprise.
+				Genres à disposition.
 			</p>
             <table class="table table-bordered table-sm">
             {% if data %}
@@ -15,10 +15,10 @@
                             id
                         </th>
                         <th class="align-middle">
-                            Prénom
+                            Genre
                         </th>
                         <th class="align-middle">
-							Nom de famille
+							Date insertion (pour exemple)
                         </th>
                         <th class="align-middle">
 
@@ -34,23 +34,22 @@
 				<tbody>
 					<tr>
 						<td class="align-middle">
-							{{ row.id_personnes }}
+							{{ row.id_genre }}
 						</td>
 						<td class="align-middle">
-							{{ row.prenom_personnes }}
+							{{ row.intitule_genre }}
 						</td>
 						<td class="align-middle">
-							{{ row.nom_personnes }}
+							{{ row.date_ins_genre }}
 						</td>
 						<td class="text-center" class="align-middle">
 							<a class="btn btn-primary" href="{{ url_for('genres_ajouter_wtf') }}" role="button">Ajouter</a>
 						</td>
-
 						<td class="text-center" class="align-middle">
-							<a class="btn btn-warning" href="{{ url_for('genre_update_wtf', id_personnes_btn_edit_html=row.id_personnes) }}" role="button">Edit</a>
+							<a class="btn btn-warning" href="{{ url_for('genre_update_wtf', id_genre_btn_edit_html=row.id_genre) }}" role="button">Edit</a>
 						</td>
 						<td class="text-center" class="align-middle">
-							<a class="btn btn-danger" href="{{ url_for('genre_delete_wtf', id_genre_btn_delete_html=row.id_personnes) }}" role="button">Delete</a>
+							<a class="btn btn-danger" href="{{ url_for('genre_delete_wtf', id_genre_btn_delete_html=row.id_genre) }}" role="button">Delete</a>
 						</td>
 					</tr>
 				</tbody>

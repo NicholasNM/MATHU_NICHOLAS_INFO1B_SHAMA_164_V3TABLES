@@ -5,23 +5,16 @@
 	<div class="row">
 		<div class="col-md-12">
 			<p>
-				Ajouter une nouvelle personne
+				Ajouter un nouveau GENRE (WTForms)
 			</p>
 			<form action="" method="POST" novalidate>
 				<!-- Protection contre les attaques Cross-Site Request Forgery (CSRF) -->
 				{{ form.hidden_tag() }}
 				<div class="form-group">
 					<p>
-						{{ form.nom_personnes_wtf.label }}<br>
-						{{ form.nom_personnes_wtf(size=32) }}<br>
-						{% for error in form.nom_personnes_wtf.errors %}
-							<span style="color: red;">[{{ error }}]</span>
-						{% endfor %}
-					</p>
-					<p>
-						{{ form.prenom_personnes_wtf.label }}<br>
-						{{ form.prenom_personnes_wtf(size=32) }}<br>
-						{% for error in form.prenom_personnes_wtf.errors %}
+						{{ form.nom_genre_wtf.label }}<br>
+						{{ form.nom_genre_wtf(size=32) }}<br>
+						{% for error in form.nom_genre_wtf.errors %}
 							<span style="color: red;">[{{ error }}]</span>
 						{% endfor %}
 					</p>

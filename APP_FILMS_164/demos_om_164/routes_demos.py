@@ -55,19 +55,19 @@ def personnes_taille_dict():
     # le traitement de l'erreur.
     # Si la chaîne de caractère ne se trouve pas dans le dictionnaire ci-dessus il va y avoir une erreur "KeyError"
     # On la capture et on renvoie un texte "personnel" (custom error handler) à l'utilisateur.
-    # nom_personnes = "OM"
-    # nom_personnes = "Gégé"
-    # nom_personnes = "Hugo"
+    # nom_personne = "OM"
+    # nom_personne = "Gégé"
+    # nom_personne = "Hugo"
 
-    nom_personnes = "Pignon"
+    nom_personne = "Pignon"
 
     try:
         # Tout se passe normalement
-        print(f'{nom_personnes} mesure {taille_personnes_dict[nom_personnes]} [cm]')
+        print(f'{nom_personne} mesure {taille_personnes_dict[nom_personne]} [cm]')
     except KeyError:
         # Une personne ne se trouve pas dans le dictionnaire
         # DEBUG bon marché : Pour afficher un message d'erreur dans la console
-        print(f"{nom_personnes} n'existe pas !")
+        print(f"{nom_personne} n'existe pas !")
 
         # Pour vos essais... constater les différentes actions avec "raise"
         # pour les 2 ci-dessous, il renvoie une page "keyerror.html"
@@ -79,15 +79,15 @@ def personnes_taille_dict():
         # grâce à la classe "MonErreur(Exception)" dans le fichier "exceptions.py"
         # raise MonErreur(erreur)
 
-        # Il renvoie un texte avec la valeur de "nom_personnes" et c'est dans le fichier
+        # Il renvoie un texte avec la valeur de "nom_personne" et c'est dans le fichier
         # grâce à la classe "MonErreur(Exception)" dans le fichier "exceptions.py"
-        # raise MonErreur(f"il y a une erreur ! La personne {nom_personnes} n'existe pas dans le dictionnaire")
+        # raise MonErreur(f"il y a une erreur ! La personne {nom_personne} n'existe pas dans le dictionnaire")
 
         # Celle-ci est assez complète... mais il y a toujours mieux
-        # Il renvoie un texte avec la valeur de "nom_personnes" ainsi qu'un message personnalisé
+        # Il renvoie un texte avec la valeur de "nom_personne" ainsi qu'un message personnalisé
         # grâce à la classe "MonErreur(Exception)" dans le fichier "exceptions.py"
         raise MonErreur(f"{msg_erreurs['ErreurDictionnaire']['message']} "
-                        f"Le nom : {nom_personnes} n'est pas une valeur contenue dans le dictionnaire, "
+                        f"Le nom : {nom_personne} n'est pas une valeur contenue dans le dictionnaire, "
                         f"pour comprendre, il faut modifier la valeur à la ligne 66 du fichier 'routes_demos.py'")
 
     return render_template("zzz_essais_om_104/exception_raise_custom_om_104.html")
