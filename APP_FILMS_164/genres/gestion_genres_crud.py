@@ -267,7 +267,6 @@ def genre_delete_wtf():
 
                 # afficher les données
                 return redirect(url_for('genres_afficher', order_by="ASC", id_genre_sel=0))
-
         if request.method == "GET":
             valeur_select_dictionnaire = {"value_id_personnes": id_personnes_delete}
             print(id_personnes_delete, type(id_personnes_delete))
