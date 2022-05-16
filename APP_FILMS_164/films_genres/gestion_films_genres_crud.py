@@ -1,7 +1,7 @@
 """
     Fichier : gestion_films_genres_crud.py
     Auteur : OM 2021.05.01
-    Gestions des "routes" FLASK et des données pour l'association entre les films et les genres.
+    Gestions des "routes" FLASK et des données pour l'association entre les films et les personnes_html.
 """
 from pathlib import Path
 
@@ -18,7 +18,7 @@ from APP_FILMS_164.erreurs.exceptions import *
     Auteur : OM 2021.05.01
     Définition d'une "route" /films_genres_afficher
     
-    But : Afficher les films avec les genres associés pour chaque film.
+    But : Afficher les films avec les personnes_html associés pour chaque film.
     
     Paramètres : id_genre_sel = 0 >> tous les films.
                  id_genre_sel = "n" affiche le film dont l'id est "n"
@@ -61,7 +61,7 @@ def films_genres_afficher(id_film_sel):
                     # Si l'utilisateur change l'id_film dans l'URL et qu'il ne correspond à aucun film
                     flash(f"Le film {id_film_sel} demandé n'existe pas !!", "warning")
                 else:
-                    flash(f"Données films et genres affichés !!", "success")
+                    flash(f"Données films et personnes_html affichés !!", "success")
 
         except Exception as Exception_films_genres_afficher:
             raise ExceptionFilmsGenresAfficher(f"fichier : {Path(__file__).name}  ;  {films_genres_afficher.__name__} ;"
@@ -76,12 +76,12 @@ def films_genres_afficher(id_film_sel):
     nom: edit_genre_film_selected
     On obtient un objet "objet_dumpbd"
 
-    Récupère la liste de tous les genres du film sélectionné par le bouton "MODIFIER" de "films_genres_afficher.html"
+    Récupère la liste de tous les personnes_html du film sélectionné par le bouton "MODIFIER" de "films_genres_afficher.html"
     
     Dans une liste déroulante particulière (tags-selector-tagselect), on voit :
-    1) Tous les genres contenus dans la "t_genre".
-    2) Les genres attribués au film selectionné.
-    3) Les genres non-attribués au film sélectionné.
+    1) Tous les personnes_html contenus dans la "t_genre".
+    2) Les personnes_html attribués au film selectionné.
+    3) Les personnes_html non-attribués au film sélectionné.
 
     On signale les erreurs importantes
 
@@ -114,8 +114,8 @@ def edit_genre_film_selected():
 
             # Récupère les données grâce à 3 requêtes MySql définie dans la fonction genres_films_afficher_data
             # 1) Sélection du film choisi
-            # 2) Sélection des genres "déjà" attribués pour le film.
-            # 3) Sélection des genres "pas encore" attribués pour le film choisi.
+            # 2) Sélection des personnes_html "déjà" attribués pour le film.
+            # 3) Sélection des personnes_html "pas encore" attribués pour le film choisi.
             # ATTENTION à l'ordre d'assignation des variables retournées par la fonction "genres_films_afficher_data"
             data_genre_film_selected, data_genres_films_non_attribues, data_genres_films_attribues = \
                 genres_films_afficher_data(valeur_id_film_selected_dictionnaire)
@@ -126,14 +126,14 @@ def edit_genre_film_selected():
                   type(lst_data_film_selected))
 
             # Dans le composant "tags-selector-tagselect" on doit connaître
-            # les genres qui ne sont pas encore sélectionnés.
+            # les personnes_html qui ne sont pas encore sélectionnés.
             lst_data_genres_films_non_attribues = [item['id_genre'] for item in data_genres_films_non_attribues]
             session['session_lst_data_genres_films_non_attribues'] = lst_data_genres_films_non_attribues
             print("lst_data_genres_films_non_attribues  ", lst_data_genres_films_non_attribues,
                   type(lst_data_genres_films_non_attribues))
 
             # Dans le composant "tags-selector-tagselect" on doit connaître
-            # les genres qui sont déjà sélectionnés.
+            # les personnes_html qui sont déjà sélectionnés.
             lst_data_genres_films_old_attribues = [item['id_genre'] for item in data_genres_films_attribues]
             session['session_lst_data_genres_films_old_attribues'] = lst_data_genres_films_old_attribues
             print("lst_data_genres_films_old_attribues  ", lst_data_genres_films_old_attribues,
@@ -166,12 +166,12 @@ def edit_genre_film_selected():
 """
     nom: update_genre_film_selected
 
-    Récupère la liste de tous les genres du film sélectionné par le bouton "MODIFIER" de "films_genres_afficher.html"
+    Récupère la liste de tous les personnes_html du film sélectionné par le bouton "MODIFIER" de "films_genres_afficher.html"
     
     Dans une liste déroulante particulière (tags-selector-tagselect), on voit :
-    1) Tous les genres contenus dans la "t_genre".
-    2) Les genres attribués au film selectionné.
-    3) Les genres non-attribués au film sélectionné.
+    1) Tous les personnes_html contenus dans la "t_genre".
+    2) Les personnes_html attribués au film selectionné.
+    3) Les personnes_html non-attribués au film sélectionné.
 
     On signale les erreurs importantes
 """
@@ -185,18 +185,18 @@ def update_genre_film_selected():
             id_film_selected = session['session_id_film_genres_edit']
             print("session['session_id_film_genres_edit'] ", session['session_id_film_genres_edit'])
 
-            # Récupère la liste des genres qui ne sont pas associés au film sélectionné.
+            # Récupère la liste des personnes_html qui ne sont pas associés au film sélectionné.
             old_lst_data_genres_films_non_attribues = session['session_lst_data_genres_films_non_attribues']
             print("old_lst_data_genres_films_non_attribues ", old_lst_data_genres_films_non_attribues)
 
-            # Récupère la liste des genres qui sont associés au film sélectionné.
+            # Récupère la liste des personnes_html qui sont associés au film sélectionné.
             old_lst_data_genres_films_attribues = session['session_lst_data_genres_films_old_attribues']
             print("old_lst_data_genres_films_old_attribues ", old_lst_data_genres_films_attribues)
 
             # Effacer toutes les variables de session.
             session.clear()
 
-            # Récupère ce que l'utilisateur veut modifier comme genres dans le composant "tags-selector-tagselect"
+            # Récupère ce que l'utilisateur veut modifier comme personnes_html dans le composant "tags-selector-tagselect"
             # dans le fichier "genres_films_modifier_tags_dropbox.html"
             new_lst_str_genres_films = request.form.getlist('name_select_tags')
             print("new_lst_str_genres_films ", new_lst_str_genres_films)
@@ -228,7 +228,7 @@ def update_genre_film_selected():
             strsql_delete_genre_film = """DELETE FROM t_genre_film WHERE fk_genre = %(value_fk_genre)s AND fk_film = %(value_fk_film)s"""
 
             with DBconnection() as mconn_bd:
-                # Pour le film sélectionné, parcourir la liste des genres à INSÉRER dans la "t_genre_film".
+                # Pour le film sélectionné, parcourir la liste des personnes_html à INSÉRER dans la "t_genre_film".
                 # Si la liste est vide, la boucle n'est pas parcourue.
                 for id_genre_ins in lst_diff_genres_insert_a:
                     # Constitution d'un dictionnaire pour associer l'id du film sélectionné avec un nom de variable
@@ -238,7 +238,7 @@ def update_genre_film_selected():
 
                     mconn_bd.execute(strsql_insert_genre_film, valeurs_film_sel_genre_sel_dictionnaire)
 
-                # Pour le film sélectionné, parcourir la liste des genres à EFFACER dans la "t_genre_film".
+                # Pour le film sélectionné, parcourir la liste des personnes_html à EFFACER dans la "t_genre_film".
                 # Si la liste est vide, la boucle n'est pas parcourue.
                 for id_genre_del in lst_diff_genres_delete_b:
                     # Constitution d'un dictionnaire pour associer l'id du film sélectionné avec un nom de variable
@@ -265,8 +265,8 @@ def update_genre_film_selected():
 """
     nom: genres_films_afficher_data
 
-    Récupère la liste de tous les genres du film sélectionné par le bouton "MODIFIER" de "films_genres_afficher.html"
-    Nécessaire pour afficher tous les "TAGS" des genres, ainsi l'utilisateur voit les genres à disposition
+    Récupère la liste de tous les personnes_html du film sélectionné par le bouton "MODIFIER" de "films_genres_afficher.html"
+    Nécessaire pour afficher tous les "TAGS" des personnes_html, ainsi l'utilisateur voit les personnes_html à disposition
 
     On signale les erreurs importantes
 """
