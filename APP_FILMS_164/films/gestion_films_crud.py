@@ -31,13 +31,13 @@ Remarque :  Dans le champ "nom_film_update_wtf" du formulaire "films/films_updat
 @app.route("/film_add", methods=['GET', 'POST'])
 def film_add_wtf():
     # Objet formulaire pour AJOUTER un film
-    form_add_film = FormWTFAddFilm()
+    form_add_entreprise = FormWTFAddFilm()
     if request.method == "POST":
         try:
-            if form_add_film.validate_on_submit():
-                nom_entreprise_add = form_add_film.nom_entreprise_add_wtf.data
-                num_entreprise_add = form_add_film.num_entreprise_add_wtf.data
-                email_entreprise_add = form_add_film.email_entreprise_add_wtf.data
+            if form_add_entreprise.validate_on_submit():
+                nom_entreprise_add = form_add_entreprise.nom_entreprise_add_wtf.data
+                num_entreprise_add = form_add_entreprise.num_entreprise_add_wtf.data
+                email_entreprise_add = form_add_entreprise.email_entreprise_add_wtf.data
 
                 valeurs_insertion_dictionnaire = {"value_nom_entreprise": nom_entreprise_add,
                                                   "value_num_entreprise": num_entreprise_add,
@@ -63,7 +63,7 @@ def film_add_wtf():
                                             f"{film_add_wtf.__name__} ; "
                                             f"{Exception_genres_ajouter_wtf}")
 
-    return render_template("films/film_add_wtf.html", form_add_film=form_add_film)
+    return render_template("films/film_add_wtf.html", form_add_entreprise=form_add_entreprise)
 
 
 """Editer(update) un film qui a été sélectionné dans le formulaire "films_genres_afficher.html"

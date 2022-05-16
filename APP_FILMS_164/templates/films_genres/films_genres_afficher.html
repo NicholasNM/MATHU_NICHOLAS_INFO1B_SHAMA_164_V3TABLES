@@ -3,6 +3,9 @@
 {% block body %}
 <div class="container">
 	<div class="col-md-12">
+		<th class="align-middle">
+			<a class="btn btn-primary" href="{{ url_for('film_add_wtf') }}" role="button">Ajouter</a>
+		</th>
 		<table class="table table-responsive-sm">
             {% if data %}
 				<thead>
@@ -36,9 +39,6 @@
 					  </th>
 					  <th class="align-middle">
 						{{ row.email_entreprise }}
-					  </th>
-					  <th class="align-middle">
-						<a class="btn btn-primary" href="{{ url_for('film_add_wtf') }}" role="button">Ajouter</a>
 					  </th>
 					  <th class="align-middle">
 						<a class="btn btn-warning" href="{{ url_for('film_update_wtf', id_film_btn_edit_html=row.id_entreprise) }}" role="button">Edit</a>

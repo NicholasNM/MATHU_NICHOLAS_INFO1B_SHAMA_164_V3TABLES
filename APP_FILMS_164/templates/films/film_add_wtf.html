@@ -1,40 +1,40 @@
 {% extends "base.html" %}
-{% block title %} Ajouter un FILM (WTF) {% endblock %}
+{% block title %} Ajouter une Entreprise (WTF) {% endblock %}
 {% block body %}
 <div class="container">
 	<div class="row">
 		<div class="col-md-12">
 			<p>
-				Ajouter un nouveau FILM (WTForms)
+				Ajouter une nouvelle Entreprise (WTForms)
 			</p>
 			<form action="" method="POST" novalidate>
 				<!-- Protection contre les attaques Cross-Site Request Forgery (CSRF) -->
-				{{ form_add_film.hidden_tag() }}
+				{{ form_add_entreprise.hidden_tag() }}
 				<div class="form-group">
 					<p>
-						{{ form_add_film.nom_entreprise_add_wtf.label }}<br>
-						{{ form_add_film.nom_entreprise_add_wtf(size=32) }}<br>
-						{% for error in form_add_film.nom_entreprise_add_wtf.errors %}
+						{{ form_add_entreprise.nom_entreprise_add_wtf.label }}<br>
+						{{ form_add_entreprise.nom_entreprise_add_wtf(size=32) }}<br>
+						{% for error in form_add_entreprise.nom_entreprise_add_wtf.errors %}
 							<span style="color: red;">[{{ error }}]</span>
 						{% endfor %}
 					</p>
 					<p>
-						{{ form_add_film.num_entreprise_add_wtf.label }}<br>
-						{{ form_add_film.num_entreprise_add_wtf(size=32) }}<br>
-						{% for error in form_add_film.num_entreprise_add_wtf.errors %}
+						{{ form_add_entreprise.num_entreprise_add_wtf.label }}<br>
+						{{ form_add_entreprise.num_entreprise_add_wtf(size=32) }}<br>
+						{% for error in form_add_entreprise.num_entreprise_add_wtf.errors %}
 							<span style="color: red;">[{{ error }}]</span>
 						{% endfor %}
 					</p>
 					<p>
-						{{ form_add_film.email_entreprise_add_wtf.label }}<br>
-						{{ form_add_film.email_entreprise_add_wtf(size=32) }}<br>
-						{% for error in form_add_film.email_entreprise_add_wtf.errors %}
+						{{ form_add_entreprise.email_entreprise_add_wtf.label }}<br>
+						{{ form_add_entreprise.email_entreprise_add_wtf(size=32) }}<br>
+						{% for error in form_add_entreprise.email_entreprise_add_wtf.errors %}
 							<span style="color: red;">[{{ error }}]</span>
 						{% endfor %}
 					</p>
 					Voilà c'est juste pour vous montrer l'ossature du projet je n'ai pas tout fait...
 				</div>
-				{{ form_add_film.submit(class="btn btn-primary") }}
+				{{ form_add_entreprise.submit(class="btn btn-primary") }}
 			</form>
 		</div>
 	</div>

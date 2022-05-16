@@ -26,7 +26,7 @@ class FormWTFAddFilm(FlaskForm):
                                          validators=[Length(min=2, max=2000, message="min 2 max 20"),
 
                                                      ])
-    submit = SubmitField("Enregistrer film")
+    submit = SubmitField("Enregistrer une Entreprise")
 
 
 class FormWTFUpdateFilm(FlaskForm):
