@@ -38,9 +38,6 @@
 						{{ row.email_entreprise }}
 					  </th>
 					  <th class="align-middle">
-						{{ row.duree_film|default("", True) }}
-					  </th>
-					  <th class="align-middle">
 						<a class="btn btn-primary" href="{{ url_for('film_add_wtf') }}" role="button">Ajouter</a>
 					  </th>
 					  <th class="align-middle">
@@ -61,9 +58,6 @@
 					<tr>
 						<td>
 							Aucune Entreprise.
-						</td>
-						<td>
-							<a class="btn btn-primary" href="{{ url_for('avertissement_sympa_pour_geeks') }}" role="button">Add</a>
 						</td>
 					</tr>
 				</tbody>

@@ -35,20 +35,28 @@ def film_add_wtf():
     if request.method == "POST":
         try:
             if form_add_film.validate_on_submit():
-                nom_film_add = form_add_film.nom_film_add_wtf.data
+                nom_entreprise_add = form_add_film.nom_entreprise_add_wtf.data
+                num_entreprise_add = form_add_film.num_entreprise_add_wtf.data
+                email_entreprise_add = form_add_film.email_entreprise_add_wtf.data
 
-                valeurs_insertion_dictionnaire = {"value_nom_film": nom_film_add}
+                valeurs_insertion_dictionnaire = {"value_nom_entreprise": nom_entreprise_add,
+                                                  "value_num_entreprise": num_entreprise_add,
+                                                  "value_email_entreprise": email_entreprise_add}
+
                 print("valeurs_insertion_dictionnaire ", valeurs_insertion_dictionnaire)
 
-                strsql_insert_film = """INSERT INTO t_film (id_film,nom_film) VALUES (NULL,%(value_nom_film)s) """
+                strsql_insert_film = """INSERT INTO t_entreprise 
+                (id_entreprise,nom_entreprise,num_entreprise,email_entreprise) VALUES (NULL,%(value_nom_entreprise)s,
+                %(value_num_entreprise)s,%(value_email_entreprise)s) """
+
                 with DBconnection() as mconn_bd:
                     mconn_bd.execute(strsql_insert_film, valeurs_insertion_dictionnaire)
 
                 flash(f"Données insérées !!", "success")
                 print(f"Données insérées !!")
 
-                # Pour afficher et constater l'insertion du nouveau film (id_film_sel=0 => afficher tous les films)
-                return redirect(url_for('films_genres_afficher', id_film_sel=0))
+                # Pour afficher et constater l'insertion du nouveau film (id_entreprise_sel=0 => afficher tous les films)
+                return redirect(url_for('films_genres_afficher', id_entreprise_sel=0))
 
         except Exception as Exception_genres_ajouter_wtf:
             raise ExceptionGenresAjouterWtf(f"fichier : {Path(__file__).name}  ;  "
@@ -92,7 +100,7 @@ def film_update_wtf():
             datesortie_film_update = form_update_film.datesortie_film_update_wtf.data
 
             valeur_update_dictionnaire = {"value_id_film": id_film_update,
-                                          "value_nom_film": nom_film_update,
+                                          "value_nom_entreprise": nom_film_update,
                                           "value_duree_film": duree_film_update,
                                           "value_description_film": description_film_update,
                                           "value_cover_link_film": cover_link_film_update,
@@ -100,7 +108,7 @@ def film_update_wtf():
                                           }
             print("valeur_update_dictionnaire ", valeur_update_dictionnaire)
 
-            str_sql_update_nom_film = """UPDATE t_film SET nom_film = %(value_nom_film)s,
+            str_sql_update_nom_film = """UPDATE t_film SET nom_film = %(value_nom_entreprise)s,
                                                             duree_film = %(value_duree_film)s,
                                                             description_film = %(value_description_film)s,
                                                             cover_link_film = %(value_cover_link_film)s,
@@ -114,7 +122,7 @@ def film_update_wtf():
 
             # afficher et constater que la donnée est mise à jour.
             # Afficher seulement le film modifié, "ASC" et l'"id_film_update"
-            return redirect(url_for('films_genres_afficher', id_film_sel=id_film_update))
+            return redirect(url_for('films_genres_afficher', id_entreprise_sel=id_film_update))
         elif request.method == "GET":
             # Opération sur la BD pour récupérer "id_film" et "intitule_genre" de la "t_genre"
             str_sql_id_film = "SELECT * FROM t_film WHERE id_film = %(value_id_film)s"
@@ -169,7 +177,7 @@ def film_delete_wtf():
     try:
         # Si on clique sur "ANNULER", afficher tous les films.
         if form_delete_film.submit_btn_annuler.data:
-            return redirect(url_for("films_genres_afficher", id_film_sel=0))
+            return redirect(url_for("films_genres_afficher", id_entreprise_sel=0))
 
         if form_delete_film.submit_btn_conf_del_film.data:
             # Récupère les données afin d'afficher à nouveau
@@ -199,7 +207,7 @@ def film_delete_wtf():
             print(f"Film définitivement effacé !!")
 
             # afficher les données
-            return redirect(url_for('films_genres_afficher', id_film_sel=0))
+            return redirect(url_for('films_genres_afficher', id_entreprise_sel=0))
         if request.method == "GET":
             valeur_select_dictionnaire = {"value_id_film": id_film_delete}
             print(id_film_delete, type(id_film_delete))

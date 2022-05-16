@@ -26,9 +26,9 @@ from APP_FILMS_164.erreurs.exceptions import *
 """
 
 
-@app.route("/films_genres_afficher/<int:id_film_sel>", methods=['GET', 'POST'])
-def films_genres_afficher(id_film_sel):
-    print(" films_genres_afficher id_film_sel ", id_film_sel)
+@app.route("/films_genres_afficher/<int:id_entreprise_sel>", methods=['GET', 'POST'])
+def films_genres_afficher(id_entreprise_sel):
+    print(" films_genres_afficher id_entreprise_sel ", id_entreprise_sel)
     if request.method == "GET":
         try:
             with DBconnection() as mc_afficher:
@@ -37,29 +37,29 @@ def films_genres_afficher(id_film_sel):
                                                         INNER JOIN t_e_personnes epers ON epers.fk_entreprise = ent.id_entreprise
                                                         INNER JOIN t_personnes pers ON epers.fk_personnes = pers.id_personnes
                                                         GROUP BY id_entreprise"""
-                if id_film_sel == 0:
+                if id_entreprise_sel == 0:
                     # le paramètre 0 permet d'afficher tous les films
                     # Sinon le paramètre représente la valeur de l'id du film
                     mc_afficher.execute(strsql_genres_films_afficher_data)
                 else:
                     # Constitution d'un dictionnaire pour associer l'id du film sélectionné avec un nom de variable
-                    valeur_id_film_selected_dictionnaire = {"value_id_film_selected": id_film_sel}
+                    valeur_id_entreprise_selected_dictionnaire = {"value_id_entreprise_selected": id_entreprise_sel}
                     # En MySql l'instruction HAVING fonctionne comme un WHERE... mais doit être associée à un GROUP BY
                     # L'opérateur += permet de concaténer une nouvelle valeur à la valeur de gauche préalablement définie.
-                    strsql_genres_films_afficher_data += """ HAVING id_film= %(value_id_film_selected)s"""
+                    strsql_genres_films_afficher_data += """ HAVING id_entreprise= %(value_id_entreprise_selected)s"""
 
-                    mc_afficher.execute(strsql_genres_films_afficher_data, valeur_id_film_selected_dictionnaire)
+                    mc_afficher.execute(strsql_genres_films_afficher_data, valeur_id_entreprise_selected_dictionnaire)
 
                 # Récupère les données de la requête.
                 data_genres_films_afficher = mc_afficher.fetchall()
                 print("data_genres ", data_genres_films_afficher, " Type : ", type(data_genres_films_afficher))
 
                 # Différencier les messages.
-                if not data_genres_films_afficher and id_film_sel == 0:
+                if not data_genres_films_afficher and id_entreprise_sel == 0:
                     flash("""La table "t_film" est vide. !""", "warning")
-                elif not data_genres_films_afficher and id_film_sel > 0:
+                elif not data_genres_films_afficher and id_entreprise_sel > 0:
                     # Si l'utilisateur change l'id_film dans l'URL et qu'il ne correspond à aucun film
-                    flash(f"Le film {id_film_sel} demandé n'existe pas !!", "warning")
+                    flash(f"Le film {id_entreprise_sel} demandé n'existe pas !!", "warning")
                 else:
                     flash(f"Données films et personnes_html affichés !!", "success")
 
@@ -110,7 +110,7 @@ def edit_genre_film_selected():
             session['session_id_film_genres_edit'] = id_film_genres_edit
 
             # Constitution d'un dictionnaire pour associer l'id du film sélectionné avec un nom de variable
-            valeur_id_film_selected_dictionnaire = {"value_id_film_selected": id_film_genres_edit}
+            valeur_id_entreprise_selected_dictionnaire = {"value_id_entreprise_selected": id_film_genres_edit}
 
             # Récupère les données grâce à 3 requêtes MySql définie dans la fonction genres_films_afficher_data
             # 1) Sélection du film choisi
@@ -118,7 +118,7 @@ def edit_genre_film_selected():
             # 3) Sélection des personnes_html "pas encore" attribués pour le film choisi.
             # ATTENTION à l'ordre d'assignation des variables retournées par la fonction "genres_films_afficher_data"
             data_genre_film_selected, data_genres_films_non_attribues, data_genres_films_attribues = \
-                genres_films_afficher_data(valeur_id_film_selected_dictionnaire)
+                genres_films_afficher_data(valeur_id_entreprise_selected_dictionnaire)
 
             print(data_genre_film_selected)
             lst_data_film_selected = [item['id_film'] for item in data_genre_film_selected]
@@ -182,7 +182,7 @@ def update_genre_film_selected():
     if request.method == "POST":
         try:
             # Récupère l'id du film sélectionné
-            id_film_selected = session['session_id_film_genres_edit']
+            id_entreprise_selected = session['session_id_film_genres_edit']
             print("session['session_id_film_genres_edit'] ", session['session_id_film_genres_edit'])
 
             # Récupère la liste des personnes_html qui ne sont pas associés au film sélectionné.
@@ -233,7 +233,7 @@ def update_genre_film_selected():
                 for id_genre_ins in lst_diff_genres_insert_a:
                     # Constitution d'un dictionnaire pour associer l'id du film sélectionné avec un nom de variable
                     # et "id_genre_ins" (l'id du genre dans la liste) associé à une variable.
-                    valeurs_film_sel_genre_sel_dictionnaire = {"value_fk_film": id_film_selected,
+                    valeurs_film_sel_genre_sel_dictionnaire = {"value_fk_film": id_entreprise_selected,
                                                                "value_fk_genre": id_genre_ins}
 
                     mconn_bd.execute(strsql_insert_genre_film, valeurs_film_sel_genre_sel_dictionnaire)
@@ -243,7 +243,7 @@ def update_genre_film_selected():
                 for id_genre_del in lst_diff_genres_delete_b:
                     # Constitution d'un dictionnaire pour associer l'id du film sélectionné avec un nom de variable
                     # et "id_genre_del" (l'id du genre dans la liste) associé à une variable.
-                    valeurs_film_sel_genre_sel_dictionnaire = {"value_fk_film": id_film_selected,
+                    valeurs_film_sel_genre_sel_dictionnaire = {"value_fk_film": id_entreprise_selected,
                                                                "value_fk_genre": id_genre_del}
 
                     # Du fait de l'utilisation des "context managers" on accède au curseur grâce au "with".
@@ -259,7 +259,7 @@ def update_genre_film_selected():
 
     # Après cette mise à jour de la table intermédiaire "t_genre_film",
     # on affiche les films et le(urs) genre(s) associé(s).
-    return redirect(url_for('films_genres_afficher', id_film_sel=id_film_selected))
+    return redirect(url_for('films_genres_afficher', id_entreprise_sel=id_entreprise_selected))
 
 
 """
@@ -272,29 +272,29 @@ def update_genre_film_selected():
 """
 
 
-def genres_films_afficher_data(valeur_id_film_selected_dict):
-    print("valeur_id_film_selected_dict...", valeur_id_film_selected_dict)
+def genres_films_afficher_data(valeur_id_entreprise_selected_dict):
+    print("valeur_id_entreprise_selected_dict...", valeur_id_entreprise_selected_dict)
     try:
 
         strsql_film_selected = """SELECT id_film, nom_film, duree_film, description_film, cover_link_film, date_sortie_film, GROUP_CONCAT(id_genre) as GenresFilms FROM t_genre_film
                                         INNER JOIN t_film ON t_film.id_film = t_genre_film.fk_film
                                         INNER JOIN t_genre ON t_genre.id_genre = t_genre_film.fk_genre
-                                        WHERE id_film = %(value_id_film_selected)s"""
+                                        WHERE id_film = %(value_id_entreprise_selected)s"""
 
         strsql_genres_films_non_attribues = """SELECT id_genre, intitule_genre FROM t_genre WHERE id_genre not in(SELECT id_genre as idGenresFilms FROM t_genre_film
                                                     INNER JOIN t_film ON t_film.id_film = t_genre_film.fk_film
                                                     INNER JOIN t_genre ON t_genre.id_genre = t_genre_film.fk_genre
-                                                    WHERE id_film = %(value_id_film_selected)s)"""
+                                                    WHERE id_film = %(value_id_entreprise_selected)s)"""
 
         strsql_genres_films_attribues = """SELECT id_film, id_genre, intitule_genre FROM t_genre_film
                                             INNER JOIN t_film ON t_film.id_film = t_genre_film.fk_film
                                             INNER JOIN t_genre ON t_genre.id_genre = t_genre_film.fk_genre
-                                            WHERE id_film = %(value_id_film_selected)s"""
+                                            WHERE id_film = %(value_id_entreprise_selected)s"""
 
         # Du fait de l'utilisation des "context managers" on accède au curseur grâce au "with".
         with DBconnection() as mc_afficher:
             # Envoi de la commande MySql
-            mc_afficher.execute(strsql_genres_films_non_attribues, valeur_id_film_selected_dict)
+            mc_afficher.execute(strsql_genres_films_non_attribues, valeur_id_entreprise_selected_dict)
             # Récupère les données de la requête.
             data_genres_films_non_attribues = mc_afficher.fetchall()
             # Affichage dans la console
@@ -303,14 +303,14 @@ def genres_films_afficher_data(valeur_id_film_selected_dict):
                   type(data_genres_films_non_attribues))
 
             # Envoi de la commande MySql
-            mc_afficher.execute(strsql_film_selected, valeur_id_film_selected_dict)
+            mc_afficher.execute(strsql_film_selected, valeur_id_entreprise_selected_dict)
             # Récupère les données de la requête.
             data_film_selected = mc_afficher.fetchall()
             # Affichage dans la console
             print("data_film_selected  ", data_film_selected, " Type : ", type(data_film_selected))
 
             # Envoi de la commande MySql
-            mc_afficher.execute(strsql_genres_films_attribues, valeur_id_film_selected_dict)
+            mc_afficher.execute(strsql_genres_films_attribues, valeur_id_entreprise_selected_dict)
             # Récupère les données de la requête.
             data_genres_films_attribues = mc_afficher.fetchall()
             # Affichage dans la console
