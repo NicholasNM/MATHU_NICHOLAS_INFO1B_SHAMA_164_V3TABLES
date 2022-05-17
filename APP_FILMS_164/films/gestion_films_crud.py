@@ -46,7 +46,8 @@ def film_add_wtf():
                 print("valeurs_insertion_dictionnaire ", valeurs_insertion_dictionnaire)
 
                 strsql_insert_film = """INSERT INTO t_entreprise 
-                (id_entreprise,nom_entreprise,num_entreprise,email_entreprise) VALUES (NULL,%(value_nom_entreprise)s,
+                (id_entreprise,fk_adresse,nom_entreprise,num_entreprise,email_entreprise) VALUES 
+                (NULL,NULL,%(value_nom_entreprise)s,
                 %(value_num_entreprise)s,%(value_email_entreprise)s) """
 
                 with DBconnection() as mconn_bd:
