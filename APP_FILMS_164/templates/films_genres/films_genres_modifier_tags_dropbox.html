@@ -69,19 +69,16 @@
 				<tbody>
 					<tr>
 						<td class="align-middle">
-							{{ row.id_film }}
+							{{ row.id_entreprise }}
 						</td>
 						<td class="align-middle">
-							{{ row.nom_film }}
+							{{ row.nom_entreprise }}
 						</td>
 						<td class="align-middle">
-							{{ row.duree_film|default("", True) }}
+							{{ row.num_entreprise|default("", True) }}
 						</td>
 						<td class="align-middle">
-							{{ row.date_sortie_film|default("", True) }}
-						</td>
-						<td class="align-middle">
-							{{ row.description_film|default("", True) }}
+							{{ row.email_entreprise|default("", True) }}
 						</td>
 						<td class="align-middle">
                             <img class="img" src={{ row.cover_link_film|default(None, True) }} style="border: 0;display:block; width:150px; max-height:auto;" alt = "image masquée FFP67 (in COVID-29 Memory) (absente) mod 164">
