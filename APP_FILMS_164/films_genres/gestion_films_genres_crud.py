@@ -69,14 +69,14 @@ def films_genres_afficher(id_entreprise_sel):
 
     print("films_genres_afficher  ", data_genres_films_afficher)
     # Envoie la page "HTML" au serveur.
-    return render_template("films_genres/films_genres_afficher.html", data=data_genres_films_afficher)
+    return render_template("entreprise_personnes/entreprise_personnes_afficher.html", data=data_genres_films_afficher)
 
 
 """
     nom: edit_genre_film_selected
     On obtient un objet "objet_dumpbd"
 
-    Récupère la liste de tous les personnes_html du film sélectionné par le bouton "MODIFIER" de "films_genres_afficher.html"
+    Récupère la liste de tous les personnes_html du film sélectionné par le bouton "MODIFIER" de "entreprise_personnes_afficher.html"
     
     Dans une liste déroulante particulière (tags-selector-tagselect), on voit :
     1) Tous les personnes_html contenus dans la "t_genre".
@@ -99,9 +99,9 @@ def edit_genre_film_selected():
             data_genres_all = mc_afficher.fetchall()
             print("dans edit_genre_film_selected ---> data_genres_all", data_genres_all)
 
-            # Récupère la valeur de "id_film" du formulaire html "films_genres_afficher.html"
+            # Récupère la valeur de "id_film" du formulaire html "entreprise_personnes_afficher.html"
             # l'utilisateur clique sur le bouton "Modifier" et on récupère la valeur de "id_film"
-            # grâce à la variable "id_film_genres_edit_html" dans le fichier "films_genres_afficher.html"
+            # grâce à la variable "id_film_genres_edit_html" dans le fichier "entreprise_personnes_afficher.html"
             # href="{{ url_for('edit_genre_film_selected', id_film_genres_edit_html=row.id_film) }}"
             id_film_genres_edit = request.values['id_film_genres_edit_html']
 
@@ -157,7 +157,7 @@ def edit_genre_film_selected():
                                                  f"{edit_genre_film_selected.__name__} ; "
                                                  f"{Exception_edit_genre_film_selected}")
 
-    return render_template("films_genres/films_genres_modifier_tags_dropbox.html",
+    return render_template("entreprise_personnes/entreprise_personnes_modifier_tags_dropbox.html",
                            data_genres=data_genres_all,
                            data_film_selected=data_genre_film_selected,
                            data_genres_attribues=data_genres_films_attribues,
@@ -167,7 +167,7 @@ def edit_genre_film_selected():
 """
     nom: update_genre_film_selected
 
-    Récupère la liste de tous les personnes_html du film sélectionné par le bouton "MODIFIER" de "films_genres_afficher.html"
+    Récupère la liste de tous les personnes_html du film sélectionné par le bouton "MODIFIER" de "entreprise_personnes_afficher.html"
     
     Dans une liste déroulante particulière (tags-selector-tagselect), on voit :
     1) Tous les personnes_html contenus dans la "t_genre".
@@ -266,7 +266,7 @@ def update_genre_film_selected():
 """
     nom: genres_films_afficher_data
 
-    Récupère la liste de tous les personnes_html du film sélectionné par le bouton "MODIFIER" de "films_genres_afficher.html"
+    Récupère la liste de tous les personnes_html du film sélectionné par le bouton "MODIFIER" de "entreprise_personnes_afficher.html"
     Nécessaire pour afficher tous les "TAGS" des personnes_html, ainsi l'utilisateur voit les personnes_html à disposition
 
     On signale les erreurs importantes
