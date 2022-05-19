@@ -1,5 +1,5 @@
 """
-    Fichier : gestion_films_genres_crud.py
+    Fichier : gestion_entreprise_personnes_crud.py
     Auteur : OM 2021.05.01
     Gestions des "routes" FLASK et des données pour l'association entre les entreprise et les personnes_html.
 """
@@ -73,7 +73,7 @@ def films_genres_afficher(id_entreprise_sel):
 
 
 """
-    nom: edit_genre_film_selected
+    nom: edit_entreprise_personnes_selected
     On obtient un objet "objet_dumpbd"
 
     Récupère la liste de tous les personnes_html du film sélectionné par le bouton "MODIFIER" de "entreprise_personnes_afficher.html"
@@ -88,8 +88,8 @@ def films_genres_afficher(id_entreprise_sel):
 """
 
 
-@app.route("/edit_genre_film_selected", methods=['GET', 'POST'])
-def edit_genre_film_selected():
+@app.route("/edit_entreprise_personnes_selected", methods=['GET', 'POST'])
+def edit_entreprise_personnes_selected():
     if request.method == "GET":
         try:
             with DBconnection() as mc_afficher:
@@ -97,12 +97,12 @@ def edit_genre_film_selected():
                                             FROM t_personnes ORDER BY id_personnes ASC"""
                 mc_afficher.execute(strsql_genres_afficher)
             data_genres_all = mc_afficher.fetchall()
-            print("dans edit_genre_film_selected ---> data_genres_all", data_genres_all)
+            print("dans edit_entreprise_personnes_selected ---> data_genres_all", data_genres_all)
 
             # Récupère la valeur de "id_film" du formulaire html "entreprise_personnes_afficher.html"
             # l'utilisateur clique sur le bouton "Modifier" et on récupère la valeur de "id_film"
             # grâce à la variable "id_film_genres_edit_html" dans le fichier "entreprise_personnes_afficher.html"
-            # href="{{ url_for('edit_genre_film_selected', id_film_genres_edit_html=row.id_film) }}"
+            # href="{{ url_for('edit_entreprise_personnes_selected', id_film_genres_edit_html=row.id_film) }}"
             id_film_genres_edit = request.values['id_film_genres_edit_html']
 
             # Mémorise l'id du film dans une variable de session
@@ -149,13 +149,13 @@ def edit_genre_film_selected():
             # Extrait les valeurs contenues dans la table "t_genres", colonne "intitule_genre"
             # Le composant javascript "tagify" pour afficher les tags n'a pas besoin de l'id_genre
             lst_data_genres_films_non_attribues = [item['intitule_genre'] for item in data_genres_films_non_attribues]
-            print("lst_all_genres gf_edit_genre_film_selected ", lst_data_genres_films_non_attribues,
+            print("lst_all_genres gf_edit_entreprise_personnes_selected ", lst_data_genres_films_non_attribues,
                   type(lst_data_genres_films_non_attribues))
 
-        except Exception as Exception_edit_genre_film_selected:
+        except Exception as Exception_edit_entreprise_personnes_selected:
             raise ExceptionEditGenreFilmSelected(f"fichier : {Path(__file__).name}  ;  "
-                                                 f"{edit_genre_film_selected.__name__} ; "
-                                                 f"{Exception_edit_genre_film_selected}")
+                                                 f"{edit_entreprise_personnes_selected.__name__} ; "
+                                                 f"{Exception_edit_entreprise_personnes_selected}")
 
     return render_template("entreprise_personnes/entreprise_personnes_modifier_tags_dropbox.html",
                            data_genres=data_genres_all,
