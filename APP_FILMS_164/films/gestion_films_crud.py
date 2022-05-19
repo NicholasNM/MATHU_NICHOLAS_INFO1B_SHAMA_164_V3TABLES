@@ -190,8 +190,8 @@ def film_delete_wtf():
             valeur_delete_dictionnaire = {"value_id_entreprise": id_film_delete}
             print("valeur_delete_dictionnaire ", valeur_delete_dictionnaire)
 
-            str_sql_delete_fk_film_genre = """DELETE FROM t_genre_film WHERE fk_film = %(value_id_entreprise)s"""
-            str_sql_delete_film = """DELETE FROM t_film WHERE id_film = %(value_id_entreprise)s"""
+            str_sql_delete_fk_film_genre = """DELETE FROM t_e_personnes WHERE fk_entreprise = %(value_id_entreprise)s"""
+            str_sql_delete_film = """DELETE FROM t_entreprise WHERE id_entreprise = %(value_id_entreprise)s"""
             # Manière brutale d'effacer d'abord la "fk_film", même si elle n'existe pas dans la "t_genre_film"
             # Ensuite on peut effacer le film vu qu'il n'est plus "lié" (INNODB) dans la "t_genre_film"
             with DBconnection() as mconn_bd:
@@ -208,7 +208,7 @@ def film_delete_wtf():
             print(id_film_delete, type(id_film_delete))
 
             # Requête qui affiche le film qui doit être efffacé.
-            str_sql_genres_films_delete = """SELECT * FROM t_film WHERE id_film = %(value_id_entreprise)s"""
+            str_sql_genres_films_delete = """SELECT * FROM t_entreprise WHERE id_entreprise = %(value_id_entreprise)s"""
 
             with DBconnection() as mydb_conn:
                 mydb_conn.execute(str_sql_genres_films_delete, valeur_select_dictionnaire)

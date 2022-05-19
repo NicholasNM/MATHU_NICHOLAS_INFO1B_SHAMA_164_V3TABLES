@@ -18,16 +18,10 @@
 						Nom
 					</th>
 					<th class="">
-						Durée
+						Numéro
 					</th>
 					<th class="">
-						Date de sortie
-					</th>
-					<th class="">
-						Description
-					</th>
-					<th class="">
-						Affiche
+						Email
 					</th>
 				</tr>
 				</thead>
@@ -36,7 +30,7 @@
 				<tbody>
 				<tr>
 					<th class="align-middle">
-						{{ row.id_film }}
+						{{ row.id_entreprise }}
 					</th>
 					<th class="align-middle">
 						{{ row.nom_entreprise }}
@@ -45,15 +39,7 @@
 						{{ row.num_entreprise|default("", True) }}
 					</th>
 					<th class="align-middle">
-						{{ row.date_sortie_film|default("", True) }}
-					</th>
-					<th class="align-middle">
-						{{ row.description_film|default("", True) }}
-					</th>
-					<th class="align-middle">
-						<img class="img" src={{ row.cover_link_film|default(None, True) }}
-							 style="border: 0;display:block; width:150px; max-height:auto;"
-							 alt="image masquée FFP8 (in COVID-19 Memory) (absente) mod 164">
+						{{ row.email_entreprise|default("", True) }}
 					</th>
 
 				<tr>
