@@ -1,7 +1,7 @@
 """
     Fichier : gestion_films_genres_crud.py
     Auteur : OM 2021.05.01
-    Gestions des "routes" FLASK et des données pour l'association entre les films et les personnes_html.
+    Gestions des "routes" FLASK et des données pour l'association entre les entreprise et les personnes_html.
 """
 from pathlib import Path
 
@@ -18,9 +18,9 @@ from APP_FILMS_164.erreurs.exceptions import *
     Auteur : OM 2021.05.01
     Définition d'une "route" /films_genres_afficher
     
-    But : Afficher les films avec les personnes_html associés pour chaque film.
+    But : Afficher les entreprise avec les personnes_html associés pour chaque film.
     
-    Paramètres : id_genre_sel = 0 >> tous les films.
+    Paramètres : id_genre_sel = 0 >> tous les entreprise.
                  id_genre_sel = "n" affiche le film dont l'id est "n"
                  
 """
@@ -38,7 +38,7 @@ def films_genres_afficher(id_entreprise_sel):
                                                         Left JOIN t_personnes pers ON pers.id_personnes = t_e_personnes.fk_personnes
                                                         GROUP BY id_entreprise"""
                 if id_entreprise_sel == 0:
-                    # le paramètre 0 permet d'afficher tous les films
+                    # le paramètre 0 permet d'afficher tous les entreprise
                     # Sinon le paramètre représente la valeur de l'id du film
                     mc_afficher.execute(strsql_genres_films_afficher_data)
                 else:
@@ -259,7 +259,7 @@ def update_genre_film_selected():
                                                    f"{Exception_update_genre_film_selected}")
 
     # Après cette mise à jour de la table intermédiaire "t_genre_film",
-    # on affiche les films et le(urs) genre(s) associé(s).
+    # on affiche les entreprise et le(urs) genre(s) associé(s).
     return redirect(url_for('films_genres_afficher', id_entreprise_sel=id_entreprise_selected))
 
 

@@ -1,4 +1,4 @@
-"""Gestion des formulaires avec WTF pour les films
+"""Gestion des formulaires avec WTF pour les entreprise
 Fichier : gestion_films_wtf_forms.py
 Auteur : OM 2022.04.11
 
