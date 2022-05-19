@@ -1,5 +1,5 @@
 """Gestion des "routes" FLASK et des données pour les entreprise.
-Fichier : gestion_films_crud.py
+Fichier : gestion_entreprise_crud.py
 Auteur : OM 2022.04.11
 """
 from pathlib import Path
@@ -11,7 +11,7 @@ from flask import url_for
 
 from APP_FILMS_164.database.database_tools import DBconnection
 from APP_FILMS_164.erreurs.exceptions import *
-from APP_FILMS_164.entreprise.gestion_films_wtf_forms import FormWTFUpdateFilm, FormWTFAddFilm, FormWTFDeleteFilm
+from APP_FILMS_164.entreprise.gestion_entreprise_wtf_forms import FormWTFUpdateFilm, FormWTFAddFilm, FormWTFDeleteFilm
 
 """Ajouter un film grâce au formulaire "entreprise_add_wtf.html"
 Auteur : OM 2022.04.11
