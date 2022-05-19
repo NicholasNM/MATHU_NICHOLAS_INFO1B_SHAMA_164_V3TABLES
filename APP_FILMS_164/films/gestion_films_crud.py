@@ -120,7 +120,7 @@ def film_update_wtf():
             return redirect(url_for('films_genres_afficher', id_entreprise_sel=id_entreprise_update))
         elif request.method == "GET":
             # Opération sur la BD pour récupérer "id_film" et "intitule_genre" de la "t_genre"
-            str_sql_id_film = "SELECT id_entreprise, nom_entreprise, num_entreprise, email_entreprise FROM t_entreprise WHERE id_entreprise = %(value_id_entreprise)s"
+            str_sql_id_film = "SELECT * FROM t_entreprise WHERE id_entreprise = %(value_id_entreprise)s"
             valeur_select_dictionnaire = {"value_id_entreprise": id_entreprise_update}
             with DBconnection() as mybd_conn:
                 mybd_conn.execute(str_sql_id_film, valeur_select_dictionnaire)
@@ -132,7 +132,6 @@ def film_update_wtf():
             # Afficher la valeur sélectionnée dans le champ du formulaire "film_update_wtf.html"
             form_update_film.nom_entreprise_update_wtf.data = data_film["nom_entreprise"]
             form_update_film.num_entreprise_update_wtf.data = data_film["num_entreprise"]
-            form_update_film.email_entreprise_update_wtf.data = data_film["email_entreprise"]
             # Debug simple pour contrôler la valeur dans la console "run" de PyCharm
             print(f" duree film  ", data_film["num_entreprise"], "  type ", type(data_film["num_entreprise"]))
             form_update_film.nom_entreprise_update_wtf.data = data_film["nom_entreprise"]
