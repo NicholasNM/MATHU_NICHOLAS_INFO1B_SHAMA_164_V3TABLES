@@ -93,7 +93,7 @@ def edit_entreprise_personnes_selected():
     if request.method == "GET":
         try:
             with DBconnection() as mc_afficher:
-                strsql_genres_afficher = """SELECT id_personnes, nom_personnes, prenom_personnes
+                strsql_genres_afficher = """SELECT id_personnes, nom_personnes
                                             FROM t_personnes ORDER BY id_personnes ASC"""
                 mc_afficher.execute(strsql_genres_afficher)
             data_genres_all = mc_afficher.fetchall()
@@ -122,20 +122,20 @@ def edit_entreprise_personnes_selected():
                 genres_films_afficher_data(valeur_id_entreprise_selected_dictionnaire)
 
             print(data_genre_film_selected)
-            lst_data_film_selected = [item['id_film'] for item in data_genre_film_selected]
+            lst_data_film_selected = [item['id_entreprise'] for item in data_genre_film_selected]
             print("lst_data_film_selected  ", lst_data_film_selected,
                   type(lst_data_film_selected))
 
             # Dans le composant "tags-selector-tagselect" on doit connaître
             # les personnes_html qui ne sont pas encore sélectionnés.
-            lst_data_genres_films_non_attribues = [item['id_genre'] for item in data_genres_films_non_attribues]
+            lst_data_genres_films_non_attribues = [item['id_personnes'] for item in data_genres_films_non_attribues]
             session['session_lst_data_genres_films_non_attribues'] = lst_data_genres_films_non_attribues
             print("lst_data_genres_films_non_attribues  ", lst_data_genres_films_non_attribues,
                   type(lst_data_genres_films_non_attribues))
 
             # Dans le composant "tags-selector-tagselect" on doit connaître
             # les personnes_html qui sont déjà sélectionnés.
-            lst_data_genres_films_old_attribues = [item['id_genre'] for item in data_genres_films_attribues]
+            lst_data_genres_films_old_attribues = [item['id_personnes'] for item in data_genres_films_attribues]
             session['session_lst_data_genres_films_old_attribues'] = lst_data_genres_films_old_attribues
             print("lst_data_genres_films_old_attribues  ", lst_data_genres_films_old_attribues,
                   type(lst_data_genres_films_old_attribues))
@@ -148,7 +148,7 @@ def edit_entreprise_personnes_selected():
 
             # Extrait les valeurs contenues dans la table "t_genres", colonne "intitule_genre"
             # Le composant javascript "tagify" pour afficher les tags n'a pas besoin de l'id_genre
-            lst_data_genres_films_non_attribues = [item['intitule_genre'] for item in data_genres_films_non_attribues]
+            lst_data_genres_films_non_attribues = [item['nom_personnes'] for item in data_genres_films_non_attribues]
             print("lst_all_genres gf_edit_entreprise_personnes_selected ", lst_data_genres_films_non_attribues,
                   type(lst_data_genres_films_non_attribues))
 
@@ -282,7 +282,7 @@ def genres_films_afficher_data(valeur_id_entreprise_selected_dict):
                                     INNER JOIN t_personnes ON t_personnes.id_personnes = t_e_personnes.fk_personnes
                                     WHERE id_entreprise = %(value_id_entreprise_selected)s"""
 
-        strsql_genres_films_non_attribues = """SELECT t_personnes, nom_personnes FROM t_personnes WHERE id_personnes not in(SELECT id_personnes as idGenresFilms FROM t_e_personnes
+        strsql_genres_films_non_attribues = """SELECT id_personnes, nom_personnes FROM t_personnes WHERE id_personnes not in(SELECT id_personnes as idGenresFilms FROM t_e_personnes
                                     INNER JOIN t_entreprise ON t_entreprise.id_entreprise = t_e_personnes.fk_entreprise
                                     INNER JOIN t_personnes ON t_personnes.id_personnes = t_e_personnes.fk_personnes
                                     WHERE id_entreprise = %(value_id_entreprise_selected)s)"""
