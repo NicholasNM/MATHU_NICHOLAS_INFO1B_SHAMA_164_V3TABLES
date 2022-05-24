@@ -5,7 +5,7 @@
 	<div class="row">
 		<div class="col-md-12">
 			<p>
-				Ajouter une nouvelle Entreprise (WTForms)
+				Ajouter une nouvelle Entreprise
 			</p>
 			<form action="" method="POST" novalidate>
 				<!-- Protection contre les attaques Cross-Site Request Forgery (CSRF) -->
@@ -32,7 +32,7 @@
 							<span style="color: red;">[{{ error }}]</span>
 						{% endfor %}
 					</p>
-					Voilà c'est juste pour vous montrer l'ossature du projet je n'ai pas tout fait...
+
 				</div>
 				{{ form_add_entreprise.submit(class="btn btn-primary") }}
 			</form>

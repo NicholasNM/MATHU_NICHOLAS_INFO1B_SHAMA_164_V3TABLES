@@ -41,13 +41,10 @@
 						{{ row.email_entreprise|default }}
 					  </th>
 					  <th class="align-middle">
-						{{ row.ville_adresse|default }}
+						<a class="btn btn-warning" href="{{ url_for('film_update_wtf', id_film_btn_edit_html=row.id_entreprise) }}" role="button">Edit</a>
 					  </th>
 					  <th class="align-middle">
-						<a class="btn btn-warning" href="{{ url_for('film_update_wtf', id_adresse_btn_edit_html=row.id_adresse) }}" role="button">Edit</a>
-					  </th>
-					  <th class="align-middle">
-						<a class="btn btn-danger" href="{{ url_for('film_delete_wtf', id_adresse_btn_delete_html=row.id_adresse ) }}" role="button">Delete</a>
+						<a class="btn btn-danger" href="{{ url_for('film_delete_wtf', id_film_btn_delete_html=row.id_entreprise ) }}" role="button">Delete</a>
 					  </th>
 					<tr>
 						<td class="align-middle">
