@@ -70,7 +70,7 @@ def personnes_afficher(order_by, id_personnes_sel):
                     flash(f"Voici les personnes dans l'entreprise!!!", "success")
 
         except Exception as Exception_personnes_afficher:
-            raise ExceptionGenresAfficher(f"fichier : {Path(__file__).name}  ;  "
+            raise ExceptionPersonnesAfficher(f"fichier : {Path(__file__).name}  ;  "
                                           f"{personnes_afficher.__name__} ; "
                                           f"{Exception_personnes_afficher}")
 
@@ -99,7 +99,7 @@ def personnes_afficher(order_by, id_personnes_sel):
 
 
 @app.route("/genres_ajouter", methods=['GET', 'POST'])
-def genres_ajouter_wtf():
+def personnes_ajouter_wtf():
     form = FormWTFAjouterGenres()
     if request.method == "POST":
         try:
@@ -123,10 +123,10 @@ def genres_ajouter_wtf():
                 # Pour afficher et constater l'insertion de la valeur, on affiche en ordre inverse. (DESC)
                 return redirect(url_for('personnes_afficher', order_by='DESC', id_personnes_sel=0))
 
-        except Exception as Exception_genres_ajouter_wtf:
+        except Exception as Exception_personnes_ajouter_wtf:
             raise ExceptionGenresAjouterWtf(f"fichier : {Path(__file__).name}  ;  "
-                                            f"{genres_ajouter_wtf.__name__} ; "
-                                            f"{Exception_genres_ajouter_wtf}")
+                                            f"{personnes_ajouter_wtf.__name__} ; "
+                                            f"{Exception_personnes_ajouter_wtf}")
 
     return render_template("personnes_html/personnes_ajouter_wtf.html", form=form)
 
@@ -141,7 +141,7 @@ def genres_ajouter_wtf():
     
     But : Editer(update) un genre qui a été sélectionné dans le formulaire "personnes_afficher.html"
     
-    Remarque :  Dans le champ "nom_genre_update_wtf" du formulaire "personnes_html/personnes_update_wtf.html",
+    Remarque :  Dans le champ "nom_personnes_update_wtf" du formulaire "personnes_html/personnes_update_wtf.html",
                 le contrôle de la saisie s'effectue ici en Python.
                 On transforme la saisie en minuscules.
                 On ne doit pas accepter des valeurs vides, des valeurs avec des chiffres,
@@ -152,7 +152,7 @@ def genres_ajouter_wtf():
 
 
 @app.route("/genre_update", methods=['GET', 'POST'])
-def genre_update_wtf():
+def personnes_update_wtf():
     # L'utilisateur vient de cliquer sur le bouton "EDIT". Récupère la valeur de "id_genre"
     id_personnes_update = request.values['id_genre_btn_edit_html']
 
@@ -200,10 +200,10 @@ def genre_update_wtf():
             form_update.nom_personnes_update_wtf.data = data_nom_genre["nom_personnes"]
             form_update.prenom_personnes_update_wtf.data = data_nom_genre["prenom_personnes"]
 
-    except Exception as Exception_genre_update_wtf:
+    except Exception as Exception_personnes_update_wtf:
         raise ExceptionGenreUpdateWtf(f"fichier : {Path(__file__).name}  ;  "
-                                      f"{genre_update_wtf.__name__} ; "
-                                      f"{Exception_genre_update_wtf}")
+                                      f"{personnes_update_wtf.__name__} ; "
+                                      f"{Exception_personnes_update_wtf}")
 
     return render_template("personnes_html/personnes_update_wtf.html", form_update=form_update)
 
