@@ -224,7 +224,7 @@ def personnes_update_wtf():
 
 
 @app.route("/genre_delete", methods=['GET', 'POST'])
-def genre_delete_wtf():
+def personnes_delete_wtf():
     data_films_attribue_genre_delete = None
     btn_submit_del = None
     # L'utilisateur vient de cliquer sur le bouton "DELETE". Récupère la valeur de "id_genre"
@@ -305,10 +305,10 @@ def genre_delete_wtf():
             # Le bouton pour l'action "DELETE" dans le form. "personnes_delete_wtf.html" est caché.
             btn_submit_del = False
 
-    except Exception as Exception_genre_delete_wtf:
+    except Exception as Exception_personnes_delete_wtf:
         raise ExceptionGenreDeleteWtf(f"fichier : {Path(__file__).name}  ;  "
-                                      f"{genre_delete_wtf.__name__} ; "
-                                      f"{Exception_genre_delete_wtf}")
+                                      f"{personnes_delete_wtf.__name__} ; "
+                                      f"{Exception_personnes_delete_wtf}")
 
     return render_template("personnes_html/personnes_delete_wtf.html",
                            form_delete=form_delete,
