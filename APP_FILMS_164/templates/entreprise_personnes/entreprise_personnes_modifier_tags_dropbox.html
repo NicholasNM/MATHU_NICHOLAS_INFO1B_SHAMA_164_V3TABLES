@@ -99,7 +99,7 @@
             <form id="form_tags_select_confirm" action="{{ url_for('update_genre_film_selected') }}" method="POST">
                 <div class="qtagselect isw360">
                     <select id="OM_JTSD" name="name_select_tags" class="qtagselect__select" multiple>
-                        {% for row in data_genres_non_attribues %}
+                        {% for row in data_personnes_non_attribues %}
                             <option value="{{ row.id_personnes }}" name="name_tags_non_attribues_html" class="isblue" >{{ row.nom_personnes }}</option>
                         {% endfor %}
 

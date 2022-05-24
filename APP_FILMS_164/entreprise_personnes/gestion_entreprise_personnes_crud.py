@@ -118,20 +118,20 @@ def edit_entreprise_personnes_selected():
             # 2) Sélection des personnes_html "déjà" attribués pour le film.
             # 3) Sélection des personnes_html "pas encore" attribués pour le film choisi.
             # ATTENTION à l'ordre d'assignation des variables retournées par la fonction "genres_films_afficher_data"
-            data_genre_film_selected, data_genres_films_non_attribues, data_genres_films_attribues = \
+            data_personnes_entreprise_selected, data_genres_films_non_attribues, data_genres_films_attribues = \
                 genres_films_afficher_data(valeur_id_entreprise_selected_dictionnaire)
 
-            print(data_genre_film_selected)
-            lst_data_film_selected = [item['id_entreprise'] for item in data_genre_film_selected]
+            print(data_personnes_entreprise_selected)
+            lst_data_film_selected = [item['id_entreprise'] for item in data_personnes_entreprise_selected]
             print("lst_data_film_selected  ", lst_data_film_selected,
                   type(lst_data_film_selected))
 
             # Dans le composant "tags-selector-tagselect" on doit connaître
             # les personnes_html qui ne sont pas encore sélectionnés.
-            lst_data_genres_films_non_attribues = [item['id_personnes'] for item in data_genres_films_non_attribues]
-            session['session_lst_data_genres_films_non_attribues'] = lst_data_genres_films_non_attribues
-            print("lst_data_genres_films_non_attribues  ", lst_data_genres_films_non_attribues,
-                  type(lst_data_genres_films_non_attribues))
+            lst_data_personnes_entreprise_non_attribues = [item['id_personnes'] for item in data_genres_films_non_attribues]
+            session['session_lst_data_personnes_entreprise_non_attribues'] = lst_data_personnes_entreprise_non_attribues
+            print("lst_data_personnes_entreprise_non_attribues  ", lst_data_personnes_entreprise_non_attribues,
+                  type(lst_data_personnes_entreprise_non_attribues))
 
             # Dans le composant "tags-selector-tagselect" on doit connaître
             # les personnes_html qui sont déjà sélectionnés.
@@ -140,7 +140,7 @@ def edit_entreprise_personnes_selected():
             print("lst_data_genres_films_old_attribues  ", lst_data_genres_films_old_attribues,
                   type(lst_data_genres_films_old_attribues))
 
-            print(" data data_genre_film_selected", data_genre_film_selected, "type ", type(data_genre_film_selected))
+            print(" data data_personnes_entreprise_selected", data_personnes_entreprise_selected, "type ", type(data_personnes_entreprise_selected))
             print(" data data_genres_films_non_attribues ", data_genres_films_non_attribues, "type ",
                   type(data_genres_films_non_attribues))
             print(" data_genres_films_attribues ", data_genres_films_attribues, "type ",
@@ -148,9 +148,9 @@ def edit_entreprise_personnes_selected():
 
             # Extrait les valeurs contenues dans la table "t_genres", colonne "intitule_genre"
             # Le composant javascript "tagify" pour afficher les tags n'a pas besoin de l'id_genre
-            lst_data_genres_films_non_attribues = [item['nom_personnes'] for item in data_genres_films_non_attribues]
-            print("lst_all_genres gf_edit_entreprise_personnes_selected ", lst_data_genres_films_non_attribues,
-                  type(lst_data_genres_films_non_attribues))
+            lst_data_personnes_entreprise_non_attribues = [item['nom_personnes'] for item in data_genres_films_non_attribues]
+            print("lst_all_genres gf_edit_entreprise_personnes_selected ", lst_data_personnes_entreprise_non_attribues,
+                  type(lst_data_personnes_entreprise_non_attribues))
 
         except Exception as Exception_edit_entreprise_personnes_selected:
             raise ExceptionEditGenreFilmSelected(f"fichier : {Path(__file__).name}  ;  "
@@ -159,9 +159,9 @@ def edit_entreprise_personnes_selected():
 
     return render_template("entreprise_personnes/entreprise_personnes_modifier_tags_dropbox.html",
                            data_genres=data_personnes_all,
-                           data_film_selected=data_genre_film_selected,
+                           data_film_selected=data_personnes_entreprise_selected,
                            data_genres_attribues=data_genres_films_attribues,
-                           data_genres_non_attribues=data_genres_films_non_attribues)
+                           data_personnes_non_attribues=data_genres_films_non_attribues)
 
 
 """
@@ -187,8 +187,8 @@ def update_genre_film_selected():
             print("session['session_id_film_genres_edit'] ", session['session_id_film_genres_edit'])
 
             # Récupère la liste des personnes_html qui ne sont pas associés au film sélectionné.
-            old_lst_data_genres_films_non_attribues = session['session_lst_data_genres_films_non_attribues']
-            print("old_lst_data_genres_films_non_attribues ", old_lst_data_genres_films_non_attribues)
+            old_lst_data_personnes_entreprise_non_attribues = session['session_lst_data_personnes_entreprise_non_attribues']
+            print("old_lst_data_personnes_entreprise_non_attribues ", old_lst_data_personnes_entreprise_non_attribues)
 
             # Récupère la liste des personnes_html qui sont associés au film sélectionné.
             old_lst_data_genres_films_attribues = session['session_lst_data_genres_films_old_attribues']
