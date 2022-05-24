@@ -14,9 +14,9 @@ from APP_FILMS_164.database.database_tools import DBconnection
 from APP_FILMS_164.erreurs.exceptions import *
 
 """
-    Nom : films_genres_afficher
+    Nom : entreprise_personnes_afficher
     Auteur : OM 2021.05.01
-    Définition d'une "route" /films_genres_afficher
+    Définition d'une "route" /entreprise_personnes_afficher
     
     But : Afficher les entreprise avec les personnes_html associés pour chaque film.
     
@@ -26,9 +26,9 @@ from APP_FILMS_164.erreurs.exceptions import *
 """
 
 
-@app.route("/films_genres_afficher/<int:id_entreprise_sel>", methods=['GET', 'POST'])
-def films_genres_afficher(id_entreprise_sel):
-    print(" films_genres_afficher id_entreprise_sel ", id_entreprise_sel)
+@app.route("/entreprise_personnes_afficher/<int:id_entreprise_sel>", methods=['GET', 'POST'])
+def entreprise_personnes_afficher(id_entreprise_sel):
+    print(" entreprise_personnes_afficher id_entreprise_sel ", id_entreprise_sel)
     if request.method == "GET":
         try:
             with DBconnection() as mc_afficher:
@@ -63,11 +63,11 @@ def films_genres_afficher(id_entreprise_sel):
                 else:
                     flash(f"Données des entreprises et des personnes affichés !!", "success")
 
-        except Exception as Exception_films_genres_afficher:
-            raise ExceptionFilmsGenresAfficher(f"fichier : {Path(__file__).name}  ;  {films_genres_afficher.__name__} ;"
-                                               f"{Exception_films_genres_afficher}")
+        except Exception as Exception_entreprise_personnes_afficher:
+            raise ExceptionFilmsGenresAfficher(f"fichier : {Path(__file__).name}  ;  {entreprise_personnes_afficher.__name__} ;"
+                                               f"{Exception_entreprise_personnes_afficher}")
 
-    print("films_genres_afficher  ", data_genres_films_afficher)
+    print("entreprise_personnes_afficher  ", data_genres_films_afficher)
     # Envoie la page "HTML" au serveur.
     return render_template("entreprise_personnes/entreprise_personnes_afficher.html", data=data_genres_films_afficher)
 
@@ -260,7 +260,7 @@ def update_genre_film_selected():
 
     # Après cette mise à jour de la table intermédiaire "t_genre_film",
     # on affiche les entreprise et le(urs) genre(s) associé(s).
-    return redirect(url_for('films_genres_afficher', id_entreprise_sel=id_entreprise_selected))
+    return redirect(url_for('entreprise_personnes_afficher', id_entreprise_sel=id_entreprise_selected))
 
 
 """

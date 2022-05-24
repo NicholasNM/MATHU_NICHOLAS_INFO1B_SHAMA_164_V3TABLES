@@ -57,7 +57,7 @@ def entreprise_add_wtf():
                 print(f"Données insérées !!")
 
                 # Pour afficher et constater l'insertion du nouveau film (id_entreprise_sel=0 => afficher tous les entreprise)
-                return redirect(url_for('films_genres_afficher', id_entreprise_sel=0))
+                return redirect(url_for('entreprise_personnes_afficher', id_entreprise_sel=0))
 
         except Exception as Exception_genres_ajouter_wtf:
             raise ExceptionGenresAjouterWtf(f"fichier : {Path(__file__).name}  ;  "
@@ -117,7 +117,7 @@ def film_update_wtf():
 
             # afficher et constater que la donnée est mise à jour.
             # Afficher seulement le film modifié, "ASC" et l'"id_entreprise_update"
-            return redirect(url_for('films_genres_afficher', id_entreprise_sel=id_entreprise_update))
+            return redirect(url_for('entreprise_personnes_afficher', id_entreprise_sel=id_entreprise_update))
         elif request.method == "GET":
             # Opération sur la BD pour récupérer "id_film" et "intitule_genre" de la "t_genre"
             str_sql_id_film = "SELECT * FROM t_entreprise WHERE id_entreprise = %(value_id_entreprise)s"
@@ -172,7 +172,7 @@ def film_delete_wtf():
     try:
         # Si on clique sur "ANNULER", afficher tous les entreprise.
         if form_delete_film.submit_btn_annuler.data:
-            return redirect(url_for("films_genres_afficher", id_entreprise_sel=0))
+            return redirect(url_for("entreprise_personnes_afficher", id_entreprise_sel=0))
 
         if form_delete_film.submit_btn_conf_del_film.data:
             # Récupère les données afin d'afficher à nouveau
@@ -202,7 +202,7 @@ def film_delete_wtf():
             print(f"Entreprise définitivement effacé")
 
             # afficher les données
-            return redirect(url_for('films_genres_afficher', id_entreprise_sel=0))
+            return redirect(url_for('entreprise_personnes_afficher', id_entreprise_sel=0))
         if request.method == "GET":
             valeur_select_dictionnaire = {"value_id_entreprise": id_film_delete}
             print(id_film_delete, type(id_film_delete))
