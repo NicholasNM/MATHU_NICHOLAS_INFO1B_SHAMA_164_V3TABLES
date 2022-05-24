@@ -29,7 +29,7 @@ Remarque :  Dans le champ "nom_entreprise_update_wtf" du formulaire "entreprise/
 
 
 @app.route("/film_add", methods=['GET', 'POST'])
-def film_add_wtf():
+def entreprise_add_wtf():
     # Objet formulaire pour AJOUTER un film
     form_add_entreprise = FormWTFAddFilm()
     if request.method == "POST":
@@ -61,7 +61,7 @@ def film_add_wtf():
 
         except Exception as Exception_genres_ajouter_wtf:
             raise ExceptionGenresAjouterWtf(f"fichier : {Path(__file__).name}  ;  "
-                                            f"{film_add_wtf.__name__} ; "
+                                            f"{entreprise_add_wtf.__name__} ; "
                                             f"{Exception_genres_ajouter_wtf}")
 
     return render_template("entreprise/entreprise_add_wtf.html", form_add_entreprise=form_add_entreprise)
