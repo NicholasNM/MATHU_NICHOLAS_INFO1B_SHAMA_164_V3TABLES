@@ -93,9 +93,9 @@ def edit_entreprise_personnes_selected():
     if request.method == "GET":
         try:
             with DBconnection() as mc_afficher:
-                strsql_genres_afficher = """SELECT id_personnes, nom_personnes
+                strsql_personnes_afficher = """SELECT id_personnes, nom_personnes
                                             FROM t_personnes ORDER BY id_personnes ASC"""
-                mc_afficher.execute(strsql_genres_afficher)
+                mc_afficher.execute(strsql_personnes_afficher)
             data_genres_all = mc_afficher.fetchall()
             print("dans edit_entreprise_personnes_selected ---> data_genres_all", data_genres_all)
 

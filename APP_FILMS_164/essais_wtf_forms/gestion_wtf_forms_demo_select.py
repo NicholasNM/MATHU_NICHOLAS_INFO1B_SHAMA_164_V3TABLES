@@ -47,8 +47,8 @@ def demo_select_wtf():
 
         if request.method == "GET":
             with DBconnection() as mc_afficher:
-                strsql_genres_afficher = """SELECT id_genre, intitule_genre FROM t_genre ORDER BY id_genre ASC"""
-                mc_afficher.execute(strsql_genres_afficher)
+                strsql_personnes_afficher = """SELECT id_genre, intitule_genre FROM t_genre ORDER BY id_genre ASC"""
+                mc_afficher.execute(strsql_personnes_afficher)
 
             data_genres = mc_afficher.fetchall()
             print("demo_select_wtf data_genres ", data_genres, " Type : ", type(data_genres))

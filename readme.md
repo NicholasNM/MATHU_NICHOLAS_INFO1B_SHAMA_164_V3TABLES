@@ -113,13 +113,13 @@ Le "début de la fin"
 A) Modifier MES requêtes AFFICHER (READ) du CRUD(Create Read Update Delete) sur la table "t_genre"
   *	Ouvrir le fichier "genres/gestion_genres_crud.py"
   * Modifier les requêtes "SELECT" sur la table "t_genre" par des "SELECT" sur une de vos "t_????"
-  * Modifier dans le répertoire "TEMPLATES" la page html consacrée à l'affichage pour ma "t_genre", il faut ouvrir "templates/genres_afficher.html"
+  * Modifier dans le répertoire "TEMPLATES" la page html consacrée à l'affichage pour ma "t_genre", il faut ouvrir "templates/personnes_afficher.html"
   * Vous devez vous aider de "CTRL-R"(scope : fichier) ou "CTRL-SHIFT-R"(scope : tout le projet)
   * utiliser la commande "magique" de "PyCharm" comparer deux fichiers "CTRL-D" (menu "View"-->"Compare With...") entre le fichier de mon projet qui fonctionne et le votre qui est presque fonctionnel.
 
 B) Une fois que l'affichage est fonctionnel et uniquement dans ce cas :
   * Vous devez alors changer les noms de variables en Python pour les adapter à votre sujet
-    * Exemple : "strsql_genres_afficher" doit s'écrire avec un nom qui correspond mieux à votre sujet de BD
+    * Exemple : "strsql_personnes_afficher" doit s'écrire avec un nom qui correspond mieux à votre sujet de BD
 
 C) Faites souvent des "COMMITS" et des "PUSH" sur votre "GITHUB" (VOTRENOM_VOTREPRENOM_VOTRECLASSE_VOTRESUJET_164_V3TABLES)
 

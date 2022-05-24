@@ -9,12 +9,12 @@ try:
     """
         Une seule requête pour montrer la récupération des données de la BD en MySql.
     """
-    strsql_genres_afficher = """SELECT id_personnes, nom_personnes, prenom_personnes
+    strsql_personnes_afficher = """SELECT id_personnes, nom_personnes, prenom_personnes
                                 FROM t_personnes
                                 WHERE nom_personnes REGEXP '[A-Z]M[A-Z]';"""
 
     with DBconnection() as db:
-        db.execute(strsql_genres_afficher)
+        db.execute(strsql_personnes_afficher)
         result = db.fetchall()
         print("data_genres ", result, " Type : ", type(result))
 
