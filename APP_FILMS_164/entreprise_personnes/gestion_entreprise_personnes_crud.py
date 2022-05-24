@@ -20,8 +20,8 @@ from APP_FILMS_164.erreurs.exceptions import *
     
     But : Afficher les entreprise avec les personnes_html associés pour chaque film.
     
-    Paramètres : id_genre_sel = 0 >> tous les entreprise.
-                 id_genre_sel = "n" affiche le film dont l'id est "n"
+    Paramètres : id_personnes_sel = 0 >> tous les entreprise.
+                 id_personnes_sel = "n" affiche le film dont l'id est "n"
                  
 """
 
