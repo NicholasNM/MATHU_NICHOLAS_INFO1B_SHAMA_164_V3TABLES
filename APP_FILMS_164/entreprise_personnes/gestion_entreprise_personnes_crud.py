@@ -51,13 +51,13 @@ def entreprise_personnes_afficher(id_entreprise_sel):
                     mc_afficher.execute(strsql_genres_films_afficher_data, valeur_id_entreprise_selected_dictionnaire)
 
                 # Récupère les données de la requête.
-                data_genres_films_afficher = mc_afficher.fetchall()
-                print("data_genres ", data_genres_films_afficher, " Type : ", type(data_genres_films_afficher))
+                data_personnes_entreprise_afficher = mc_afficher.fetchall()
+                print("data_genres ", data_personnes_entreprise_afficher, " Type : ", type(data_personnes_entreprise_afficher))
 
                 # Différencier les messages.
-                if not data_genres_films_afficher and id_entreprise_sel == 0:
+                if not data_personnes_entreprise_afficher and id_entreprise_sel == 0:
                     flash("""La table "t_film" est vide. !""", "warning")
-                elif not data_genres_films_afficher and id_entreprise_sel > 0:
+                elif not data_personnes_entreprise_afficher and id_entreprise_sel > 0:
                     # Si l'utilisateur change l'id_film dans l'URL et qu'il ne correspond à aucun film
                     flash(f"Le film {id_entreprise_sel} demandé n'existe pas !!", "warning")
                 else:
@@ -67,9 +67,9 @@ def entreprise_personnes_afficher(id_entreprise_sel):
             raise ExceptionFilmsGenresAfficher(f"fichier : {Path(__file__).name}  ;  {entreprise_personnes_afficher.__name__} ;"
                                                f"{Exception_entreprise_personnes_afficher}")
 
-    print("entreprise_personnes_afficher  ", data_genres_films_afficher)
+    print("entreprise_personnes_afficher  ", data_personnes_entreprise_afficher)
     # Envoie la page "HTML" au serveur.
-    return render_template("entreprise_personnes/entreprise_personnes_afficher.html", data=data_genres_films_afficher)
+    return render_template("entreprise_personnes/entreprise_personnes_afficher.html", data=data_personnes_entreprise_afficher)
 
 
 """
@@ -96,8 +96,8 @@ def edit_entreprise_personnes_selected():
                 strsql_personnes_afficher = """SELECT id_personnes, nom_personnes
                                             FROM t_personnes ORDER BY id_personnes ASC"""
                 mc_afficher.execute(strsql_personnes_afficher)
-            data_genres_all = mc_afficher.fetchall()
-            print("dans edit_entreprise_personnes_selected ---> data_genres_all", data_genres_all)
+            data_personnes_all = mc_afficher.fetchall()
+            print("dans edit_entreprise_personnes_selected ---> data_personnes_all", data_personnes_all)
 
             # Récupère la valeur de "id_film" du formulaire html "entreprise_personnes_afficher.html"
             # l'utilisateur clique sur le bouton "Modifier" et on récupère la valeur de "id_film"
@@ -158,7 +158,7 @@ def edit_entreprise_personnes_selected():
                                                  f"{Exception_edit_entreprise_personnes_selected}")
 
     return render_template("entreprise_personnes/entreprise_personnes_modifier_tags_dropbox.html",
-                           data_genres=data_genres_all,
+                           data_genres=data_personnes_all,
                            data_film_selected=data_genre_film_selected,
                            data_genres_attribues=data_genres_films_attribues,
                            data_genres_non_attribues=data_genres_films_non_attribues)

@@ -99,7 +99,7 @@ def demo_select_wtf():
     return render_template("zzz_essais_om_104/demo_form_select_wtf.html",
                            form=form_demo,
                            genre_selectionne=genre_selectionne,
-                           data_genres_drop_down=data_genres)
+                           data_personnes_drop_down=data_genres)
 
 
 @app.route("/demo_select_dropdown_bootstrap", methods=['GET', 'POST'])
