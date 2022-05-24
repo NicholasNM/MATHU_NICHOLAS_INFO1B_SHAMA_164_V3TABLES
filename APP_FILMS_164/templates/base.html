@@ -56,25 +56,9 @@
 						<ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
 							<li><a class="nav-link" href="{{ url_for('entreprise_personnes_afficher', id_entreprise_sel=0) }}">Entreprises</a>
 							</li>
-							<li><a class="nav-link" href="{{ url_for('entreprise_personnes_afficher', id_entreprise_sel=0) }}">Entreprises/Personnes</a></li>
+							<li><a class="nav-link" href="{{ url_for('entreprise_personnes_afficher', id_entreprise_sel=0) }}">Clique Juste sur le premier</a></li>
 						</ul>
 					</li>
-
-					<li class="nav-item">
-						<a class="nav-link" href="{{ url_for('personnes_taille_dict') }}">Démo "TAILLE"</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="{{ url_for('route_hommage_a_u_x_V_ictim_es_du_monstre_du_mod_1_6_4') }}">Route "essai"</a>
-					</li>
-					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-							Autres démos
-						</a>
-						<ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-							<li><a class="dropdown-item" href="{{ url_for('index') }}">Démo index (sans template)</a></li>
-							<li><a class="dropdown-item" href="404.html">404</a></li>
-							<li><a class="dropdown-item" href="{{ url_for('mon_premier_wtform') }}">Essai form</a></li>
-							<li><a class="dropdown-item" href="{{ url_for('demo_select_wtf') }}">Essai DROPDOWN</a></li>
 						</ul>
 					</li>
 				</ul>
