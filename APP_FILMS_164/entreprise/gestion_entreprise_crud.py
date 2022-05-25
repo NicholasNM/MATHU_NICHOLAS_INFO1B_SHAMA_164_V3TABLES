@@ -190,13 +190,13 @@ def entreprise_delete_wtf():
             valeur_delete_dictionnaire = {"value_id_entreprise": id_entreprise_delete}
             print("valeur_delete_dictionnaire ", valeur_delete_dictionnaire)
 
-            str_sql_delete_fk_film_genre = """DELETE FROM t_e_personnes WHERE fk_entreprise = %(value_id_entreprise)s"""
-            str_sql_delete_film = """DELETE FROM t_entreprise WHERE id_entreprise = %(value_id_entreprise)s"""
+            str_sql_delete_fk_entreprise_personnes = """DELETE FROM t_e_personnes WHERE fk_entreprise = %(value_id_entreprise)s"""
+            str_sql_delete_entreprise = """DELETE FROM t_entreprise WHERE id_entreprise = %(value_id_entreprise)s"""
             # Manière brutale d'effacer d'abord la "fk_film", même si elle n'existe pas dans la "t_genre_film"
             # Ensuite on peut effacer le film vu qu'il n'est plus "lié" (INNODB) dans la "t_genre_film"
             with DBconnection() as mconn_bd:
-                mconn_bd.execute(str_sql_delete_fk_film_genre, valeur_delete_dictionnaire)
-                mconn_bd.execute(str_sql_delete_film, valeur_delete_dictionnaire)
+                mconn_bd.execute(str_sql_delete_fk_entreprise_personnes, valeur_delete_dictionnaire)
+                mconn_bd.execute(str_sql_delete_entreprise, valeur_delete_dictionnaire)
 
             flash(f"Entreprise définitivement effacé", "success")
             print(f"Entreprise définitivement effacé")
@@ -208,10 +208,10 @@ def entreprise_delete_wtf():
             print(id_entreprise_delete, type(id_entreprise_delete))
 
             # Requête qui affiche le film qui doit être efffacé.
-            str_sql_genres_films_delete = """SELECT * FROM t_entreprise WHERE id_entreprise = %(value_id_entreprise)s"""
+            str_sql_personnes_entreprise_delete = """SELECT * FROM t_entreprise WHERE id_entreprise = %(value_id_entreprise)s"""
 
             with DBconnection() as mydb_conn:
-                mydb_conn.execute(str_sql_genres_films_delete, valeur_select_dictionnaire)
+                mydb_conn.execute(str_sql_personnes_entreprise_delete, valeur_select_dictionnaire)
                 data_entreprise_delete = mydb_conn.fetchall()
                 print("data_entreprise_delete...", data_entreprise_delete)
 

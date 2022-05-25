@@ -254,12 +254,12 @@ def personnes_delete_wtf():
                 valeur_delete_dictionnaire = {"value_id_personnes": id_personnes_delete}
                 print("valeur_delete_dictionnaire ", valeur_delete_dictionnaire)
 
-                str_sql_delete_films_genre = """DELETE FROM t_e_personnes WHERE fk_personnes = %(value_id_personnes)s"""
+                str_sql_delete_entreprise_personnes = """DELETE FROM t_e_personnes WHERE fk_personnes = %(value_id_personnes)s"""
                 str_sql_delete_idgenre = """DELETE FROM t_personnes WHERE id_personnes = %(value_id_personnes)s"""
                 # Manière brutale d'effacer d'abord la "fk_personnes", même si elle n'existe pas dans la "t_e_personnes"
                 # Ensuite on peut effacer le genre vu qu'il n'est plus "lié" (INNODB) dans la "t_e_personnes"
                 with DBconnection() as mconn_bd:
-                    mconn_bd.execute(str_sql_delete_films_genre, valeur_delete_dictionnaire)
+                    mconn_bd.execute(str_sql_delete_entreprise_personnes, valeur_delete_dictionnaire)
                     mconn_bd.execute(str_sql_delete_idgenre, valeur_delete_dictionnaire)
 
                 flash(f"Personne définitivement effacé !!", "success")
@@ -272,7 +272,7 @@ def personnes_delete_wtf():
             print(id_personnes_delete, type(id_personnes_delete))
 
             # Requête qui affiche tous les entreprise_personnes qui ont le genre que l'utilisateur veut effacer
-            str_sql_genres_films_delete = """SELECT id_entreprise, nom_entreprise, num_entreprise, email_entreprise
+            str_sql_personnes_entreprise_delete = """SELECT id_entreprise, nom_entreprise, num_entreprise, email_entreprise
                                             FROM t_entreprise ent
                                             INNER JOIN t_e_personnes epers ON epers.fk_entreprise = ent.id_entreprise
                                             INNER JOIN t_personnes pers ON epers.fk_personnes = pers.id_personnes
@@ -280,7 +280,7 @@ def personnes_delete_wtf():
                                             """
 
             with DBconnection() as mydb_conn:
-                mydb_conn.execute(str_sql_genres_films_delete, valeur_select_dictionnaire)
+                mydb_conn.execute(str_sql_personnes_entreprise_delete, valeur_select_dictionnaire)
                 data_entreprise_attribue_personnes_delete = mydb_conn.fetchall()
                 print("data_entreprise_attribue_personnes_delete...", data_entreprise_attribue_personnes_delete)
 
