@@ -113,13 +113,13 @@ def edit_entreprise_personnes_selected():
             # Constitution d'un dictionnaire pour associer l'id du film sélectionné avec un nom de variable
             valeur_id_entreprise_selected_dictionnaire = {"value_id_entreprise_selected": id_entreprise_personnes_edit}
 
-            # Récupère les données grâce à 3 requêtes MySql définie dans la fonction genres_films_afficher_data
+            # Récupère les données grâce à 3 requêtes MySql définie dans la fonction personnes_entreprise_afficher_data
             # 1) Sélection du film choisi
             # 2) Sélection des personnes_html "déjà" attribués pour le film.
             # 3) Sélection des personnes_html "pas encore" attribués pour le film choisi.
-            # ATTENTION à l'ordre d'assignation des variables retournées par la fonction "genres_films_afficher_data"
+            # ATTENTION à l'ordre d'assignation des variables retournées par la fonction "personnes_entreprise_afficher_data"
             data_personnes_entreprise_selected, data_personnes_entreprise_non_attribues, data_personnes_entreprise_attribues = \
-                genres_films_afficher_data(valeur_id_entreprise_selected_dictionnaire)
+                personnes_entreprise_afficher_data(valeur_id_entreprise_selected_dictionnaire)
 
             print(data_personnes_entreprise_selected)
             lst_data_entreprise_selected = [item['id_entreprise'] for item in data_personnes_entreprise_selected]
@@ -231,30 +231,30 @@ def update_personnes_entreprise_selected():
             with DBconnection() as mconn_bd:
                 # Pour le film sélectionné, parcourir la liste des personnes_html à INSÉRER dans la "t_genre_film".
                 # Si la liste est vide, la boucle n'est pas parcourue.
-                for id_genre_ins in lst_diff_personnes_insert_a:
+                for id_personnes_ins in lst_diff_personnes_insert_a:
                     # Constitution d'un dictionnaire pour associer l'id du film sélectionné avec un nom de variable
-                    # et "id_genre_ins" (l'id du genre dans la liste) associé à une variable.
-                    valeurs_film_sel_genre_sel_dictionnaire = {"value_fk_entreprise": id_entreprise_selected,
-                                                               "value_fk_personnes": id_genre_ins}
+                    # et "id_personnes_ins" (l'id du genre dans la liste) associé à une variable.
+                    valeurs_entreprise_sel_personnes_sel_dictionnaire = {"value_fk_entreprise": id_entreprise_selected,
+                                                               "value_fk_personnes": id_personnes_ins}
 
-                    mconn_bd.execute(strsql_insert_personnes_entreprise, valeurs_film_sel_genre_sel_dictionnaire)
+                    mconn_bd.execute(strsql_insert_personnes_entreprise, valeurs_entreprise_sel_personnes_sel_dictionnaire)
 
                 # Pour le film sélectionné, parcourir la liste des personnes_html à EFFACER dans la "t_genre_film".
                 # Si la liste est vide, la boucle n'est pas parcourue.
-                for id_genre_del in lst_diff_personnes_delete_b:
+                for id_personnes_del in lst_diff_personnes_delete_b:
                     # Constitution d'un dictionnaire pour associer l'id du film sélectionné avec un nom de variable
-                    # et "id_genre_del" (l'id du genre dans la liste) associé à une variable.
-                    valeurs_film_sel_genre_sel_dictionnaire = {"value_fk_entreprise": id_entreprise_selected,
-                                                               "value_fk_personnes": id_genre_del}
+                    # et "id_personnes_del" (l'id du genre dans la liste) associé à une variable.
+                    valeurs_entreprise_sel_personnes_sel_dictionnaire = {"value_fk_entreprise": id_entreprise_selected,
+                                                               "value_fk_personnes": id_personnes_del}
 
                     # Du fait de l'utilisation des "context managers" on accède au curseur grâce au "with".
                     # la subtilité consiste à avoir une méthode "execute" dans la classe "DBconnection"
                     # ainsi quand elle aura terminé l'insertion des données le destructeur de la classe "DBconnection"
                     # sera interprété, ainsi on fera automatiquement un commit
-                    mconn_bd.execute(strsql_delete_personnes_entreprise, valeurs_film_sel_genre_sel_dictionnaire)
+                    mconn_bd.execute(strsql_delete_personnes_entreprise, valeurs_entreprise_sel_personnes_sel_dictionnaire)
 
         except Exception as Exception_update_personnes_entreprise_selected:
-            raise ExceptionUpdateGenreFilmSelected(f"fichier : {Path(__file__).name}  ;  "
+            raise ExceptionUpdatePersonnesEntrepriseSelected(f"fichier : {Path(__file__).name}  ;  "
                                                    f"{update_personnes_entreprise_selected.__name__} ; "
                                                    f"{Exception_update_personnes_entreprise_selected}")
 
@@ -264,7 +264,7 @@ def update_personnes_entreprise_selected():
 
 
 """
-    nom: genres_films_afficher_data
+    nom: personnes_entreprise_afficher_data
 
     Récupère la liste de tous les personnes_html du film sélectionné par le bouton "MODIFIER" de "entreprise_personnes_afficher.html"
     Nécessaire pour afficher tous les "TAGS" des personnes_html, ainsi l'utilisateur voit les personnes_html à disposition
@@ -273,7 +273,7 @@ def update_personnes_entreprise_selected():
 """
 
 
-def genres_films_afficher_data(valeur_id_entreprise_selected_dict):
+def personnes_entreprise_afficher_data(valeur_id_entreprise_selected_dict):
     print("valeur_id_entreprise_selected_dict...", valeur_id_entreprise_selected_dict)
     try:
 
@@ -299,7 +299,7 @@ def genres_films_afficher_data(valeur_id_entreprise_selected_dict):
             # Récupère les données de la requête.
             data_personnes_entreprise_non_attribues = mc_afficher.fetchall()
             # Affichage dans la console
-            print("genres_films_afficher_data ----> data_personnes_entreprise_non_attribues ", data_personnes_entreprise_non_attribues,
+            print("personnes_entreprise_afficher_data ----> data_personnes_entreprise_non_attribues ", data_personnes_entreprise_non_attribues,
                   " Type : ",
                   type(data_personnes_entreprise_non_attribues))
 
@@ -321,7 +321,7 @@ def genres_films_afficher_data(valeur_id_entreprise_selected_dict):
             # Retourne les données des "SELECT"
             return data_entreprise_selected, data_personnes_entreprise_non_attribues, data_personnes_entreprise_attribues
 
-    except Exception as Exception_genres_films_afficher_data:
+    except Exception as Exception_personnes_entreprise_afficher_data:
         raise ExceptionEntreprisePersonnesAfficherData(f"fichier : {Path(__file__).name}  ;  "
-                                               f"{genres_films_afficher_data.__name__} ; "
-                                               f"{Exception_genres_films_afficher_data}")
+                                               f"{personnes_entreprise_afficher_data.__name__} ; "
+                                               f"{Exception_personnes_entreprise_afficher_data}")

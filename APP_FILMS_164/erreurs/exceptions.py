@@ -103,7 +103,7 @@ class ExceptionEditPersonnesEntrepriseSelected(Base):
     pass
 
 
-class ExceptionUpdateGenreFilmSelected(Base):
+class ExceptionUpdatePersonnesEntrepriseSelected(Base):
     pass
 
 
