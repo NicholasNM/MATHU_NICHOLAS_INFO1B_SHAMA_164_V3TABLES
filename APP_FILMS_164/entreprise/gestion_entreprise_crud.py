@@ -154,18 +154,18 @@ Test : ex. cliquer sur le menu "film" puis cliquer sur le bouton "DELETE" d'un "
     
 Paramètres : sans
 
-Remarque :  Dans le champ "nom_film_delete_wtf" du formulaire "entreprise/entreprise_delete_wtf.html"
+Remarque :  Dans le champ "nom_entreprise_delete_wtf" du formulaire "entreprise/entreprise_delete_wtf.html"
             On doit simplement cliquer sur "DELETE"
 """
 
 
 @app.route("/film_delete", methods=['GET', 'POST'])
-def film_delete_wtf():
+def entreprise_delete_wtf():
     # Pour afficher ou cacher les boutons "EFFACER"
     data_entreprise_delete = None
     btn_submit_del = None
     # L'utilisateur vient de cliquer sur le bouton "DELETE". Récupère la valeur de "id_film"
-    id_film_delete = request.values['id_film_btn_delete_html']
+    id_film_delete = request.values['id_entreprise_btn_delete_html']
 
     # Objet formulaire pour effacer le film sélectionné.
     form_delete_film = FormWTFDeleteFilm()
@@ -222,10 +222,10 @@ def film_delete_wtf():
             # Le bouton pour l'action "DELETE" dans le form. "entreprise_delete_wtf.html" est caché.
             btn_submit_del = False
 
-    except Exception as Exception_film_delete_wtf:
+    except Exception as Exception_entreprise_delete_wtf:
         raise ExceptionFilmDeleteWtf(f"fichier : {Path(__file__).name}  ;  "
-                                     f"{film_delete_wtf.__name__} ; "
-                                     f"{Exception_film_delete_wtf}")
+                                     f"{entreprise_delete_wtf.__name__} ; "
+                                     f"{Exception_entreprise_delete_wtf}")
 
     return render_template("entreprise/entreprise_delete_wtf.html",
                            form_delete_film=form_delete_film,

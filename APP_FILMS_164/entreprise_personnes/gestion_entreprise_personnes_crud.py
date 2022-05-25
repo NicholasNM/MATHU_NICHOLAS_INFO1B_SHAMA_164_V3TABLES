@@ -101,9 +101,9 @@ def edit_entreprise_personnes_selected():
 
             # Récupère la valeur de "id_film" du formulaire html "entreprise_personnes_afficher.html"
             # l'utilisateur clique sur le bouton "Modifier" et on récupère la valeur de "id_film"
-            # grâce à la variable "id_film_genres_edit_html" dans le fichier "entreprise_personnes_afficher.html"
-            # href="{{ url_for('edit_entreprise_personnes_selected', id_film_genres_edit_html=row.id_film) }}"
-            id_film_genres_edit = request.values['id_film_genres_edit_html']
+            # grâce à la variable "id_entreprise_personnes_edit_html" dans le fichier "entreprise_personnes_afficher.html"
+            # href="{{ url_for('edit_entreprise_personnes_selected', id_entreprise_personnes_edit_html=row.id_film) }}"
+            id_film_genres_edit = request.values['id_entreprise_personnes_edit_html']
 
             # Mémorise l'id du film dans une variable de session
             # (ici la sécurité de l'application n'est pas engagée)
