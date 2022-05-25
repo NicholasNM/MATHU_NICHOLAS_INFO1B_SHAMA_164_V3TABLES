@@ -122,9 +122,9 @@ def edit_entreprise_personnes_selected():
                 genres_films_afficher_data(valeur_id_entreprise_selected_dictionnaire)
 
             print(data_personnes_entreprise_selected)
-            lst_data_film_selected = [item['id_entreprise'] for item in data_personnes_entreprise_selected]
-            print("lst_data_film_selected  ", lst_data_film_selected,
-                  type(lst_data_film_selected))
+            lst_data_entreprise_selected = [item['id_entreprise'] for item in data_personnes_entreprise_selected]
+            print("lst_data_entreprise_selected  ", lst_data_entreprise_selected,
+                  type(lst_data_entreprise_selected))
 
             # Dans le composant "tags-selector-tagselect" on doit connaître
             # les personnes_html qui ne sont pas encore sélectionnés.
@@ -159,7 +159,7 @@ def edit_entreprise_personnes_selected():
 
     return render_template("entreprise_personnes/entreprise_personnes_modifier_tags_dropbox.html",
                            data_genres=data_personnes_all,
-                           data_film_selected=data_personnes_entreprise_selected,
+                           data_entreprise_selected=data_personnes_entreprise_selected,
                            data_genres_attribues=data_genres_films_attribues,
                            data_personnes_non_attribues=data_genres_films_non_attribues)
 
@@ -306,9 +306,9 @@ def genres_films_afficher_data(valeur_id_entreprise_selected_dict):
             # Envoi de la commande MySql
             mc_afficher.execute(strsql_film_selected, valeur_id_entreprise_selected_dict)
             # Récupère les données de la requête.
-            data_film_selected = mc_afficher.fetchall()
+            data_entreprise_selected = mc_afficher.fetchall()
             # Affichage dans la console
-            print("data_film_selected  ", data_film_selected, " Type : ", type(data_film_selected))
+            print("data_entreprise_selected  ", data_entreprise_selected, " Type : ", type(data_entreprise_selected))
 
             # Envoi de la commande MySql
             mc_afficher.execute(strsql_genres_films_attribues, valeur_id_entreprise_selected_dict)
@@ -319,7 +319,7 @@ def genres_films_afficher_data(valeur_id_entreprise_selected_dict):
                   type(data_genres_films_attribues))
 
             # Retourne les données des "SELECT"
-            return data_film_selected, data_genres_films_non_attribues, data_genres_films_attribues
+            return data_entreprise_selected, data_genres_films_non_attribues, data_genres_films_attribues
 
     except Exception as Exception_genres_films_afficher_data:
         raise ExceptionGenresFilmsAfficherData(f"fichier : {Path(__file__).name}  ;  "

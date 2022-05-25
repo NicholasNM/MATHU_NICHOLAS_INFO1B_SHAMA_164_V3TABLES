@@ -111,7 +111,7 @@ class ExceptionGenresFilmsAfficherData(Base):
     pass
 
 
-class ExceptionFilmUpdateWtf(Base):
+class ExceptionEntrepriseUpdateWtf(Base):
     pass
 
 

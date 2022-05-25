@@ -120,26 +120,26 @@ def entreprise_update_wtf():
             return redirect(url_for('entreprise_personnes_afficher', id_entreprise_sel=id_entreprise_update))
         elif request.method == "GET":
             # Opération sur la BD pour récupérer "id_film" et "intitule_genre" de la "t_genre"
-            str_sql_id_film = "SELECT * FROM t_entreprise WHERE id_entreprise = %(value_id_entreprise)s"
+            str_sql_id_entreprise = "SELECT * FROM t_entreprise WHERE id_entreprise = %(value_id_entreprise)s"
             valeur_select_dictionnaire = {"value_id_entreprise": id_entreprise_update}
             with DBconnection() as mybd_conn:
-                mybd_conn.execute(str_sql_id_film, valeur_select_dictionnaire)
+                mybd_conn.execute(str_sql_id_entreprise, valeur_select_dictionnaire)
             # Une seule valeur est suffisante "fetchone()", vu qu'il n'y a qu'un seul champ "nom genre" pour l'UPDATE
-            data_film = mybd_conn.fetchone()
-            print("data_film ", data_film, " type ", type(data_film), " genre ",
-                  data_film["nom_entreprise"])
+            data_entreprise = mybd_conn.fetchone()
+            print("data_entreprise ", data_entreprise, " type ", type(data_entreprise), " genre ",
+                  data_entreprise["nom_entreprise"])
 
             # Afficher la valeur sélectionnée dans le champ du formulaire "entreprise_update_wtf.html"
-            form_update_entreprise.nom_entreprise_update_wtf.data = data_film["nom_entreprise"]
-            form_update_entreprise.num_entreprise_update_wtf.data = data_film["num_entreprise"]
+            form_update_entreprise.nom_entreprise_update_wtf.data = data_entreprise["nom_entreprise"]
+            form_update_entreprise.num_entreprise_update_wtf.data = data_entreprise["num_entreprise"]
             # Debug simple pour contrôler la valeur dans la console "run" de PyCharm
-            print(f" duree film  ", data_film["num_entreprise"], "  type ", type(data_film["num_entreprise"]))
-            form_update_entreprise.nom_entreprise_update_wtf.data = data_film["nom_entreprise"]
-            form_update_entreprise.num_entreprise_update_wtf.data = data_film["num_entreprise"]
-            form_update_entreprise.email_entreprise_update_wtf.data = data_film["email_entreprise"]
+            print(f" duree film  ", data_entreprise["num_entreprise"], "  type ", type(data_entreprise["num_entreprise"]))
+            form_update_entreprise.nom_entreprise_update_wtf.data = data_entreprise["nom_entreprise"]
+            form_update_entreprise.num_entreprise_update_wtf.data = data_entreprise["num_entreprise"]
+            form_update_entreprise.email_entreprise_update_wtf.data = data_entreprise["email_entreprise"]
 
     except Exception as Exception_entreprise_update_wtf:
-        raise ExceptionFilmUpdateWtf(f"fichier : {Path(__file__).name}  ;  "
+        raise ExceptionEntrepriseUpdateWtf(f"fichier : {Path(__file__).name}  ;  "
                                      f"{entreprise_update_wtf.__name__} ; "
                                      f"{Exception_entreprise_update_wtf}")
 
@@ -162,7 +162,7 @@ Remarque :  Dans le champ "nom_film_delete_wtf" du formulaire "entreprise/entrep
 @app.route("/film_delete", methods=['GET', 'POST'])
 def film_delete_wtf():
     # Pour afficher ou cacher les boutons "EFFACER"
-    data_film_delete = None
+    data_entreprise_delete = None
     btn_submit_del = None
     # L'utilisateur vient de cliquer sur le bouton "DELETE". Récupère la valeur de "id_film"
     id_film_delete = request.values['id_film_btn_delete_html']
@@ -177,8 +177,8 @@ def film_delete_wtf():
         if form_delete_film.submit_btn_conf_del_film.data:
             # Récupère les données afin d'afficher à nouveau
             # le formulaire "entreprise/entreprise_delete_wtf.html" lorsque le bouton "Etes-vous sur d'effacer ?" est cliqué.
-            data_film_delete = session['data_film_delete']
-            print("data_film_delete ", data_film_delete)
+            data_entreprise_delete = session['data_entreprise_delete']
+            print("data_entreprise_delete ", data_entreprise_delete)
 
             flash(f"Effacer le film de façon définitive de la BD !!!", "danger")
             # L'utilisateur vient de cliquer sur le bouton de confirmation pour effacer...
@@ -212,12 +212,12 @@ def film_delete_wtf():
 
             with DBconnection() as mydb_conn:
                 mydb_conn.execute(str_sql_genres_films_delete, valeur_select_dictionnaire)
-                data_film_delete = mydb_conn.fetchall()
-                print("data_film_delete...", data_film_delete)
+                data_entreprise_delete = mydb_conn.fetchall()
+                print("data_entreprise_delete...", data_entreprise_delete)
 
                 # Nécessaire pour mémoriser les données afin d'afficher à nouveau
                 # le formulaire "entreprise/entreprise_delete_wtf.html" lorsque le bouton "Etes-vous sur d'effacer ?" est cliqué.
-                session['data_film_delete'] = data_film_delete
+                session['data_entreprise_delete'] = data_entreprise_delete
 
             # Le bouton pour l'action "DELETE" dans le form. "entreprise_delete_wtf.html" est caché.
             btn_submit_del = False
@@ -230,5 +230,5 @@ def film_delete_wtf():
     return render_template("entreprise/entreprise_delete_wtf.html",
                            form_delete_film=form_delete_film,
                            btn_submit_del=btn_submit_del,
-                           data_film_del=data_film_delete
+                           data_entreprise_del=data_entreprise_delete
                            )
