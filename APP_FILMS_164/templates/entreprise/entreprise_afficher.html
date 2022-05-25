@@ -51,7 +51,7 @@
 							<a class="btn btn-warning" href="{{ url_for('edit_entreprise_personnes_selected', id_entreprise_personnes_edit_html=row.id_entreprise) }}" role="button">Modifier</a>
 						</td>
 						<td class="align-middle" colspan="5">
-							{{ row.GenresFilms|default("PAS DE GENRES", True) }}
+							{{ row.EntreprisePersonnes|default("PAS DE GENRES", True) }}
 						</td>
 					</tr>
 				</tr>

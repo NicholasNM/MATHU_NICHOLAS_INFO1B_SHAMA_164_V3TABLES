@@ -107,7 +107,7 @@ class ExceptionUpdateGenreFilmSelected(Base):
     pass
 
 
-class ExceptionGenresFilmsAfficherData(Base):
+class ExceptionEntreprisePersonnesAfficherData(Base):
     pass
 
 

@@ -33,7 +33,7 @@ def entreprise_personnes_afficher(id_entreprise_sel):
         try:
             with DBconnection() as mc_afficher:
                 strsql_genres_films_afficher_data = """SELECT id_entreprise, nom_entreprise, num_entreprise, email_entreprise,
-                                                        GROUP_CONCAT(nom_personnes) as GenresFilms FROM  t_e_personnes
+                                                        GROUP_CONCAT(nom_personnes) as EntreprisePersonnes FROM  t_e_personnes
                                                         Right JOIN t_entreprise ent ON ent.id_entreprise = t_e_personnes.fk_entreprise 
                                                         Left JOIN t_personnes pers ON pers.id_personnes = t_e_personnes.fk_personnes
                                                         GROUP BY id_entreprise"""
@@ -277,12 +277,12 @@ def genres_films_afficher_data(valeur_id_entreprise_selected_dict):
     print("valeur_id_entreprise_selected_dict...", valeur_id_entreprise_selected_dict)
     try:
 
-        strsql_film_selected = """SELECT id_entreprise, nom_entreprise, num_entreprise, email_entreprise, GROUP_CONCAT(id_personnes) as GenresFilms FROM t_e_personnes
+        strsql_film_selected = """SELECT id_entreprise, nom_entreprise, num_entreprise, email_entreprise, GROUP_CONCAT(id_personnes) as EntreprisePersonnes FROM t_e_personnes
                                     INNER JOIN t_entreprise ON t_entreprise.id_entreprise = t_e_personnes.fk_entreprise
                                     INNER JOIN t_personnes ON t_personnes.id_personnes = t_e_personnes.fk_personnes
                                     WHERE id_entreprise = %(value_id_entreprise_selected)s"""
 
-        strsql_genres_films_non_attribues = """SELECT id_personnes, nom_personnes FROM t_personnes WHERE id_personnes not in(SELECT id_personnes as idGenresFilms FROM t_e_personnes
+        strsql_genres_films_non_attribues = """SELECT id_personnes, nom_personnes FROM t_personnes WHERE id_personnes not in(SELECT id_personnes as idEntreprisePersonnes FROM t_e_personnes
                                     INNER JOIN t_entreprise ON t_entreprise.id_entreprise = t_e_personnes.fk_entreprise
                                     INNER JOIN t_personnes ON t_personnes.id_personnes = t_e_personnes.fk_personnes
                                     WHERE id_entreprise = %(value_id_entreprise_selected)s)"""
@@ -322,6 +322,6 @@ def genres_films_afficher_data(valeur_id_entreprise_selected_dict):
             return data_entreprise_selected, data_genres_films_non_attribues, data_genres_films_attribues
 
     except Exception as Exception_genres_films_afficher_data:
-        raise ExceptionGenresFilmsAfficherData(f"fichier : {Path(__file__).name}  ;  "
+        raise ExceptionEntreprisePersonnesAfficherData(f"fichier : {Path(__file__).name}  ;  "
                                                f"{genres_films_afficher_data.__name__} ; "
                                                f"{Exception_genres_films_afficher_data}")
