@@ -95,11 +95,11 @@ class ExceptionGenresAjouterWtf(Base):
     pass
 
 
-class ExceptionFilmsGenresAfficher(Base):
+class ExceptionEntreprisePersonnesAfficher(Base):
     pass
 
 
-class ExceptionEditGenreFilmSelected(Base):
+class ExceptionEditPersonnesEntrepriseSelected(Base):
     pass
 
 

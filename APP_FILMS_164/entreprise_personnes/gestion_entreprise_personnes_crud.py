@@ -59,12 +59,12 @@ def entreprise_personnes_afficher(id_entreprise_sel):
                     flash("""La table "t_entreprise" est vide. !""", "warning")
                 elif not data_personnes_entreprise_afficher and id_entreprise_sel > 0:
                     # Si l'utilisateur change l'id_film dans l'URL et qu'il ne correspond à aucun film
-                    flash(f"Le film {id_entreprise_sel} demandé n'existe pas !!", "warning")
+                    flash(f"L'Entreprise {id_entreprise_sel} demandé n'existe pas !!", "warning")
                 else:
                     flash(f"Données des entreprises et des personnes affichés !!", "success")
 
         except Exception as Exception_entreprise_personnes_afficher:
-            raise ExceptionFilmsGenresAfficher(f"fichier : {Path(__file__).name}  ;  {entreprise_personnes_afficher.__name__} ;"
+            raise ExceptionEntreprisePersonnesAfficher(f"fichier : {Path(__file__).name}  ;  {entreprise_personnes_afficher.__name__} ;"
                                                f"{Exception_entreprise_personnes_afficher}")
 
     print("entreprise_personnes_afficher  ", data_personnes_entreprise_afficher)
@@ -103,15 +103,15 @@ def edit_entreprise_personnes_selected():
             # l'utilisateur clique sur le bouton "Modifier" et on récupère la valeur de "id_film"
             # grâce à la variable "id_entreprise_personnes_edit_html" dans le fichier "entreprise_personnes_afficher.html"
             # href="{{ url_for('edit_entreprise_personnes_selected', id_entreprise_personnes_edit_html=row.id_film) }}"
-            id_film_genres_edit = request.values['id_entreprise_personnes_edit_html']
+            id_entreprise_personnes_edit = request.values['id_entreprise_personnes_edit_html']
 
             # Mémorise l'id du film dans une variable de session
             # (ici la sécurité de l'application n'est pas engagée)
             # il faut éviter de stocker des données sensibles dans des variables de sessions.
-            session['session_id_film_genres_edit'] = id_film_genres_edit
+            session['session_id_entreprise_personnes_edit'] = id_entreprise_personnes_edit
 
             # Constitution d'un dictionnaire pour associer l'id du film sélectionné avec un nom de variable
-            valeur_id_entreprise_selected_dictionnaire = {"value_id_entreprise_selected": id_film_genres_edit}
+            valeur_id_entreprise_selected_dictionnaire = {"value_id_entreprise_selected": id_entreprise_personnes_edit}
 
             # Récupère les données grâce à 3 requêtes MySql définie dans la fonction genres_films_afficher_data
             # 1) Sélection du film choisi
@@ -153,7 +153,7 @@ def edit_entreprise_personnes_selected():
                   type(lst_data_personnes_entreprise_non_attribues))
 
         except Exception as Exception_edit_entreprise_personnes_selected:
-            raise ExceptionEditGenreFilmSelected(f"fichier : {Path(__file__).name}  ;  "
+            raise ExceptionEditPersonnesEntrepriseSelected(f"fichier : {Path(__file__).name}  ;  "
                                                  f"{edit_entreprise_personnes_selected.__name__} ; "
                                                  f"{Exception_edit_entreprise_personnes_selected}")
 
@@ -183,8 +183,8 @@ def update_genre_film_selected():
     if request.method == "POST":
         try:
             # Récupère l'id du film sélectionné
-            id_entreprise_selected = session['session_id_film_genres_edit']
-            print("session['session_id_film_genres_edit'] ", session['session_id_film_genres_edit'])
+            id_entreprise_selected = session['session_id_entreprise_personnes_edit']
+            print("session['session_id_entreprise_personnes_edit'] ", session['session_id_entreprise_personnes_edit'])
 
             # Récupère la liste des personnes_html qui ne sont pas associés au film sélectionné.
             old_lst_data_personnes_entreprise_non_attribues = session['session_lst_data_personnes_entreprise_non_attribues']
