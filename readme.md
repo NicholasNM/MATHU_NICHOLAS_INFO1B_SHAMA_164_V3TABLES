@@ -5,7 +5,7 @@ Le "début de la fin"
 
 ---
 #### Avant de commencer cette version presque finale.
-##### Cette démo. CRUD (Create Read Update Delete) presque complète sur les 3 tables de la base film : Soit "t_film"; "t_genre" et la table intermédiaire "t_genre_film"
+##### Cette démo. CRUD (Create Read Update Delete) presque complète sur les 3 tables de la base film : Soit "t_entreprise"; "t_genre" et la table intermédiaire "t_genre_film"
 * Un serveur MySql doit être installé
   * UWAMP : sur le site de "UWAMP", lire "Prerequisites IMPORTANT!!" (vous devez installer une des distributions Visual C++, j'ai choisi la plus récente) 
   * UWAMP : installer la version "EXE" (Choisir : Télécharger Exe/Install) est préférable à la version "PORTABLE"

@@ -16,7 +16,7 @@ try:
     with DBconnection() as db:
         db.execute(strsql_personnes_afficher)
         result = db.fetchall()
-        print("data_genres ", result, " Type : ", type(result))
+        print("data_personnes ", result, " Type : ", type(result))
 
 
 except Exception as erreur:

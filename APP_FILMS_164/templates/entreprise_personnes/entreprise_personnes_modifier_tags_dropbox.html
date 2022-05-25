@@ -103,7 +103,7 @@
                             <option value="{{ row.id_personnes }}" name="name_tags_non_attribues_html" class="isblue" >{{ row.nom_personnes }}</option>
                         {% endfor %}
 
-                        {% for row in data_genres_attribues %}
+                        {% for row in data_personnes_attribues %}
                             <option value="{{ row.id_personnes }}" name="name_tags_attribues_html" class="ispurple" selected>{{ row.nom_personnes }}</option>
                         {% endfor %}
                     </select>
