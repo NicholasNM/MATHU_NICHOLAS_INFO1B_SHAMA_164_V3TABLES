@@ -9,31 +9,31 @@
 			</p>
 			<form action="" method="POST" novalidate>
 				<!-- Protection contre les attaques Cross-Site Request Forgery (CSRF) -->
-				{{ form_update_film.hidden_tag() }}
+				{{ form_update_entreprise.hidden_tag() }}
 				<div class="form-group">
 					<p>
-						{{ form_update_film.nom_entreprise_update_wtf.label }}<br>
-						{{ form_update_film.nom_entreprise_update_wtf(cols=50, rows=3) }}<br>
-						{% for error in form_update_film.nom_entreprise_update_wtf.errors %}
+						{{ form_update_entreprise.nom_entreprise_update_wtf.label }}<br>
+						{{ form_update_entreprise.nom_entreprise_update_wtf(cols=50, rows=3) }}<br>
+						{% for error in form_update_entreprise.nom_entreprise_update_wtf.errors %}
 						<span style="color: red;">[{{ error }}]</span>
 						{% endfor %}
 					</p>
 					<p>
-						{{ form_update_film.num_entreprise_update_wtf.label }}<br>
-						{{ form_update_film.num_entreprise_update_wtf(size=32) }}<br>
-						{% for error in form_update_film.num_entreprise_update_wtf.errors %}
+						{{ form_update_entreprise.num_entreprise_update_wtf.label }}<br>
+						{{ form_update_entreprise.num_entreprise_update_wtf(size=32) }}<br>
+						{% for error in form_update_entreprise.num_entreprise_update_wtf.errors %}
 						<span style="color: red;">[{{ error }}]</span>
 						{% endfor %}
 					</p>
 					<p>
-						{{ form_update_film.email_entreprise_update_wtf.label }}<br>
-						{{ form_update_film.email_entreprise_update_wtf(cols=50, rows=10) }}<br>
-						{% for error in form_update_film.email_entreprise_update_wtf.errors %}
+						{{ form_update_entreprise.email_entreprise_update_wtf.label }}<br>
+						{{ form_update_entreprise.email_entreprise_update_wtf(cols=50, rows=10) }}<br>
+						{% for error in form_update_entreprise.email_entreprise_update_wtf.errors %}
 						<span style="color: red;">[{{ error }}]</span>
 						{% endfor %}
 					</p>
 				</div>
-				{{ form_update_film.submit(class="btn btn-primary") }}
+				{{ form_update_entreprise.submit(class="btn btn-primary") }}
 			</form>
 		</div>
 	</div>

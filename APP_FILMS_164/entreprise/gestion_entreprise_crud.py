@@ -11,11 +11,11 @@ from flask import url_for
 
 from APP_FILMS_164.database.database_tools import DBconnection
 from APP_FILMS_164.erreurs.exceptions import *
-from APP_FILMS_164.entreprise.gestion_entreprise_wtf_forms import FormWTFUpdateFilm, FormWTFAddFilm, FormWTFDeleteFilm
+from APP_FILMS_164.entreprise.gestion_entreprise_wtf_forms import FormWTFUpdateEntreprise, FormWTFAddEntreprise, FormWTFDeleteFilm
 
 """Ajouter un film grâce au formulaire "entreprise_add_wtf.html"
 Auteur : OM 2022.04.11
-Définition d'une "route" /film_add
+Définition d'une "route" /entreprise_add
 
 Test : exemple: cliquer sur le menu "Films/Genres" puis cliquer sur le bouton "ADD" d'un "film"
 
@@ -28,10 +28,10 @@ Remarque :  Dans le champ "nom_entreprise_update_wtf" du formulaire "entreprise/
 """
 
 
-@app.route("/film_add", methods=['GET', 'POST'])
+@app.route("/entreprise_add", methods=['GET', 'POST'])
 def entreprise_add_wtf():
     # Objet formulaire pour AJOUTER un film
-    form_add_entreprise = FormWTFAddFilm()
+    form_add_entreprise = FormWTFAddEntreprise()
     if request.method == "POST":
         try:
             if form_add_entreprise.validate_on_submit():
@@ -45,13 +45,13 @@ def entreprise_add_wtf():
 
                 print("valeurs_insertion_dictionnaire ", valeurs_insertion_dictionnaire)
 
-                strsql_insert_film = """INSERT INTO t_entreprise 
+                strsql_insert_entreprise = """INSERT INTO t_entreprise 
                 (id_entreprise,fk_adresse,nom_entreprise,num_entreprise,email_entreprise) VALUES 
                 (NULL,NULL,%(value_nom_entreprise)s,
                 %(value_num_entreprise)s,%(value_email_entreprise)s) """
 
                 with DBconnection() as mconn_bd:
-                    mconn_bd.execute(strsql_insert_film, valeurs_insertion_dictionnaire)
+                    mconn_bd.execute(strsql_insert_entreprise, valeurs_insertion_dictionnaire)
 
                 flash(f"Données insérées !!", "success")
                 print(f"Données insérées !!")
@@ -69,7 +69,7 @@ def entreprise_add_wtf():
 
 """Editer(update) un film qui a été sélectionné dans le formulaire "entreprise_personnes_afficher.html"
 Auteur : OM 2022.04.11
-Définition d'une "route" /film_update
+Définition d'une "route" /entreprise_update
 
 Test : exemple: cliquer sur le menu "Films/Genres" puis cliquer sur le bouton "EDIT" d'un "film"
 
@@ -83,20 +83,20 @@ Remarque :  Dans le champ "nom_entreprise_update_wtf" du formulaire "entreprise/
 """
 
 
-@app.route("/film_update", methods=['GET', 'POST'])
+@app.route("/entreprise_update", methods=['GET', 'POST'])
 def entreprise_update_wtf():
     # L'utilisateur vient de cliquer sur le bouton "EDIT". Récupère la valeur de "id_film"
     id_entreprise_update = request.values['id_entreprise_btn_edit_html']
 
     # Objet formulaire pour l'UPDATE
-    form_update_film = FormWTFUpdateFilm()
+    form_update_entreprise = FormWTFUpdateEntreprise()
     try:
-        print(" on submit ", form_update_film.validate_on_submit())
-        if form_update_film.validate_on_submit():
+        print(" on submit ", form_update_entreprise.validate_on_submit())
+        if form_update_entreprise.validate_on_submit():
             # Récupèrer la valeur du champ depuis "personnes_update_wtf.html" après avoir cliqué sur "SUBMIT".
-            nom_entreprise_update = form_update_film.nom_entreprise_update_wtf.data
-            num_entreprise_update = form_update_film.num_entreprise_update_wtf.data
-            email_entreprise_update = form_update_film.email_entreprise_update_wtf.data
+            nom_entreprise_update = form_update_entreprise.nom_entreprise_update_wtf.data
+            num_entreprise_update = form_update_entreprise.num_entreprise_update_wtf.data
+            email_entreprise_update = form_update_entreprise.email_entreprise_update_wtf.data
 
             valeur_update_dictionnaire = {"value_id_entreprise": id_entreprise_update,
                                           "value_nom_entreprise": nom_entreprise_update,
@@ -105,12 +105,12 @@ def entreprise_update_wtf():
                                           }
             print("valeur_update_dictionnaire ", valeur_update_dictionnaire)
 
-            str_sql_update_nom_film = """UPDATE t_entreprise SET nom_entreprise = %(value_nom_entreprise)s,
+            str_sql_update_nom_entreprise = """UPDATE t_entreprise SET nom_entreprise = %(value_nom_entreprise)s,
                                                             num_entreprise = %(value_num_entreprise)s,
                                                             email_entreprise = %(value_email_entreprise)s
                                                             WHERE id_entreprise = %(value_id_entreprise)s"""
             with DBconnection() as mconn_bd:
-                mconn_bd.execute(str_sql_update_nom_film, valeur_update_dictionnaire)
+                mconn_bd.execute(str_sql_update_nom_entreprise, valeur_update_dictionnaire)
 
             flash(f"Donnée mise à jour !!", "success")
             print(f"Donnée mise à jour !!")
@@ -130,20 +130,20 @@ def entreprise_update_wtf():
                   data_film["nom_entreprise"])
 
             # Afficher la valeur sélectionnée dans le champ du formulaire "entreprise_update_wtf.html"
-            form_update_film.nom_entreprise_update_wtf.data = data_film["nom_entreprise"]
-            form_update_film.num_entreprise_update_wtf.data = data_film["num_entreprise"]
+            form_update_entreprise.nom_entreprise_update_wtf.data = data_film["nom_entreprise"]
+            form_update_entreprise.num_entreprise_update_wtf.data = data_film["num_entreprise"]
             # Debug simple pour contrôler la valeur dans la console "run" de PyCharm
             print(f" duree film  ", data_film["num_entreprise"], "  type ", type(data_film["num_entreprise"]))
-            form_update_film.nom_entreprise_update_wtf.data = data_film["nom_entreprise"]
-            form_update_film.num_entreprise_update_wtf.data = data_film["num_entreprise"]
-            form_update_film.email_entreprise_update_wtf.data = data_film["email_entreprise"]
+            form_update_entreprise.nom_entreprise_update_wtf.data = data_film["nom_entreprise"]
+            form_update_entreprise.num_entreprise_update_wtf.data = data_film["num_entreprise"]
+            form_update_entreprise.email_entreprise_update_wtf.data = data_film["email_entreprise"]
 
     except Exception as Exception_entreprise_update_wtf:
         raise ExceptionFilmUpdateWtf(f"fichier : {Path(__file__).name}  ;  "
                                      f"{entreprise_update_wtf.__name__} ; "
                                      f"{Exception_entreprise_update_wtf}")
 
-    return render_template("entreprise/entreprise_update_wtf.html", form_update_film=form_update_film)
+    return render_template("entreprise/entreprise_update_wtf.html", form_update_entreprise=form_update_entreprise)
 
 
 """Effacer(delete) un film qui a été sélectionné dans le formulaire "entreprise_personnes_afficher.html"
