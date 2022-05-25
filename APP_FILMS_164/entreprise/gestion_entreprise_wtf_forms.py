@@ -50,7 +50,7 @@ class FormWTFUpdateEntreprise(FlaskForm):
     submit = SubmitField("Mettre à jour l' Entreprise")
 
 
-class FormWTFDeleteFilm(FlaskForm):
+class FormWTFDeleteEntreprise(FlaskForm):
     """
         Dans le formulaire "entreprise_delete_wtf.html"
 

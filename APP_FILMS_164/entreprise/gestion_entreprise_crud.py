@@ -11,7 +11,7 @@ from flask import url_for
 
 from APP_FILMS_164.database.database_tools import DBconnection
 from APP_FILMS_164.erreurs.exceptions import *
-from APP_FILMS_164.entreprise.gestion_entreprise_wtf_forms import FormWTFUpdateEntreprise, FormWTFAddEntreprise, FormWTFDeleteFilm
+from APP_FILMS_164.entreprise.gestion_entreprise_wtf_forms import FormWTFUpdateEntreprise, FormWTFAddEntreprise, FormWTFDeleteEntreprise
 
 """Ajouter un film grâce au formulaire "entreprise_add_wtf.html"
 Auteur : OM 2022.04.11
@@ -148,7 +148,7 @@ def entreprise_update_wtf():
 
 """Effacer(delete) un film qui a été sélectionné dans le formulaire "entreprise_personnes_afficher.html"
 Auteur : OM 2022.04.11
-Définition d'une "route" /film_delete
+Définition d'une "route" /entreprise_delete
     
 Test : ex. cliquer sur le menu "film" puis cliquer sur le bouton "DELETE" d'un "film"
     
@@ -159,35 +159,35 @@ Remarque :  Dans le champ "nom_entreprise_delete_wtf" du formulaire "entreprise/
 """
 
 
-@app.route("/film_delete", methods=['GET', 'POST'])
+@app.route("/entreprise_delete", methods=['GET', 'POST'])
 def entreprise_delete_wtf():
     # Pour afficher ou cacher les boutons "EFFACER"
     data_entreprise_delete = None
     btn_submit_del = None
     # L'utilisateur vient de cliquer sur le bouton "DELETE". Récupère la valeur de "id_film"
-    id_film_delete = request.values['id_entreprise_btn_delete_html']
+    id_entreprise_delete = request.values['id_entreprise_btn_delete_html']
 
     # Objet formulaire pour effacer le film sélectionné.
-    form_delete_film = FormWTFDeleteFilm()
+    form_delete_entreprise = FormWTFDeleteEntreprise()
     try:
         # Si on clique sur "ANNULER", afficher tous les entreprise.
-        if form_delete_film.submit_btn_annuler.data:
+        if form_delete_entreprise.submit_btn_annuler.data:
             return redirect(url_for("entreprise_personnes_afficher", id_entreprise_sel=0))
 
-        if form_delete_film.submit_btn_conf_del_film.data:
+        if form_delete_entreprise.submit_btn_conf_del_film.data:
             # Récupère les données afin d'afficher à nouveau
             # le formulaire "entreprise/entreprise_delete_wtf.html" lorsque le bouton "Etes-vous sur d'effacer ?" est cliqué.
             data_entreprise_delete = session['data_entreprise_delete']
             print("data_entreprise_delete ", data_entreprise_delete)
 
-            flash(f"Effacer le film de façon définitive de la BD !!!", "danger")
+            flash(f"Effacer l'entreprise de façon définitive de la Base de données !!!", "danger")
             # L'utilisateur vient de cliquer sur le bouton de confirmation pour effacer...
             # On affiche le bouton "Effacer genre" qui va irrémédiablement EFFACER le genre
             btn_submit_del = True
 
         # L'utilisateur a vraiment décidé d'effacer.
-        if form_delete_film.submit_btn_del_film.data:
-            valeur_delete_dictionnaire = {"value_id_entreprise": id_film_delete}
+        if form_delete_entreprise.submit_btn_del_film.data:
+            valeur_delete_dictionnaire = {"value_id_entreprise": id_entreprise_delete}
             print("valeur_delete_dictionnaire ", valeur_delete_dictionnaire)
 
             str_sql_delete_fk_film_genre = """DELETE FROM t_e_personnes WHERE fk_entreprise = %(value_id_entreprise)s"""
@@ -204,8 +204,8 @@ def entreprise_delete_wtf():
             # afficher les données
             return redirect(url_for('entreprise_personnes_afficher', id_entreprise_sel=0))
         if request.method == "GET":
-            valeur_select_dictionnaire = {"value_id_entreprise": id_film_delete}
-            print(id_film_delete, type(id_film_delete))
+            valeur_select_dictionnaire = {"value_id_entreprise": id_entreprise_delete}
+            print(id_entreprise_delete, type(id_entreprise_delete))
 
             # Requête qui affiche le film qui doit être efffacé.
             str_sql_genres_films_delete = """SELECT * FROM t_entreprise WHERE id_entreprise = %(value_id_entreprise)s"""
@@ -228,7 +228,7 @@ def entreprise_delete_wtf():
                                      f"{Exception_entreprise_delete_wtf}")
 
     return render_template("entreprise/entreprise_delete_wtf.html",
-                           form_delete_film=form_delete_film,
+                           form_delete_entreprise=form_delete_entreprise,
                            btn_submit_del=btn_submit_del,
                            data_entreprise_del=data_entreprise_delete
                            )
