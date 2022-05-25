@@ -84,9 +84,9 @@ Remarque :  Dans le champ "nom_entreprise_update_wtf" du formulaire "entreprise/
 
 
 @app.route("/film_update", methods=['GET', 'POST'])
-def film_update_wtf():
+def entreprise_update_wtf():
     # L'utilisateur vient de cliquer sur le bouton "EDIT". Récupère la valeur de "id_film"
-    id_entreprise_update = request.values['id_film_btn_edit_html']
+    id_entreprise_update = request.values['id_entreprise_btn_edit_html']
 
     # Objet formulaire pour l'UPDATE
     form_update_film = FormWTFUpdateFilm()
@@ -138,10 +138,10 @@ def film_update_wtf():
             form_update_film.num_entreprise_update_wtf.data = data_film["num_entreprise"]
             form_update_film.email_entreprise_update_wtf.data = data_film["email_entreprise"]
 
-    except Exception as Exception_film_update_wtf:
+    except Exception as Exception_entreprise_update_wtf:
         raise ExceptionFilmUpdateWtf(f"fichier : {Path(__file__).name}  ;  "
-                                     f"{film_update_wtf.__name__} ; "
-                                     f"{Exception_film_update_wtf}")
+                                     f"{entreprise_update_wtf.__name__} ; "
+                                     f"{Exception_entreprise_update_wtf}")
 
     return render_template("entreprise/entreprise_update_wtf.html", form_update_film=form_update_film)
 
