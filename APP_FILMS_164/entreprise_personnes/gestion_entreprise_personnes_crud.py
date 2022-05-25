@@ -165,7 +165,7 @@ def edit_entreprise_personnes_selected():
 
 
 """
-    nom: update_genre_film_selected
+    nom: update_personnes_entreprise_selected
 
     Récupère la liste de tous les personnes_html du film sélectionné par le bouton "MODIFIER" de "entreprise_personnes_afficher.html"
     
@@ -178,8 +178,8 @@ def edit_entreprise_personnes_selected():
 """
 
 
-@app.route("/update_genre_film_selected", methods=['GET', 'POST'])
-def update_genre_film_selected():
+@app.route("/update_personnes_entreprise_selected", methods=['GET', 'POST'])
+def update_personnes_entreprise_selected():
     if request.method == "POST":
         try:
             # Récupère l'id du film sélectionné
@@ -199,64 +199,64 @@ def update_genre_film_selected():
 
             # Récupère ce que l'utilisateur veut modifier comme personnes_html dans le composant "tags-selector-tagselect"
             # dans le fichier "genres_films_modifier_tags_dropbox.html"
-            new_lst_str_genres_films = request.form.getlist('name_select_tags')
-            print("new_lst_str_genres_films ", new_lst_str_genres_films)
+            new_lst_str_personnes_entreprise = request.form.getlist('name_select_tags')
+            print("new_lst_str_personnes_entreprise ", new_lst_str_personnes_entreprise)
 
             # OM 2021.05.02 Exemple : Dans "name_select_tags" il y a ['4','65','2']
             # On transforme en une liste de valeurs numériques. [4,65,2]
-            new_lst_int_genre_film_old = list(map(int, new_lst_str_genres_films))
-            print("new_lst_genre_film ", new_lst_int_genre_film_old, "type new_lst_genre_film ",
-                  type(new_lst_int_genre_film_old))
+            new_lst_int_personnes_entreprise_old = list(map(int, new_lst_str_personnes_entreprise))
+            print("new_lst_personnes_entreprise ", new_lst_int_personnes_entreprise_old, "type new_lst_personnes_entreprise ",
+                  type(new_lst_int_personnes_entreprise_old))
 
             # Pour apprécier la facilité de la vie en Python... "les ensembles en Python"
             # https://fr.wikibooks.org/wiki/Programmation_Python/Ensembles
             # OM 2021.05.02 Une liste de "id_genre" qui doivent être effacés de la table intermédiaire "t_genre_film".
-            lst_diff_genres_delete_b = list(set(old_lst_data_personnes_entreprise_attribues) -
-                                            set(new_lst_int_genre_film_old))
-            print("lst_diff_genres_delete_b ", lst_diff_genres_delete_b)
+            lst_diff_personnes_delete_b = list(set(old_lst_data_personnes_entreprise_attribues) -
+                                            set(new_lst_int_personnes_entreprise_old))
+            print("lst_diff_personnes_delete_b ", lst_diff_personnes_delete_b)
 
             # Une liste de "id_genre" qui doivent être ajoutés à la "t_genre_film"
-            lst_diff_genres_insert_a = list(
-                set(new_lst_int_genre_film_old) - set(old_lst_data_personnes_entreprise_attribues))
-            print("lst_diff_genres_insert_a ", lst_diff_genres_insert_a)
+            lst_diff_personnes_insert_a = list(
+                set(new_lst_int_personnes_entreprise_old) - set(old_lst_data_personnes_entreprise_attribues))
+            print("lst_diff_personnes_insert_a ", lst_diff_personnes_insert_a)
 
             # SQL pour insérer une nouvelle association entre
             # "fk_film"/"id_film" et "fk_genre"/"id_genre" dans la "t_genre_film"
-            strsql_insert_genre_film = """INSERT INTO t_e_personnes (id_e_personnes, fk_personnes, fk_entreprise)
-                                                    VALUES (NULL, %(value_fk_genre)s, %(value_fk_film)s)"""
+            strsql_insert_personnes_entreprise = """INSERT INTO t_e_personnes (id_e_personnes, fk_personnes, fk_entreprise)
+                                                    VALUES (NULL, %(value_fk_personnes)s, %(value_fk_entreprise)s)"""
 
             # SQL pour effacer une (des) association(s) existantes entre "id_film" et "id_genre" dans la "t_genre_film"
-            strsql_delete_genre_film = """DELETE FROM t_e_personnes WHERE fk_personnes = %(value_fk_genre)s AND fk_entreprise = %(value_fk_film)s"""
+            strsql_delete_personnes_entreprise = """DELETE FROM t_e_personnes WHERE fk_personnes = %(value_fk_personnes)s AND fk_entreprise = %(value_fk_entreprise)s"""
 
             with DBconnection() as mconn_bd:
                 # Pour le film sélectionné, parcourir la liste des personnes_html à INSÉRER dans la "t_genre_film".
                 # Si la liste est vide, la boucle n'est pas parcourue.
-                for id_genre_ins in lst_diff_genres_insert_a:
+                for id_genre_ins in lst_diff_personnes_insert_a:
                     # Constitution d'un dictionnaire pour associer l'id du film sélectionné avec un nom de variable
                     # et "id_genre_ins" (l'id du genre dans la liste) associé à une variable.
-                    valeurs_film_sel_genre_sel_dictionnaire = {"value_fk_film": id_entreprise_selected,
-                                                               "value_fk_genre": id_genre_ins}
+                    valeurs_film_sel_genre_sel_dictionnaire = {"value_fk_entreprise": id_entreprise_selected,
+                                                               "value_fk_personnes": id_genre_ins}
 
-                    mconn_bd.execute(strsql_insert_genre_film, valeurs_film_sel_genre_sel_dictionnaire)
+                    mconn_bd.execute(strsql_insert_personnes_entreprise, valeurs_film_sel_genre_sel_dictionnaire)
 
                 # Pour le film sélectionné, parcourir la liste des personnes_html à EFFACER dans la "t_genre_film".
                 # Si la liste est vide, la boucle n'est pas parcourue.
-                for id_genre_del in lst_diff_genres_delete_b:
+                for id_genre_del in lst_diff_personnes_delete_b:
                     # Constitution d'un dictionnaire pour associer l'id du film sélectionné avec un nom de variable
                     # et "id_genre_del" (l'id du genre dans la liste) associé à une variable.
-                    valeurs_film_sel_genre_sel_dictionnaire = {"value_fk_film": id_entreprise_selected,
-                                                               "value_fk_genre": id_genre_del}
+                    valeurs_film_sel_genre_sel_dictionnaire = {"value_fk_entreprise": id_entreprise_selected,
+                                                               "value_fk_personnes": id_genre_del}
 
                     # Du fait de l'utilisation des "context managers" on accède au curseur grâce au "with".
                     # la subtilité consiste à avoir une méthode "execute" dans la classe "DBconnection"
                     # ainsi quand elle aura terminé l'insertion des données le destructeur de la classe "DBconnection"
                     # sera interprété, ainsi on fera automatiquement un commit
-                    mconn_bd.execute(strsql_delete_genre_film, valeurs_film_sel_genre_sel_dictionnaire)
+                    mconn_bd.execute(strsql_delete_personnes_entreprise, valeurs_film_sel_genre_sel_dictionnaire)
 
-        except Exception as Exception_update_genre_film_selected:
+        except Exception as Exception_update_personnes_entreprise_selected:
             raise ExceptionUpdateGenreFilmSelected(f"fichier : {Path(__file__).name}  ;  "
-                                                   f"{update_genre_film_selected.__name__} ; "
-                                                   f"{Exception_update_genre_film_selected}")
+                                                   f"{update_personnes_entreprise_selected.__name__} ; "
+                                                   f"{Exception_update_personnes_entreprise_selected}")
 
     # Après cette mise à jour de la table intermédiaire "t_genre_film",
     # on affiche les entreprise et le(urs) genre(s) associé(s).
