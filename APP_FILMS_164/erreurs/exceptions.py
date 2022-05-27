@@ -91,7 +91,7 @@ class ExceptionGenreUpdateWtf(Base):
     pass
 
 
-class ExceptionGenresAjouterWtf(Base):
+class ExceptionPersonnesAjouterWtf(Base):
     pass
 
 

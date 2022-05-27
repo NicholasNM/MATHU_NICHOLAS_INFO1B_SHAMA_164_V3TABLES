@@ -12,9 +12,9 @@ from flask import url_for
 from APP_FILMS_164 import app
 from APP_FILMS_164.database.database_tools import DBconnection
 from APP_FILMS_164.erreurs.exceptions import *
-from APP_FILMS_164.Personnes.gestion_personnes_wtf_forms import FormWTFAjouterGenres
+from APP_FILMS_164.Personnes.gestion_personnes_wtf_forms import FormWTFAjouterPersonnes
 from APP_FILMS_164.Personnes.gestion_personnes_wtf_forms import FormWTFDeleteGenre
-from APP_FILMS_164.Personnes.gestion_personnes_wtf_forms import FormWTFUpdateGenre
+from APP_FILMS_164.Personnes.gestion_personnes_wtf_forms import FormWTFUpdatePersonnes
 
 """
     Auteur : OM 2021.03.16
@@ -80,15 +80,15 @@ def personnes_afficher(order_by, id_personnes_sel):
 
 """
     Auteur : OM 2021.03.22
-    Définition d'une "route" /genres_ajouter
+    Définition d'une "route" /personnes_ajouter
     
-    Test : ex : http://127.0.0.1:5005/genres_ajouter
+    Test : ex : http://127.0.0.1:5005/personnes_ajouter
     
     Paramètres : sans
     
     But : Ajouter un genre pour un film
     
-    Remarque :  Dans le champ "name_genre_html" du formulaire "personnes_html/genres_ajouter.html",
+    Remarque :  Dans le champ "name_genre_html" du formulaire "personnes_html/personnes_ajouter.html",
                 le contrôle de la saisie s'effectue ici en Python.
                 On transforme la saisie en minuscules.
                 On ne doit pas accepter des valeurs vides, des valeurs avec des chiffres,
@@ -98,9 +98,9 @@ def personnes_afficher(order_by, id_personnes_sel):
 """
 
 
-@app.route("/genres_ajouter", methods=['GET', 'POST'])
+@app.route("/personnes_ajouter", methods=['GET', 'POST'])
 def personnes_ajouter_wtf():
-    form = FormWTFAjouterGenres()
+    form = FormWTFAjouterPersonnes()
     if request.method == "POST":
         try:
             if form.validate_on_submit():
@@ -124,7 +124,7 @@ def personnes_ajouter_wtf():
                 return redirect(url_for('personnes_afficher', order_by='DESC', id_personnes_sel=0))
 
         except Exception as Exception_personnes_ajouter_wtf:
-            raise ExceptionGenresAjouterWtf(f"fichier : {Path(__file__).name}  ;  "
+            raise ExceptionPersonnesAjouterWtf(f"fichier : {Path(__file__).name}  ;  "
                                             f"{personnes_ajouter_wtf.__name__} ; "
                                             f"{Exception_personnes_ajouter_wtf}")
 
@@ -133,7 +133,7 @@ def personnes_ajouter_wtf():
 
 """
     Auteur : OM 2021.03.29
-    Définition d'une "route" /genre_update
+    Définition d'une "route" /personnes_update
     
     Test : ex cliquer sur le menu "personnes_html" puis cliquer sur le bouton "EDIT" d'un "genre"
     
@@ -151,13 +151,13 @@ def personnes_ajouter_wtf():
 """
 
 
-@app.route("/genre_update", methods=['GET', 'POST'])
+@app.route("/personnes_update", methods=['GET', 'POST'])
 def personnes_update_wtf():
     # L'utilisateur vient de cliquer sur le bouton "EDIT". Récupère la valeur de "id_genre"
-    id_personnes_update = request.values['id_genre_btn_edit_html']
+    id_personnes_update = request.values['id_personnes_btn_edit_html']
 
     # Objet formulaire pour l'UPDATE
-    form_update = FormWTFUpdateGenre()
+    form_update = FormWTFUpdatePersonnes()
     try:
         print(" on submit ", form_update.validate_on_submit())
         if form_update.validate_on_submit():
@@ -172,11 +172,11 @@ def personnes_update_wtf():
                                           }
             print("valeur_update_dictionnaire ", valeur_update_dictionnaire)
 
-            str_sql_update_intitulegenre = """UPDATE t_personnes SET nom_personnes = %(value_nom_personnes)s, 
+            str_sql_update_nom_personnes = """UPDATE t_personnes SET nom_personnes = %(value_nom_personnes)s, 
             prenom_personnes = %(value_prenom_personnes)s 
             WHERE id_personnes = %(value_id_personnes)s """
             with DBconnection() as mconn_bd:
-                mconn_bd.execute(str_sql_update_intitulegenre, valeur_update_dictionnaire)
+                mconn_bd.execute(str_sql_update_nom_personnes, valeur_update_dictionnaire)
 
             flash(f"Donnée mise à jour !!", "success")
             print(f"Donnée mise à jour !!")

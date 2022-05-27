@@ -59,10 +59,10 @@ def entreprise_add_wtf():
                 # Pour afficher et constater l'insertion du nouveau film (id_entreprise_sel=0 => afficher tous les entreprise)
                 return redirect(url_for('entreprise_personnes_afficher', id_entreprise_sel=0))
 
-        except Exception as Exception_genres_ajouter_wtf:
-            raise ExceptionGenresAjouterWtf(f"fichier : {Path(__file__).name}  ;  "
+        except Exception as Exception_personnes_ajouter_wtf:
+            raise ExceptionPersonnesAjouterWtf(f"fichier : {Path(__file__).name}  ;  "
                                             f"{entreprise_add_wtf.__name__} ; "
-                                            f"{Exception_genres_ajouter_wtf}")
+                                            f"{Exception_personnes_ajouter_wtf}")
 
     return render_template("entreprise/entreprise_add_wtf.html", form_add_entreprise=form_add_entreprise)
 
