@@ -277,17 +277,17 @@ def personnes_entreprise_afficher_data(valeur_id_entreprise_selected_dict):
     print("valeur_id_entreprise_selected_dict...", valeur_id_entreprise_selected_dict)
     try:
 
-        strsql_film_selected = """SELECT id_entreprise, nom_entreprise, num_entreprise, email_entreprise, GROUP_CONCAT(id_personnes) as EntreprisePersonnes FROM t_e_personnes
+        strsql_entreprise_selected = """SELECT id_entreprise, nom_entreprise, num_entreprise, email_entreprise, GROUP_CONCAT(id_personnes) as EntreprisePersonnes FROM t_e_personnes
                                     INNER JOIN t_entreprise ON t_entreprise.id_entreprise = t_e_personnes.fk_entreprise
                                     INNER JOIN t_personnes ON t_personnes.id_personnes = t_e_personnes.fk_personnes
                                     WHERE id_entreprise = %(value_id_entreprise_selected)s"""
 
-        strsql_genres_films_non_attribues = """SELECT id_personnes, nom_personnes FROM t_personnes WHERE id_personnes not in(SELECT id_personnes as idEntreprisePersonnes FROM t_e_personnes
+        strsql_personnes_entreprise_non_attribues = """SELECT id_personnes, nom_personnes FROM t_personnes WHERE id_personnes not in(SELECT id_personnes as idEntreprisePersonnes FROM t_e_personnes
                                     INNER JOIN t_entreprise ON t_entreprise.id_entreprise = t_e_personnes.fk_entreprise
                                     INNER JOIN t_personnes ON t_personnes.id_personnes = t_e_personnes.fk_personnes
                                     WHERE id_entreprise = %(value_id_entreprise_selected)s)"""
 
-        strsql_genres_films_attribues = """SELECT id_entreprise, id_personnes, nom_entreprise FROM t_e_personnes
+        strsql_personnes_entreprise_attribues = """SELECT id_entreprise, id_personnes, nom_entreprise FROM t_e_personnes
                                             INNER JOIN t_entreprise ON t_entreprise.id_entreprise = t_e_personnes.fk_entreprise
                                             INNER JOIN t_personnes ON t_personnes.id_personnes = t_e_personnes.fk_personnes
                                             WHERE id_entreprise = %(value_id_entreprise_selected)s"""
@@ -295,7 +295,7 @@ def personnes_entreprise_afficher_data(valeur_id_entreprise_selected_dict):
         # Du fait de l'utilisation des "context managers" on accède au curseur grâce au "with".
         with DBconnection() as mc_afficher:
             # Envoi de la commande MySql
-            mc_afficher.execute(strsql_genres_films_non_attribues, valeur_id_entreprise_selected_dict)
+            mc_afficher.execute(strsql_personnes_entreprise_non_attribues, valeur_id_entreprise_selected_dict)
             # Récupère les données de la requête.
             data_personnes_entreprise_non_attribues = mc_afficher.fetchall()
             # Affichage dans la console
@@ -304,14 +304,14 @@ def personnes_entreprise_afficher_data(valeur_id_entreprise_selected_dict):
                   type(data_personnes_entreprise_non_attribues))
 
             # Envoi de la commande MySql
-            mc_afficher.execute(strsql_film_selected, valeur_id_entreprise_selected_dict)
+            mc_afficher.execute(strsql_entreprise_selected, valeur_id_entreprise_selected_dict)
             # Récupère les données de la requête.
             data_entreprise_selected = mc_afficher.fetchall()
             # Affichage dans la console
             print("data_entreprise_selected  ", data_entreprise_selected, " Type : ", type(data_entreprise_selected))
 
             # Envoi de la commande MySql
-            mc_afficher.execute(strsql_genres_films_attribues, valeur_id_entreprise_selected_dict)
+            mc_afficher.execute(strsql_personnes_entreprise_attribues, valeur_id_entreprise_selected_dict)
             # Récupère les données de la requête.
             data_personnes_entreprise_attribues = mc_afficher.fetchall()
             # Affichage dans la console
