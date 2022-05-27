@@ -300,6 +300,7 @@ def personnes_delete_wtf():
                       data_personnes["nom_personnes"])
 
             # Afficher la valeur sélectionnée dans le champ du formulaire "personnes_delete_wtf.html"
+
             form_delete.nom_personnes_delete_wtf.data = data_personnes["nom_personnes"]
 
             # Le bouton pour l'action "DELETE" dans le form. "personnes_delete_wtf.html" est caché.
