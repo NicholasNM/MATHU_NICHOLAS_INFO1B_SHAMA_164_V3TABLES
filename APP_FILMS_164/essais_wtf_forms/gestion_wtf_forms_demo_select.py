@@ -18,7 +18,7 @@ from APP_FILMS_164.essais_wtf_forms.wtf_forms_demo_select import DemoFormSelectW
 
 """
     Auteur : OM 2021.04.08
-    Définition d'une "route" /genre_delete
+    Définition d'une "route" /personnes_delete
     
     Test : ex. cliquer sur le menu "personnes_html" puis cliquer sur le bouton "DELETE" d'un "genre"
     

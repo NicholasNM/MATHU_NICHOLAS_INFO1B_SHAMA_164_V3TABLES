@@ -41,7 +41,7 @@ class FormWTFUpdatePersonnes(FlaskForm):
     submit = SubmitField("Enregistrer la modification")
 
 
-class FormWTFDeleteGenre(FlaskForm):
+class FormWTFDeletePersonnes(FlaskForm):
     """
         Dans le formulaire "personnes_delete_wtf.html"
 

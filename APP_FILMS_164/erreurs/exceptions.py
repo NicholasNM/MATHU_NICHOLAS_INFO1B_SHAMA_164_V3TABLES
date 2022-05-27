@@ -83,7 +83,7 @@ class ExceptionGenresAfficher(Base):
     pass
 
 
-class ExceptionGenreDeleteWtf(Base):
+class ExceptionPersonnesDeleteWtf(Base):
     pass
 
 

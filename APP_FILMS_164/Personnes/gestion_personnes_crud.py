@@ -13,7 +13,7 @@ from APP_FILMS_164 import app
 from APP_FILMS_164.database.database_tools import DBconnection
 from APP_FILMS_164.erreurs.exceptions import *
 from APP_FILMS_164.Personnes.gestion_personnes_wtf_forms import FormWTFAjouterPersonnes
-from APP_FILMS_164.Personnes.gestion_personnes_wtf_forms import FormWTFDeleteGenre
+from APP_FILMS_164.Personnes.gestion_personnes_wtf_forms import FormWTFDeletePersonnes
 from APP_FILMS_164.Personnes.gestion_personnes_wtf_forms import FormWTFUpdatePersonnes
 
 """
@@ -173,8 +173,8 @@ def personnes_update_wtf():
             print("valeur_update_dictionnaire ", valeur_update_dictionnaire)
 
             str_sql_update_nom_personnes = """UPDATE t_personnes SET nom_personnes = %(value_nom_personnes)s, 
-                                                prenom_personnes = %(value_prenom_personnes)s 
-                                                WHERE id_personnes = %(value_id_personnes)s """
+                                              prenom_personnes = %(value_prenom_personnes)s 
+                                              WHERE id_personnes = %(value_id_personnes)s """
             with DBconnection() as mconn_bd:
                 mconn_bd.execute(str_sql_update_nom_personnes, valeur_update_dictionnaire)
 
@@ -187,7 +187,7 @@ def personnes_update_wtf():
         elif request.method == "GET":
             # Opération sur la BD pour récupérer "id_genre" et "intitule_genre" de la "t_personnes"
             str_sql_id_personnes = "SELECT id_personnes, nom_personnes, prenom_personnes FROM t_personnes " \
-                               "WHERE id_personnes = %(value_id_personnes)s"
+                                   "WHERE id_personnes = %(value_id_personnes)s"
             valeur_select_dictionnaire = {"value_id_personnes": id_personnes_update}
             with DBconnection() as mybd_conn:
                 mybd_conn.execute(str_sql_id_personnes, valeur_select_dictionnaire)
@@ -210,7 +210,7 @@ def personnes_update_wtf():
 
 """
     Auteur : OM 2021.04.08
-    Définition d'une "route" /genre_delete
+    Définition d'une "route" /personnes_delete
     
     Test : ex. cliquer sur le menu "personnes_html" puis cliquer sur le bouton "DELETE" d'un "genre"
     
@@ -223,15 +223,15 @@ def personnes_update_wtf():
 """
 
 
-@app.route("/genre_delete", methods=['GET', 'POST'])
+@app.route("/personnes_delete", methods=['GET', 'POST'])
 def personnes_delete_wtf():
     data_entreprise_attribue_personnes_delete = None
     btn_submit_del = None
     # L'utilisateur vient de cliquer sur le bouton "DELETE". Récupère la valeur de "id_genre"
-    id_personnes_delete = request.values['id_genre_btn_delete_html']
+    id_personnes_delete = request.values['id_personnes_btn_delete_html']
 
     # Objet formulaire pour effacer le genre sélectionné.
-    form_delete = FormWTFDeleteGenre()
+    form_delete = FormWTFDeletePersonnes()
     try:
         print(" on submit ", form_delete.validate_on_submit())
         if request.method == "POST" and form_delete.validate_on_submit():
@@ -255,12 +255,12 @@ def personnes_delete_wtf():
                 print("valeur_delete_dictionnaire ", valeur_delete_dictionnaire)
 
                 str_sql_delete_entreprise_personnes = """DELETE FROM t_e_personnes WHERE fk_personnes = %(value_id_personnes)s"""
-                str_sql_delete_idgenre = """DELETE FROM t_personnes WHERE id_personnes = %(value_id_personnes)s"""
+                str_sql_delete_id_personnes = """DELETE FROM t_personnes WHERE id_personnes = %(value_id_personnes)s"""
                 # Manière brutale d'effacer d'abord la "fk_personnes", même si elle n'existe pas dans la "t_e_personnes"
                 # Ensuite on peut effacer le genre vu qu'il n'est plus "lié" (INNODB) dans la "t_e_personnes"
                 with DBconnection() as mconn_bd:
                     mconn_bd.execute(str_sql_delete_entreprise_personnes, valeur_delete_dictionnaire)
-                    mconn_bd.execute(str_sql_delete_idgenre, valeur_delete_dictionnaire)
+                    mconn_bd.execute(str_sql_delete_id_personnes, valeur_delete_dictionnaire)
 
                 flash(f"Personne définitivement effacé !!", "success")
                 print(f"Personne définitivement effacé !!")
@@ -273,11 +273,11 @@ def personnes_delete_wtf():
 
             # Requête qui affiche tous les entreprise_personnes qui ont le genre que l'utilisateur veut effacer
             str_sql_personnes_entreprise_delete = """SELECT id_entreprise, nom_entreprise, num_entreprise, email_entreprise
-                                            FROM t_entreprise ent
-                                            INNER JOIN t_e_personnes epers ON epers.fk_entreprise = ent.id_entreprise
-                                            INNER JOIN t_personnes pers ON epers.fk_personnes = pers.id_personnes
-                                            WHERE fk_personnes = %(value_id_personnes)s
-                                            """
+                                                     FROM t_entreprise ent
+                                                     INNER JOIN t_e_personnes epers ON epers.fk_entreprise = ent.id_entreprise
+                                                     INNER JOIN t_personnes pers ON epers.fk_personnes = pers.id_personnes
+                                                     WHERE fk_personnes = %(value_id_personnes)s
+                                                     """
 
             with DBconnection() as mydb_conn:
                 mydb_conn.execute(str_sql_personnes_entreprise_delete, valeur_select_dictionnaire)
@@ -290,13 +290,13 @@ def personnes_delete_wtf():
 
                 # Opération sur la BD pour récupérer "id_genre" et "intitule_genre" de la "t_personnes"
                 str_sql_id_personnes = "SELECT id_personnes, nom_personnes FROM t_personnes " \
-                                   "WHERE id_personnes = %(value_id_personnes)s"
+                                       "WHERE id_personnes = %(value_id_personnes)s"
 
                 mydb_conn.execute(str_sql_id_personnes, valeur_select_dictionnaire)
                 # Une seule valeur est suffisante "fetchone()",
                 # vu qu'il n'y a qu'un seul champ "nom genre" pour l'action DELETE
                 data_personnes = mydb_conn.fetchone()
-                print("data_personnes ", data_personnes, " type ", type(data_personnes), " genre ",
+                print("data_personnes ", data_personnes, " type ", type(data_personnes), " entreprise ",
                       data_personnes["nom_personnes"])
 
             # Afficher la valeur sélectionnée dans le champ du formulaire "personnes_delete_wtf.html"
@@ -306,7 +306,7 @@ def personnes_delete_wtf():
             btn_submit_del = False
 
     except Exception as Exception_personnes_delete_wtf:
-        raise ExceptionGenreDeleteWtf(f"fichier : {Path(__file__).name}  ;  "
+        raise ExceptionPersonnesDeleteWtf(f"fichier : {Path(__file__).name}  ;  "
                                       f"{personnes_delete_wtf.__name__} ; "
                                       f"{Exception_personnes_delete_wtf}")
 
