@@ -87,7 +87,7 @@ class ExceptionGenreDeleteWtf(Base):
     pass
 
 
-class ExceptionGenreUpdateWtf(Base):
+class ExceptionPersonnesUpdateWtf(Base):
     pass
 
 

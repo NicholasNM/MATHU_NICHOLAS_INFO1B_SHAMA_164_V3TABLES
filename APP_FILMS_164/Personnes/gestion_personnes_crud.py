@@ -173,8 +173,8 @@ def personnes_update_wtf():
             print("valeur_update_dictionnaire ", valeur_update_dictionnaire)
 
             str_sql_update_nom_personnes = """UPDATE t_personnes SET nom_personnes = %(value_nom_personnes)s, 
-            prenom_personnes = %(value_prenom_personnes)s 
-            WHERE id_personnes = %(value_id_personnes)s """
+                                                prenom_personnes = %(value_prenom_personnes)s 
+                                                WHERE id_personnes = %(value_id_personnes)s """
             with DBconnection() as mconn_bd:
                 mconn_bd.execute(str_sql_update_nom_personnes, valeur_update_dictionnaire)
 
@@ -186,22 +186,22 @@ def personnes_update_wtf():
             return redirect(url_for('personnes_afficher', order_by="ASC", id_personnes_sel=id_personnes_update))
         elif request.method == "GET":
             # Opération sur la BD pour récupérer "id_genre" et "intitule_genre" de la "t_personnes"
-            str_sql_id_genre = "SELECT id_personnes, nom_personnes, prenom_personnes FROM t_personnes " \
+            str_sql_id_personnes = "SELECT id_personnes, nom_personnes, prenom_personnes FROM t_personnes " \
                                "WHERE id_personnes = %(value_id_personnes)s"
             valeur_select_dictionnaire = {"value_id_personnes": id_personnes_update}
             with DBconnection() as mybd_conn:
-                mybd_conn.execute(str_sql_id_genre, valeur_select_dictionnaire)
+                mybd_conn.execute(str_sql_id_personnes, valeur_select_dictionnaire)
             # Une seule valeur est suffisante "fetchone()", vu qu'il n'y a qu'un seul champ "nom genre" pour l'UPDATE
-            data_nom_genre = mybd_conn.fetchone()
-            print("data_nom_genre ", data_nom_genre, " type ", type(data_nom_genre), " personnes ",
-                  data_nom_genre["nom_personnes"])
+            data_personnes = mybd_conn.fetchone()
+            print("data_personnes ", data_personnes, " type ", type(data_personnes), " entreprise ",
+                  data_personnes["nom_personnes"])
 
             # Afficher la valeur sélectionnée dans les champs du formulaire "personnes_update_wtf.html"
-            form_update.nom_personnes_update_wtf.data = data_nom_genre["nom_personnes"]
-            form_update.prenom_personnes_update_wtf.data = data_nom_genre["prenom_personnes"]
+            form_update.nom_personnes_update_wtf.data = data_personnes["nom_personnes"]
+            form_update.prenom_personnes_update_wtf.data = data_personnes["prenom_personnes"]
 
     except Exception as Exception_personnes_update_wtf:
-        raise ExceptionGenreUpdateWtf(f"fichier : {Path(__file__).name}  ;  "
+        raise ExceptionPersonnesUpdateWtf(f"fichier : {Path(__file__).name}  ;  "
                                       f"{personnes_update_wtf.__name__} ; "
                                       f"{Exception_personnes_update_wtf}")
 
@@ -289,18 +289,18 @@ def personnes_delete_wtf():
                 session['data_entreprise_attribue_personnes_delete'] = data_entreprise_attribue_personnes_delete
 
                 # Opération sur la BD pour récupérer "id_genre" et "intitule_genre" de la "t_personnes"
-                str_sql_id_genre = "SELECT id_personnes, nom_personnes FROM t_personnes " \
+                str_sql_id_personnes = "SELECT id_personnes, nom_personnes FROM t_personnes " \
                                    "WHERE id_personnes = %(value_id_personnes)s"
 
-                mydb_conn.execute(str_sql_id_genre, valeur_select_dictionnaire)
+                mydb_conn.execute(str_sql_id_personnes, valeur_select_dictionnaire)
                 # Une seule valeur est suffisante "fetchone()",
                 # vu qu'il n'y a qu'un seul champ "nom genre" pour l'action DELETE
-                data_nom_genre = mydb_conn.fetchone()
-                print("data_nom_genre ", data_nom_genre, " type ", type(data_nom_genre), " genre ",
-                      data_nom_genre["nom_personnes"])
+                data_personnes = mydb_conn.fetchone()
+                print("data_personnes ", data_personnes, " type ", type(data_personnes), " genre ",
+                      data_personnes["nom_personnes"])
 
             # Afficher la valeur sélectionnée dans le champ du formulaire "personnes_delete_wtf.html"
-            form_delete.nom_personnes_delete_wtf.data = data_nom_genre["nom_personnes"]
+            form_delete.nom_personnes_delete_wtf.data = data_personnes["nom_personnes"]
 
             # Le bouton pour l'action "DELETE" dans le form. "personnes_delete_wtf.html" est caché.
             btn_submit_del = False
