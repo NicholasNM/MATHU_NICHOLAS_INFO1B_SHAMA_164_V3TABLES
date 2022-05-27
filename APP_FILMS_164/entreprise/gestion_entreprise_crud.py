@@ -46,9 +46,9 @@ def entreprise_add_wtf():
                 print("valeurs_insertion_dictionnaire ", valeurs_insertion_dictionnaire)
 
                 strsql_insert_entreprise = """INSERT INTO t_entreprise 
-                (id_entreprise,fk_adresse,nom_entreprise,num_entreprise,email_entreprise) VALUES 
-                (NULL,NULL,%(value_nom_entreprise)s,
-                %(value_num_entreprise)s,%(value_email_entreprise)s) """
+                                              (id_entreprise,fk_adresse,nom_entreprise,num_entreprise,email_entreprise) VALUES 
+                                              (NULL,NULL,%(value_nom_entreprise)s,
+                                              %(value_num_entreprise)s,%(value_email_entreprise)s) """
 
                 with DBconnection() as mconn_bd:
                     mconn_bd.execute(strsql_insert_entreprise, valeurs_insertion_dictionnaire)

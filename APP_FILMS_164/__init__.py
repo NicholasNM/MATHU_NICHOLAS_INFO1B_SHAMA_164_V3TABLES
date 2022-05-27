@@ -45,10 +45,14 @@ try:
     from APP_FILMS_164.demos_om_164 import routes_demos
 
     from APP_FILMS_164.entreprise_personnes import gestion_entreprise_personnes_crud
+
     from APP_FILMS_164.erreurs import msg_avertissements
 
     from APP_FILMS_164.entreprise import gestion_entreprise_crud
     from APP_FILMS_164.entreprise import gestion_entreprise_wtf_forms
+
+    from APP_FILMS_164.genres import gestion_genres_crud
+    from APP_FILMS_164.entreprise_personnes import gestion_entreprise_personnes_crud
 
 except Exception as Exception_init_app_films_164:
     print(f"4567756434 Une erreur est survenue {type(Exception_init_app_films_164)} dans"
