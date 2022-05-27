@@ -149,7 +149,7 @@ def edit_entreprise_personnes_selected():
             # Extrait les valeurs contenues dans la table "t_genres", colonne "intitule_genre"
             # Le composant javascript "tagify" pour afficher les tags n'a pas besoin de l'id_genre
             lst_data_personnes_entreprise_non_attribues = [item['nom_personnes'] for item in data_personnes_entreprise_non_attribues]
-            print("lst_all_genres gf_edit_entreprise_personnes_selected ", lst_data_personnes_entreprise_non_attribues,
+            print("lst_all_personnes gf_edit_entreprise_personnes_selected ", lst_data_personnes_entreprise_non_attribues,
                   type(lst_data_personnes_entreprise_non_attribues))
 
         except Exception as Exception_edit_entreprise_personnes_selected:

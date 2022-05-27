@@ -126,14 +126,14 @@ def entreprise_update_wtf():
                 mybd_conn.execute(str_sql_id_entreprise, valeur_select_dictionnaire)
             # Une seule valeur est suffisante "fetchone()", vu qu'il n'y a qu'un seul champ "nom genre" pour l'UPDATE
             data_entreprise = mybd_conn.fetchone()
-            print("data_entreprise ", data_entreprise, " type ", type(data_entreprise), " genre ",
+            print("data_entreprise ", data_entreprise, " type ", type(data_entreprise), " personnes ",
                   data_entreprise["nom_entreprise"])
 
             # Afficher la valeur sélectionnée dans le champ du formulaire "entreprise_update_wtf.html"
             form_update_entreprise.nom_entreprise_update_wtf.data = data_entreprise["nom_entreprise"]
             form_update_entreprise.num_entreprise_update_wtf.data = data_entreprise["num_entreprise"]
             # Debug simple pour contrôler la valeur dans la console "run" de PyCharm
-            print(f" duree film  ", data_entreprise["num_entreprise"], "  type ", type(data_entreprise["num_entreprise"]))
+            print(f" nom entreprise  ", data_entreprise["num_entreprise"], "  type ", type(data_entreprise["num_entreprise"]))
             form_update_entreprise.nom_entreprise_update_wtf.data = data_entreprise["nom_entreprise"]
             form_update_entreprise.num_entreprise_update_wtf.data = data_entreprise["num_entreprise"]
             form_update_entreprise.email_entreprise_update_wtf.data = data_entreprise["email_entreprise"]
@@ -174,7 +174,7 @@ def entreprise_delete_wtf():
         if form_delete_entreprise.submit_btn_annuler.data:
             return redirect(url_for("entreprise_personnes_afficher", id_entreprise_sel=0))
 
-        if form_delete_entreprise.submit_btn_conf_del_film.data:
+        if form_delete_entreprise.submit_btn_conf_del_entrperise.data:
             # Récupère les données afin d'afficher à nouveau
             # le formulaire "entreprise/entreprise_delete_wtf.html" lorsque le bouton "Etes-vous sur d'effacer ?" est cliqué.
             data_entreprise_delete = session['data_entreprise_delete']
@@ -186,7 +186,7 @@ def entreprise_delete_wtf():
             btn_submit_del = True
 
         # L'utilisateur a vraiment décidé d'effacer.
-        if form_delete_entreprise.submit_btn_del_film.data:
+        if form_delete_entreprise.submit_btn_del_entreprise.data:
             valeur_delete_dictionnaire = {"value_id_entreprise": id_entreprise_delete}
             print("valeur_delete_dictionnaire ", valeur_delete_dictionnaire)
 
@@ -223,7 +223,7 @@ def entreprise_delete_wtf():
             btn_submit_del = False
 
     except Exception as Exception_entreprise_delete_wtf:
-        raise ExceptionFilmDeleteWtf(f"fichier : {Path(__file__).name}  ;  "
+        raise ExceptionEntrepriseDeleteWtf(f"fichier : {Path(__file__).name}  ;  "
                                      f"{entreprise_delete_wtf.__name__} ; "
                                      f"{Exception_entreprise_delete_wtf}")
 

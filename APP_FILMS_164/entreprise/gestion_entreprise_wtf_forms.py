@@ -60,6 +60,6 @@ class FormWTFDeleteEntreprise(FlaskForm):
         submit_btn_annuler : Bouton qui permet d'afficher la table "t_entreprise".
     """
     nom_entreprise_delete_wtf = StringField("Effacer cet Entreprise")
-    submit_btn_del_film = SubmitField("Effacer Entreprise")
-    submit_btn_conf_del_film = SubmitField("Etes-vous sur d'effacer ?")
+    submit_btn_del_entreprise = SubmitField("Effacer Entreprise")
+    submit_btn_conf_del_entrperise = SubmitField("Etes-vous sur d'effacer ?")
     submit_btn_annuler = SubmitField("Annuler")
