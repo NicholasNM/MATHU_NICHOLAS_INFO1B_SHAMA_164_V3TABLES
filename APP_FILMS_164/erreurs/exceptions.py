@@ -79,6 +79,25 @@ class DatabaseException(Base):
     pass
 
 
+class ExceptionGenresAfficher(Base):
+    pass
+
+
+class ExceptionGenreDeleteWtf(Base):
+    pass
+
+
+class ExceptionGenreUpdateWtf(Base):
+    pass
+
+
+class ExceptionGenresAjouterWtf(Base):
+    pass
+
+
+class ExceptionFilmsGenresAfficher(Base):
+    pass
+
 class ExceptionPersonnesAfficher(Base):
     pass
 
