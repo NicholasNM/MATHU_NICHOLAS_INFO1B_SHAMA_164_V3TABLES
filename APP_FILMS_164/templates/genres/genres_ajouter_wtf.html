@@ -1,20 +1,41 @@
 {% extends "base.html" %}
-{% block title %} Ajouter un GENRE (WTF) {% endblock %}
+{% block title %} Ajouter un Shop (WTF) {% endblock %}
 {% block body %}
 <div class="container">
 	<div class="row">
 		<div class="col-md-12">
 			<p>
-				Ajouter un nouveau GENRE (WTForms)
+				Ajouter un nouveau Shop (WTForms)
 			</p>
 			<form action="" method="POST" novalidate>
 				<!-- Protection contre les attaques Cross-Site Request Forgery (CSRF) -->
 				{{ form.hidden_tag() }}
 				<div class="form-group">
 					<p>
-						{{ form.nom_genre_wtf.label }}<br>
-						{{ form.nom_genre_wtf(size=32) }}<br>
-						{% for error in form.nom_genre_wtf.errors %}
+						{{ form.nom_shop_wtf.label }}<br>
+						{{ form.nom_shop_wtf(size=32) }}<br>
+						{% for error in form.nom_shop_wtf.errors %}
+							<span style="color: red;">[{{ error }}]</span>
+						{% endfor %}
+					</p>
+					<p>
+						{{ form.email_shop_wtf.label }}<br>
+						{{ form.email_shop_wtf(size=32) }}<br>
+						{% for error in form.email_shop_wtf.errors %}
+							<span style="color: red;">[{{ error }}]</span>
+						{% endfor %}
+					</p>
+					<p>
+						{{ form.volumes_shop_wtf.label }}<br>
+						{{ form.volumes_shop_wtf(size=32) }}<br>
+						{% for error in form.volumes_shop_wtf.errors %}
+							<span style="color: red;">[{{ error }}]</span>
+						{% endfor %}
+					</p>
+					<p>
+						{{ form.argent_shop_wtf.label }}<br>
+						{{ form.argent_shop_wtf(size=32) }}<br>
+						{% for error in form.argent_shop_wtf.errors %}
 							<span style="color: red;">[{{ error }}]</span>
 						{% endfor %}
 					</p>

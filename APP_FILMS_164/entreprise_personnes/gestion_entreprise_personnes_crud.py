@@ -61,7 +61,7 @@ def entreprise_personnes_afficher(id_entreprise_sel):
                     # Si l'utilisateur change l'id_film dans l'URL et qu'il ne correspond à aucun film
                     flash(f"L'Entreprise {id_entreprise_sel} demandé n'existe pas !!", "warning")
                 else:
-                    flash(f"Données des entreprises et des personnes affichés !!", "success")
+                    flash(f"Les Entreprises et leur personnel son affichés !!", "success")
 
         except Exception as Exception_entreprise_personnes_afficher:
             raise ExceptionEntreprisePersonnesAfficher(f"fichier : {Path(__file__).name}  ;  {entreprise_personnes_afficher.__name__} ;"

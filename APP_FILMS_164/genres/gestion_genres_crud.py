@@ -67,7 +67,7 @@ def genres_afficher(order_by, id_genre_sel):
                 else:
                     # Dans tous les autres cas, c'est que la table "t_genre" est vide.
                     # OM 2020.04.09 La ligne ci-dessous permet de donner un sentiment rassurant aux utilisateurs.
-                    flash(f"Données genres affichés !!", "success")
+                    flash(f"Données des shops affichés !!", "success")
 
         except Exception as Exception_genres_afficher:
             raise ExceptionGenresAfficher(f"fichier : {Path(__file__).name}  ;  "
@@ -104,12 +104,21 @@ def genres_ajouter_wtf():
     if request.method == "POST":
         try:
             if form.validate_on_submit():
-                name_genre_wtf = form.nom_genre_wtf.data
-                name_genre = name_genre_wtf.lower()
-                valeurs_insertion_dictionnaire = {"value_intitule_genre": name_genre}
+                nom_shop_wtf = form.nom_shop_wtf.data
+                email_shop_wtf = form.email_shop_wtf.data
+                volumes_shop_wtf = form.volumes_shop_wtf.data
+                argent_shop_wtf = form.argent_shop_wtf.data
+
+
+                valeurs_insertion_dictionnaire = {"value_nom_shop": nom_shop_wtf,
+                                                  "value_email_shop": email_shop_wtf,
+                                                  "value_volumes_shop": volumes_shop_wtf,
+                                                  "value_argent_shop": argent_shop_wtf}
+
                 print("valeurs_insertion_dictionnaire ", valeurs_insertion_dictionnaire)
 
-                strsql_insert_genre = """INSERT INTO t_genre (id_genre,intitule_genre) VALUES (NULL,%(value_intitule_genre)s) """
+                strsql_insert_genre = """INSERT INTO t_shop (id_shop,nom_shop,email_shop,volumes_shop,argent_shop) 
+                                         VALUES (NULL,%(value_nom_shop)s,%(value_email_shop)s,%(value_volumes_shop)s,%(value_argent_shop)s) """
                 with DBconnection() as mconn_bd:
                     mconn_bd.execute(strsql_insert_genre, valeurs_insertion_dictionnaire)
 
