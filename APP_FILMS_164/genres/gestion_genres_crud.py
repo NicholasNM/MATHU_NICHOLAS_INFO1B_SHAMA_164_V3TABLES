@@ -43,9 +43,9 @@ def genres_afficher(order_by, id_genre_sel):
                     # Pour "lever"(raise) une erreur s'il y a des erreurs sur les noms d'attributs dans la table
                     # donc, je précise les champs à afficher
                     # Constitution d'un dictionnaire pour associer l'id du genre sélectionné avec un nom de variable
-                    valeur_id_genre_selected_dictionnaire = {"value_id_genre_selected": id_genre_sel}
+                    valeur_id_genre_selected_dictionnaire = {"value_id_shop_selected": id_genre_sel}
                     strsql_genres_afficher = """SELECT id_shop, nom_shop, email_shop, volumes_shop, argent_shop
-                                                FROM t_shop WHERE id_shop = %(value_id_genre_selected)s"""
+                                                FROM t_shop WHERE id_shop = %(value_id_shop_selected)s"""
 
                     mc_afficher.execute(strsql_genres_afficher, valeur_id_genre_selected_dictionnaire)
                 else:
@@ -88,7 +88,7 @@ def genres_afficher(order_by, id_genre_sel):
     
     But : Ajouter un genre pour un film
     
-    Remarque :  Dans le champ "name_genre_html" du formulaire "genres/genres_ajouter.html",
+    Remarque :  Dans le champ "nom_shop_html" du formulaire "genres/genres_ajouter.html",
                 le contrôle de la saisie s'effectue ici en Python.
                 On transforme la saisie en minuscules.
                 On ne doit pas accepter des valeurs vides, des valeurs avec des chiffres,
@@ -159,7 +159,7 @@ def genres_ajouter_wtf():
 @app.route("/genre_update", methods=['GET', 'POST'])
 def genre_update_wtf():
     # L'utilisateur vient de cliquer sur le bouton "EDIT". Récupère la valeur de "id_genre"
-    id_genre_update = request.values['id_genre_btn_edit_html']
+    id_shop_update = request.values['id_genre_btn_edit_html']
 
     # Objet formulaire pour l'UPDATE
     form_update = FormWTFUpdateGenre()
@@ -168,18 +168,25 @@ def genre_update_wtf():
         if form_update.validate_on_submit():
             # Récupèrer la valeur du champ depuis "genre_update_wtf.html" après avoir cliqué sur "SUBMIT".
             # Puis la convertir en lettres minuscules.
-            name_genre_update = form_update.nom_genre_update_wtf.data
-            name_genre_update = name_genre_update.lower()
-            date_genre_essai = form_update.date_genre_wtf_essai.data
+            nom_shop_update = form_update.nom_shop_update_wtf.data
+            email_shop_update = form_update.email_shop_update_wtf.data
+            volumes_shop_update = form_update.volumes_shop_update_wtf.data
+            argent_shop_update = form_update.argent_shop_update_wtf.data
 
-            valeur_update_dictionnaire = {"value_id_genre": id_genre_update,
-                                          "value_name_genre": name_genre_update,
-                                          "value_date_genre_essai": date_genre_essai
+            valeur_update_dictionnaire = {"value_id_shop": id_shop_update,
+                                          "value_nom_shop": nom_shop_update,
+                                          "value_email_shop": email_shop_update,
+                                          "value_volumes_shop": volumes_shop_update,
+                                          "value_argent_shop": argent_shop_update
                                           }
             print("valeur_update_dictionnaire ", valeur_update_dictionnaire)
 
-            str_sql_update_intitulegenre = """UPDATE t_genre SET intitule_genre = %(value_name_genre)s, 
-            date_ins_genre = %(value_date_genre_essai)s WHERE id_genre = %(value_id_genre)s """
+            str_sql_update_intitulegenre = """UPDATE t_shop SET nom_shop = %(value_nom_shop)s, 
+                                              email_shop = %(value_email_shop)s, 
+                                              volumes_shop = %(value_volumes_shop)s, 
+                                              argent_shop = %(value_argent_shop)s
+                                              WHERE id_shop = %(value_id_shop)s """
+
             with DBconnection() as mconn_bd:
                 mconn_bd.execute(str_sql_update_intitulegenre, valeur_update_dictionnaire)
 
@@ -187,23 +194,25 @@ def genre_update_wtf():
             print(f"Donnée mise à jour !!")
 
             # afficher et constater que la donnée est mise à jour.
-            # Affiche seulement la valeur modifiée, "ASC" et l'"id_genre_update"
-            return redirect(url_for('genres_afficher', order_by="ASC", id_genre_sel=id_genre_update))
+            # Affiche seulement la valeur modifiée, "ASC" et l'"id_shop_update"
+            return redirect(url_for('genres_afficher', order_by="ASC", id_genre_sel=id_shop_update))
         elif request.method == "GET":
             # Opération sur la BD pour récupérer "id_genre" et "intitule_genre" de la "t_genre"
             str_sql_id_genre = "SELECT id_shop, nom_shop, email_shop, volumes_shop, argent_shop FROM t_shop" \
-                               "WHERE id_shop = %(value_id_genre)s"
-            valeur_select_dictionnaire = {"value_id_genre": id_genre_update}
+                               " WHERE id_shop = %(value_id_shop)s"
+            valeur_select_dictionnaire = {"value_id_shop": id_shop_update}
             with DBconnection() as mybd_conn:
                 mybd_conn.execute(str_sql_id_genre, valeur_select_dictionnaire)
             # Une seule valeur est suffisante "fetchone()", vu qu'il n'y a qu'un seul champ "nom genre" pour l'UPDATE
             data_nom_genre = mybd_conn.fetchone()
             print("data_nom_genre ", data_nom_genre, " type ", type(data_nom_genre), " genre ",
-                  data_nom_genre["intitule_genre"])
+                  data_nom_genre["nom_shop"])
 
             # Afficher la valeur sélectionnée dans les champs du formulaire "genre_update_wtf.html"
-            form_update.nom_genre_update_wtf.data = data_nom_genre["intitule_genre"]
-            form_update.date_genre_wtf_essai.data = data_nom_genre["date_ins_genre"]
+            form_update.nom_shop_update_wtf.data = data_nom_genre["nom_shop"]
+            form_update.email_shop_update_wtf.data = data_nom_genre["email_shop"]
+            form_update.volumes_shop_update_wtf.data = data_nom_genre["volumes_shop"]
+            form_update.argent_shop_update_wtf.data = data_nom_genre["argent_shop"]
 
     except Exception as Exception_genre_update_wtf:
         raise ExceptionGenreUpdateWtf(f"fichier : {Path(__file__).name}  ;  "
@@ -256,11 +265,11 @@ def genre_delete_wtf():
                 btn_submit_del = True
 
             if form_delete.submit_btn_del.data:
-                valeur_delete_dictionnaire = {"value_id_genre": id_shop_delete}
+                valeur_delete_dictionnaire = {"value_id_shop": id_shop_delete}
                 print("valeur_delete_dictionnaire ", valeur_delete_dictionnaire)
 
-                str_sql_delete_films_genre = """DELETE FROM t_e_shop WHERE fk_shop = %(value_id_genre)s"""
-                str_sql_delete_idgenre = """DELETE FROM t_shop WHERE id_shop = %(value_id_genre)s"""
+                str_sql_delete_films_genre = """DELETE FROM t_e_shop WHERE fk_shop = %(value_id_shop)s"""
+                str_sql_delete_idgenre = """DELETE FROM t_shop WHERE id_shop = %(value_id_shop)s"""
                 # Manière brutale d'effacer d'abord la "fk_genre", même si elle n'existe pas dans la "t_genre_film"
                 # Ensuite on peut effacer le genre vu qu'il n'est plus "lié" (INNODB) dans la "t_genre_film"
                 with DBconnection() as mconn_bd:
@@ -274,14 +283,14 @@ def genre_delete_wtf():
                 return redirect(url_for('genres_afficher', order_by="ASC", id_genre_sel=0))
 
         if request.method == "GET":
-            valeur_select_dictionnaire = {"value_id_genre": id_shop_delete}
+            valeur_select_dictionnaire = {"value_id_shop": id_shop_delete}
             print(id_shop_delete, type(id_shop_delete))
 
             # Requête qui affiche tous les films_genres qui ont le genre que l'utilisateur veut effacer
             str_sql_genres_films_delete = """SELECT id_e_shop, nom_entreprise, id_shop, nom_shop FROM t_e_shop
                                             INNER JOIN t_entreprise ON t_e_shop.fk_entreprise = t_entreprise.id_entreprise
                                             INNER JOIN t_shop ON t_e_shop.fk_shop = t_shop.id_shop
-                                            WHERE fk_shop = %(value_id_genre)s"""
+                                            WHERE fk_shop = %(value_id_shop)s"""
 
             with DBconnection() as mydb_conn:
                 mydb_conn.execute(str_sql_genres_films_delete, valeur_select_dictionnaire)
@@ -294,7 +303,7 @@ def genre_delete_wtf():
 
                 # Opération sur la BD pour récupérer "id_genre" et "intitule_genre" de la "t_genre"
                 str_sql_id_genre = "SELECT id_shop, nom_shop, email_shop, volumes_shop, argent_shop FROM t_shop" \
-                                   " WHERE id_shop = %(value_id_genre)s"
+                                   " WHERE id_shop = %(value_id_shop)s"
 
                 mydb_conn.execute(str_sql_id_genre, valeur_select_dictionnaire)
                 # Une seule valeur est suffisante "fetchone()",

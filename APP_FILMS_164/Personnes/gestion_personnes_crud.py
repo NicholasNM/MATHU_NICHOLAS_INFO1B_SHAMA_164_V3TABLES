@@ -88,7 +88,7 @@ def personnes_afficher(order_by, id_personnes_sel):
     
     But : Ajouter un genre pour un film
     
-    Remarque :  Dans le champ "name_genre_html" du formulaire "personnes_html/personnes_ajouter.html",
+    Remarque :  Dans le champ "nom_shop_html" du formulaire "personnes_html/personnes_ajouter.html",
                 le contrôle de la saisie s'effectue ici en Python.
                 On transforme la saisie en minuscules.
                 On ne doit pas accepter des valeurs vides, des valeurs avec des chiffres,
