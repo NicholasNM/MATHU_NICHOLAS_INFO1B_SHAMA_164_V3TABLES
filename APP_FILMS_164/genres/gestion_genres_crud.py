@@ -1,4 +1,4 @@
-"""Gestion des "routes" FLASK et des données pour les genres.
+"""Gestion des "routes" FLASK et des données pour les shop.
 Fichier : gestion_genres_crud.py
 Auteur : OM 2021.03.16
 """
@@ -23,7 +23,7 @@ from APP_FILMS_164.genres.gestion_genres_wtf_forms import FormWTFUpdateGenre
     Test : ex : http://127.0.0.1:5005/genres_afficher
     
     Paramètres : order_by : ASC : Ascendant, DESC : Descendant
-                id_genre_sel = 0 >> tous les genres.
+                id_genre_sel = 0 >> tous les shop.
                 id_genre_sel = "n" affiche le genre dont l'id est "n"
 """
 
@@ -75,7 +75,7 @@ def genres_afficher(order_by, id_genre_sel):
                                           f"{Exception_genres_afficher}")
 
     # Envoie la page "HTML" au serveur.
-    return render_template("genres/genres_afficher.html", data=data_genres)
+    return render_template("shop/shop_afficher.html", data=data_genres)
 
 
 """
@@ -88,7 +88,7 @@ def genres_afficher(order_by, id_genre_sel):
     
     But : Ajouter un genre pour un film
     
-    Remarque :  Dans le champ "nom_shop_html" du formulaire "genres/genres_ajouter.html",
+    Remarque :  Dans le champ "nom_shop_html" du formulaire "shop/genres_ajouter.html",
                 le contrôle de la saisie s'effectue ici en Python.
                 On transforme la saisie en minuscules.
                 On ne doit pas accepter des valeurs vides, des valeurs avec des chiffres,
@@ -133,20 +133,20 @@ def genres_ajouter_wtf():
                                             f"{genres_ajouter_wtf.__name__} ; "
                                             f"{Exception_genres_ajouter_wtf}")
 
-    return render_template("genres/genres_ajouter_wtf.html", form=form)
+    return render_template("shop/shop_ajouter_wtf.html", form=form)
 
 
 """
     Auteur : OM 2021.03.29
     Définition d'une "route" /genre_update
     
-    Test : ex cliquer sur le menu "genres" puis cliquer sur le bouton "EDIT" d'un "genre"
+    Test : ex cliquer sur le menu "shop" puis cliquer sur le bouton "EDIT" d'un "genre"
     
     Paramètres : sans
     
-    But : Editer(update) un genre qui a été sélectionné dans le formulaire "genres_afficher.html"
+    But : Editer(update) un genre qui a été sélectionné dans le formulaire "shop_afficher.html"
     
-    Remarque :  Dans le champ "nom_genre_update_wtf" du formulaire "genres/genre_update_wtf.html",
+    Remarque :  Dans le champ "nom_genre_update_wtf" du formulaire "shop/shop_update_wtf.html",
                 le contrôle de la saisie s'effectue ici en Python.
                 On transforme la saisie en minuscules.
                 On ne doit pas accepter des valeurs vides, des valeurs avec des chiffres,
@@ -166,7 +166,7 @@ def genre_update_wtf():
     try:
         print(" on submit ", form_update.validate_on_submit())
         if form_update.validate_on_submit():
-            # Récupèrer la valeur du champ depuis "genre_update_wtf.html" après avoir cliqué sur "SUBMIT".
+            # Récupèrer la valeur du champ depuis "shop_update_wtf.html" après avoir cliqué sur "SUBMIT".
             # Puis la convertir en lettres minuscules.
             nom_shop_update = form_update.nom_shop_update_wtf.data
             email_shop_update = form_update.email_shop_update_wtf.data
@@ -208,7 +208,7 @@ def genre_update_wtf():
             print("data_nom_genre ", data_nom_genre, " type ", type(data_nom_genre), " genre ",
                   data_nom_genre["nom_shop"])
 
-            # Afficher la valeur sélectionnée dans les champs du formulaire "genre_update_wtf.html"
+            # Afficher la valeur sélectionnée dans les champs du formulaire "shop_update_wtf.html"
             form_update.nom_shop_update_wtf.data = data_nom_genre["nom_shop"]
             form_update.email_shop_update_wtf.data = data_nom_genre["email_shop"]
             form_update.volumes_shop_update_wtf.data = data_nom_genre["volumes_shop"]
@@ -219,20 +219,20 @@ def genre_update_wtf():
                                       f"{genre_update_wtf.__name__} ; "
                                       f"{Exception_genre_update_wtf}")
 
-    return render_template("genres/genre_update_wtf.html", form_update=form_update)
+    return render_template("shop/shop_update_wtf.html", form_update=form_update)
 
 
 """
     Auteur : OM 2021.04.08
     Définition d'une "route" /genre_delete
     
-    Test : ex. cliquer sur le menu "genres" puis cliquer sur le bouton "DELETE" d'un "genre"
+    Test : ex. cliquer sur le menu "shop" puis cliquer sur le bouton "DELETE" d'un "genre"
     
     Paramètres : sans
     
-    But : Effacer(delete) un genre qui a été sélectionné dans le formulaire "genres_afficher.html"
+    But : Effacer(delete) un genre qui a été sélectionné dans le formulaire "shop_afficher.html"
     
-    Remarque :  Dans le champ "nom_shop_delete_wtf" du formulaire "genres/genre_delete_wtf.html",
+    Remarque :  Dans le champ "nom_shop_delete_wtf" du formulaire "shop/shop_delete_wtf.html",
                 le contrôle de la saisie est désactivée. On doit simplement cliquer sur "DELETE"
 """
 
@@ -255,7 +255,7 @@ def genre_delete_wtf():
 
             if form_delete.submit_btn_conf_del.data:
                 # Récupère les données afin d'afficher à nouveau
-                # le formulaire "genres/genre_delete_wtf.html" lorsque le bouton "Etes-vous sur d'effacer ?" est cliqué.
+                # le formulaire "shop/shop_delete_wtf.html" lorsque le bouton "Etes-vous sur d'effacer ?" est cliqué.
                 data_films_attribue_genre_delete = session['data_films_attribue_genre_delete']
                 print("data_films_attribue_genre_delete ", data_films_attribue_genre_delete)
 
@@ -298,7 +298,7 @@ def genre_delete_wtf():
                 print("data_films_attribue_genre_delete...", data_films_attribue_genre_delete)
 
                 # Nécessaire pour mémoriser les données afin d'afficher à nouveau
-                # le formulaire "genres/genre_delete_wtf.html" lorsque le bouton "Etes-vous sur d'effacer ?" est cliqué.
+                # le formulaire "shop/shop_delete_wtf.html" lorsque le bouton "Etes-vous sur d'effacer ?" est cliqué.
                 session['data_films_attribue_genre_delete'] = data_films_attribue_genre_delete
 
                 # Opération sur la BD pour récupérer "id_genre" et "intitule_genre" de la "t_genre"
@@ -312,10 +312,10 @@ def genre_delete_wtf():
                 print("data_nom_genre ", data_nom_genre, " type ", type(data_nom_genre), " entreprise ",
                       data_nom_genre["nom_shop"])
 
-            # Afficher la valeur sélectionnée dans le champ du formulaire "genre_delete_wtf.html"
+            # Afficher la valeur sélectionnée dans le champ du formulaire "shop_delete_wtf.html"
             form_delete.nom_shop_delete_wtf.data = data_nom_genre["nom_shop"]
 
-            # Le bouton pour l'action "DELETE" dans le form. "genre_delete_wtf.html" est caché.
+            # Le bouton pour l'action "DELETE" dans le form. "shop_delete_wtf.html" est caché.
             btn_submit_del = False
 
     except Exception as Exception_genre_delete_wtf:
@@ -323,7 +323,7 @@ def genre_delete_wtf():
                                       f"{genre_delete_wtf.__name__} ; "
                                       f"{Exception_genre_delete_wtf}")
 
-    return render_template("genres/genre_delete_wtf.html",
+    return render_template("shop/shop_delete_wtf.html",
                            form_delete=form_delete,
                            btn_submit_del=btn_submit_del,
                            data_films_associes=data_films_attribue_genre_delete)
