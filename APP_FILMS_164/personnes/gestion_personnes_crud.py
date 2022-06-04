@@ -1,4 +1,4 @@
-"""Gestion des "routes" FLASK et des données pour les personnes_html.
+"""Gestion des "routes" FLASK et des données pour les personnes.
 Fichier : gestion_personnes_crud.py
 Auteur : OM 2021.03.16
 """
@@ -12,9 +12,9 @@ from flask import url_for
 from APP_FILMS_164 import app
 from APP_FILMS_164.database.database_tools import DBconnection
 from APP_FILMS_164.erreurs.exceptions import *
-from APP_FILMS_164.Personnes.gestion_personnes_wtf_forms import FormWTFAjouterPersonnes
-from APP_FILMS_164.Personnes.gestion_personnes_wtf_forms import FormWTFDeletePersonnes
-from APP_FILMS_164.Personnes.gestion_personnes_wtf_forms import FormWTFUpdatePersonnes
+from APP_FILMS_164.personnes.gestion_personnes_wtf_forms import FormWTFAjouterPersonnes
+from APP_FILMS_164.personnes.gestion_personnes_wtf_forms import FormWTFDeletePersonnes
+from APP_FILMS_164.personnes.gestion_personnes_wtf_forms import FormWTFUpdatePersonnes
 
 """
     Auteur : OM 2021.03.16
@@ -23,7 +23,7 @@ from APP_FILMS_164.Personnes.gestion_personnes_wtf_forms import FormWTFUpdatePer
     Test : ex : http://127.0.0.1:5005/personnes_afficher
     
     Paramètres : order_by : ASC : Ascendant, DESC : Descendant
-                id_personnes_sel = 0 >> tous les personnes_html.
+                id_personnes_sel = 0 >> tous les personnes.
                 id_personnes_sel = "n" affiche le genre dont l'id est "n"
 """
 
@@ -75,7 +75,7 @@ def personnes_afficher(order_by, id_personnes_sel):
                                           f"{Exception_personnes_afficher}")
 
     # Envoie la page "HTML" au serveur.
-    return render_template("personnes_html/personnes_afficher.html", data=data_personnes)
+    return render_template("personnes/personnes_afficher.html", data=data_personnes)
 
 
 """
@@ -88,7 +88,7 @@ def personnes_afficher(order_by, id_personnes_sel):
     
     But : Ajouter un genre pour un film
     
-    Remarque :  Dans le champ "nom_shop_html" du formulaire "personnes_html/personnes_ajouter.html",
+    Remarque :  Dans le champ "nom_shop_html" du formulaire "personnes/personnes_ajouter.html",
                 le contrôle de la saisie s'effectue ici en Python.
                 On transforme la saisie en minuscules.
                 On ne doit pas accepter des valeurs vides, des valeurs avec des chiffres,
@@ -128,20 +128,20 @@ def personnes_ajouter_wtf():
                                             f"{personnes_ajouter_wtf.__name__} ; "
                                             f"{Exception_personnes_ajouter_wtf}")
 
-    return render_template("personnes_html/personnes_ajouter_wtf.html", form=form)
+    return render_template("personnes/personnes_ajouter_wtf.html", form=form)
 
 
 """
     Auteur : OM 2021.03.29
     Définition d'une "route" /personnes_update
     
-    Test : ex cliquer sur le menu "personnes_html" puis cliquer sur le bouton "EDIT" d'un "genre"
+    Test : ex cliquer sur le menu "personnes" puis cliquer sur le bouton "EDIT" d'un "genre"
     
     Paramètres : sans
     
     But : Editer(update) un genre qui a été sélectionné dans le formulaire "personnes_afficher.html"
     
-    Remarque :  Dans le champ "nom_personnes_update_wtf" du formulaire "personnes_html/personnes_update_wtf.html",
+    Remarque :  Dans le champ "nom_personnes_update_wtf" du formulaire "personnes/personnes_update_wtf.html",
                 le contrôle de la saisie s'effectue ici en Python.
                 On transforme la saisie en minuscules.
                 On ne doit pas accepter des valeurs vides, des valeurs avec des chiffres,
@@ -205,20 +205,20 @@ def personnes_update_wtf():
                                       f"{personnes_update_wtf.__name__} ; "
                                       f"{Exception_personnes_update_wtf}")
 
-    return render_template("personnes_html/personnes_update_wtf.html", form_update=form_update)
+    return render_template("personnes/personnes_update_wtf.html", form_update=form_update)
 
 
 """
     Auteur : OM 2021.04.08
     Définition d'une "route" /personnes_delete
     
-    Test : ex. cliquer sur le menu "personnes_html" puis cliquer sur le bouton "DELETE" d'un "genre"
+    Test : ex. cliquer sur le menu "personnes" puis cliquer sur le bouton "DELETE" d'un "genre"
     
     Paramètres : sans
     
     But : Effacer(delete) un genre qui a été sélectionné dans le formulaire "personnes_afficher.html"
     
-    Remarque :  Dans le champ "nom_personnes_delete_wtf" du formulaire "personnes_html/personnes_delete_wtf.html",
+    Remarque :  Dans le champ "nom_personnes_delete_wtf" du formulaire "personnes/personnes_delete_wtf.html",
                 le contrôle de la saisie est désactivée. On doit simplement cliquer sur "DELETE"
 """
 
@@ -241,7 +241,7 @@ def personnes_delete_wtf():
 
             if form_delete.submit_btn_conf_del.data:
                 # Récupère les données afin d'afficher à nouveau
-                # le formulaire "personnes_html/personnes_delete_wtf.html" lorsque le bouton "Etes-vous sur d'effacer ?" est cliqué.
+                # le formulaire "personnes/personnes_delete_wtf.html" lorsque le bouton "Etes-vous sur d'effacer ?" est cliqué.
                 data_entreprise_attribue_personnes_delete = session['data_entreprise_attribue_personnes_delete']
                 print("data_entreprise_attribue_personnes_delete ", data_entreprise_attribue_personnes_delete)
 
@@ -285,7 +285,7 @@ def personnes_delete_wtf():
                 print("data_entreprise_attribue_personnes_delete...", data_entreprise_attribue_personnes_delete)
 
                 # Nécessaire pour mémoriser les données afin d'afficher à nouveau
-                # le formulaire "personnes_html/personnes_delete_wtf.html" lorsque le bouton "Etes-vous sur d'effacer ?" est cliqué.
+                # le formulaire "personnes/personnes_delete_wtf.html" lorsque le bouton "Etes-vous sur d'effacer ?" est cliqué.
                 session['data_entreprise_attribue_personnes_delete'] = data_entreprise_attribue_personnes_delete
 
                 # Opération sur la BD pour récupérer "id_genre" et "intitule_genre" de la "t_personnes"
@@ -311,7 +311,7 @@ def personnes_delete_wtf():
                                       f"{personnes_delete_wtf.__name__} ; "
                                       f"{Exception_personnes_delete_wtf}")
 
-    return render_template("personnes_html/personnes_delete_wtf.html",
+    return render_template("personnes/personnes_delete_wtf.html",
                            form_delete=form_delete,
                            btn_submit_del=btn_submit_del,
                            data_entreprise_associes=data_entreprise_attribue_personnes_delete)

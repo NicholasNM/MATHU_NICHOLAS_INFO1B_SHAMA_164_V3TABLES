@@ -1,7 +1,7 @@
 """
     Fichier : gestion_entreprise_personnes_crud.py
     Auteur : OM 2021.05.01
-    Gestions des "routes" FLASK et des données pour l'association entre les entreprise et les personnes_html.
+    Gestions des "routes" FLASK et des données pour l'association entre les entreprise et les personnes.
 """
 from pathlib import Path
 
@@ -18,7 +18,7 @@ from APP_FILMS_164.erreurs.exceptions import *
     Auteur : OM 2021.05.01
     Définition d'une "route" /entreprise_personnes_afficher
     
-    But : Afficher les entreprise avec les personnes_html associés pour chaque film.
+    But : Afficher les entreprise avec les personnes associés pour chaque film.
     
     Paramètres : id_personnes_sel = 0 >> tous les entreprise.
                  id_personnes_sel = "n" affiche le film dont l'id est "n"
@@ -76,12 +76,12 @@ def entreprise_personnes_afficher(id_entreprise_sel):
     nom: edit_entreprise_personnes_selected
     On obtient un objet "objet_dumpbd"
 
-    Récupère la liste de tous les personnes_html du film sélectionné par le bouton "MODIFIER" de "entreprise_personnes_afficher.html"
+    Récupère la liste de tous les personnes du film sélectionné par le bouton "MODIFIER" de "entreprise_personnes_afficher.html"
     
     Dans une liste déroulante particulière (tags-selector-tagselect), on voit :
-    1) Tous les personnes_html contenus dans la "t_genre".
-    2) Les personnes_html attribués au film selectionné.
-    3) Les personnes_html non-attribués au film sélectionné.
+    1) Tous les personnes contenus dans la "t_genre".
+    2) Les personnes attribués au film selectionné.
+    3) Les personnes non-attribués au film sélectionné.
 
     On signale les erreurs importantes
 
@@ -115,8 +115,8 @@ def edit_entreprise_personnes_selected():
 
             # Récupère les données grâce à 3 requêtes MySql définie dans la fonction personnes_entreprise_afficher_data
             # 1) Sélection du film choisi
-            # 2) Sélection des personnes_html "déjà" attribués pour le film.
-            # 3) Sélection des personnes_html "pas encore" attribués pour le film choisi.
+            # 2) Sélection des personnes "déjà" attribués pour le film.
+            # 3) Sélection des personnes "pas encore" attribués pour le film choisi.
             # ATTENTION à l'ordre d'assignation des variables retournées par la fonction "personnes_entreprise_afficher_data"
             data_personnes_entreprise_selected, data_personnes_entreprise_non_attribues, data_personnes_entreprise_attribues = \
                 personnes_entreprise_afficher_data(valeur_id_entreprise_selected_dictionnaire)
@@ -127,14 +127,14 @@ def edit_entreprise_personnes_selected():
                   type(lst_data_entreprise_selected))
 
             # Dans le composant "tags-selector-tagselect" on doit connaître
-            # les personnes_html qui ne sont pas encore sélectionnés.
+            # les personnes qui ne sont pas encore sélectionnés.
             lst_data_personnes_entreprise_non_attribues = [item['id_personnes'] for item in data_personnes_entreprise_non_attribues]
             session['session_lst_data_personnes_entreprise_non_attribues'] = lst_data_personnes_entreprise_non_attribues
             print("lst_data_personnes_entreprise_non_attribues  ", lst_data_personnes_entreprise_non_attribues,
                   type(lst_data_personnes_entreprise_non_attribues))
 
             # Dans le composant "tags-selector-tagselect" on doit connaître
-            # les personnes_html qui sont déjà sélectionnés.
+            # les personnes qui sont déjà sélectionnés.
             lst_data_personnes_entreprise_old_attribues = [item['id_personnes'] for item in data_personnes_entreprise_attribues]
             session['session_lst_data_personnes_entreprise_old_attribues'] = lst_data_personnes_entreprise_old_attribues
             print("lst_data_personnes_entreprise_old_attribues  ", lst_data_personnes_entreprise_old_attribues,
@@ -167,12 +167,12 @@ def edit_entreprise_personnes_selected():
 """
     nom: update_personnes_entreprise_selected
 
-    Récupère la liste de tous les personnes_html du film sélectionné par le bouton "MODIFIER" de "entreprise_personnes_afficher.html"
+    Récupère la liste de tous les personnes du film sélectionné par le bouton "MODIFIER" de "entreprise_personnes_afficher.html"
     
     Dans une liste déroulante particulière (tags-selector-tagselect), on voit :
-    1) Tous les personnes_html contenus dans la "t_genre".
-    2) Les personnes_html attribués au film selectionné.
-    3) Les personnes_html non-attribués au film sélectionné.
+    1) Tous les personnes contenus dans la "t_genre".
+    2) Les personnes attribués au film selectionné.
+    3) Les personnes non-attribués au film sélectionné.
 
     On signale les erreurs importantes
 """
@@ -186,18 +186,18 @@ def update_personnes_entreprise_selected():
             id_entreprise_selected = session['session_id_entreprise_personnes_edit']
             print("session['session_id_entreprise_personnes_edit'] ", session['session_id_entreprise_personnes_edit'])
 
-            # Récupère la liste des personnes_html qui ne sont pas associés au film sélectionné.
+            # Récupère la liste des personnes qui ne sont pas associés au film sélectionné.
             old_lst_data_personnes_entreprise_non_attribues = session['session_lst_data_personnes_entreprise_non_attribues']
             print("old_lst_data_personnes_entreprise_non_attribues ", old_lst_data_personnes_entreprise_non_attribues)
 
-            # Récupère la liste des personnes_html qui sont associés au film sélectionné.
+            # Récupère la liste des personnes qui sont associés au film sélectionné.
             old_lst_data_personnes_entreprise_attribues = session['session_lst_data_personnes_entreprise_old_attribues']
             print("old_lst_data_personnes_entreprise_old_attribues ", old_lst_data_personnes_entreprise_attribues)
 
             # Effacer toutes les variables de session.
             session.clear()
 
-            # Récupère ce que l'utilisateur veut modifier comme personnes_html dans le composant "tags-selector-tagselect"
+            # Récupère ce que l'utilisateur veut modifier comme personnes dans le composant "tags-selector-tagselect"
             # dans le fichier "genres_films_modifier_tags_dropbox.html"
             new_lst_str_personnes_entreprise = request.form.getlist('name_select_tags')
             print("new_lst_str_personnes_entreprise ", new_lst_str_personnes_entreprise)
@@ -229,7 +229,7 @@ def update_personnes_entreprise_selected():
             strsql_delete_personnes_entreprise = """DELETE FROM t_e_personnes WHERE fk_personnes = %(value_fk_personnes)s AND fk_entreprise = %(value_fk_entreprise)s"""
 
             with DBconnection() as mconn_bd:
-                # Pour le film sélectionné, parcourir la liste des personnes_html à INSÉRER dans la "t_genre_film".
+                # Pour le film sélectionné, parcourir la liste des personnes à INSÉRER dans la "t_genre_film".
                 # Si la liste est vide, la boucle n'est pas parcourue.
                 for id_personnes_ins in lst_diff_personnes_insert_a:
                     # Constitution d'un dictionnaire pour associer l'id du film sélectionné avec un nom de variable
@@ -239,7 +239,7 @@ def update_personnes_entreprise_selected():
 
                     mconn_bd.execute(strsql_insert_personnes_entreprise, valeurs_entreprise_sel_personnes_sel_dictionnaire)
 
-                # Pour le film sélectionné, parcourir la liste des personnes_html à EFFACER dans la "t_genre_film".
+                # Pour le film sélectionné, parcourir la liste des personnes à EFFACER dans la "t_genre_film".
                 # Si la liste est vide, la boucle n'est pas parcourue.
                 for id_personnes_del in lst_diff_personnes_delete_b:
                     # Constitution d'un dictionnaire pour associer l'id du film sélectionné avec un nom de variable
@@ -266,8 +266,8 @@ def update_personnes_entreprise_selected():
 """
     nom: personnes_entreprise_afficher_data
 
-    Récupère la liste de tous les personnes_html du film sélectionné par le bouton "MODIFIER" de "entreprise_personnes_afficher.html"
-    Nécessaire pour afficher tous les "TAGS" des personnes_html, ainsi l'utilisateur voit les personnes_html à disposition
+    Récupère la liste de tous les personnes du film sélectionné par le bouton "MODIFIER" de "entreprise_personnes_afficher.html"
+    Nécessaire pour afficher tous les "TAGS" des personnes, ainsi l'utilisateur voit les personnes à disposition
 
     On signale les erreurs importantes
 """

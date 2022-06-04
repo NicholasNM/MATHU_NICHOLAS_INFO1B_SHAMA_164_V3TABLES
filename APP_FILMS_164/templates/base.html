@@ -45,7 +45,7 @@
 			<div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
 				<ul class="navbar-nav">
 					<li class="nav-item">
-						<!--		Afficher la liste des personnes_html dans l'ordre (ASC) et tous les personnes_html (0)-->
+						<!--		Afficher la liste des personnes dans l'ordre (ASC) et tous les personnes (0)-->
 						<a class="nav-link" href="{{ url_for('entreprise_personnes_afficher', id_entreprise_sel=0) }}">Entreprise</a>
 					</li>
 					<li class="nav-item dropdown">
@@ -54,7 +54,7 @@
 							Menu
 						</a>
 						<ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-							<li><a class="nav-link" href="{{ url_for('genres_afficher', order_by='ASC', id_genre_sel=0) }}">Shops</a></li>
+							<li><a class="nav-link" href="{{ url_for('shop_afficher', order_by='ASC', id_shop_sel=0) }}">Shops</a></li>
 							</li>
 							<li><a class="nav-link" href="{{url_for('personnes_afficher', order_by='ASC', id_personnes_sel=0)}}">Employés</a>
 

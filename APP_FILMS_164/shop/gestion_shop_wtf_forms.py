@@ -10,7 +10,7 @@ from wtforms.validators import Length, InputRequired, DataRequired
 from wtforms.validators import Regexp
 
 
-class FormWTFAjouterGenres(FlaskForm):
+class FormWTFAjouterShop(FlaskForm):
     """
         Dans le formulaire "shop_ajouter_wtf.html" on impose que le champ soit rempli.
         Définition d'un "bouton" submit avec un libellé personnalisé.
@@ -33,7 +33,7 @@ class FormWTFAjouterGenres(FlaskForm):
     submit = SubmitField("Enregistrer le shop")
 
 
-class FormWTFUpdateGenre(FlaskForm):
+class FormWTFUpdateShop(FlaskForm):
     """
         Dans le formulaire "shop_update_wtf.html" on impose que le champ soit rempli.
         Définition d'un "bouton" submit avec un libellé personnalisé.
@@ -56,7 +56,7 @@ class FormWTFUpdateGenre(FlaskForm):
     submit = SubmitField("Update genre")
 
 
-class FormWTFDeleteGenre(FlaskForm):
+class FormWTFDeleteShop(FlaskForm):
     """
         Dans le formulaire "shop_delete_wtf.html"
 

@@ -1,7 +1,7 @@
 """
     Fichier : gestion_personnes_crud.py
     Auteur : OM 2021.03.16
-    Gestions des "routes" FLASK et des données pour les personnes_html.
+    Gestions des "routes" FLASK et des données pour les personnes.
 """
 import sys
 
@@ -20,13 +20,13 @@ from APP_FILMS_164.essais_wtf_forms.wtf_forms_demo_select import DemoFormSelectW
     Auteur : OM 2021.04.08
     Définition d'une "route" /personnes_delete
     
-    Test : ex. cliquer sur le menu "personnes_html" puis cliquer sur le bouton "DELETE" d'un "genre"
+    Test : ex. cliquer sur le menu "personnes" puis cliquer sur le bouton "DELETE" d'un "genre"
     
     Paramètres : sans
     
     But : Effacer(delete) un genre qui a été sélectionné dans le formulaire "personnes_afficher.html"
     
-    Remarque :  Dans le champ "nom_personnes_delete_wtf" du formulaire "personnes_html/personnes_delete_wtf.html",
+    Remarque :  Dans le champ "nom_personnes_delete_wtf" du formulaire "personnes/personnes_delete_wtf.html",
                 le contrôle de la saisie est désactivée. On doit simplement cliquer sur "DELETE"
 """
 

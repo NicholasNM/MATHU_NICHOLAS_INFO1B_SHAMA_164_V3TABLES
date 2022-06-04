@@ -41,7 +41,7 @@ try:
     from APP_FILMS_164.database import database_tools
     from APP_FILMS_164.essais_wtf_forms import gestion_essai_wtf
     from APP_FILMS_164.essais_wtf_forms import gestion_wtf_forms_demo_select
-    from APP_FILMS_164.Personnes import gestion_personnes_crud
+    from APP_FILMS_164.personnes import gestion_personnes_crud
     from APP_FILMS_164.demos_om_164 import routes_demos
 
     from APP_FILMS_164.entreprise_personnes import gestion_entreprise_personnes_crud

@@ -79,23 +79,23 @@ class DatabaseException(Base):
     pass
 
 
-class ExceptionGenresAfficher(Base):
+class ExceptionShopAfficher(Base):
     pass
 
 
-class ExceptionGenreDeleteWtf(Base):
+class ExceptionShopDeleteWtf(Base):
     pass
 
 
-class ExceptionGenreUpdateWtf(Base):
+class ExceptionShopUpdateWtf(Base):
     pass
 
 
-class ExceptionGenresAjouterWtf(Base):
+class ExceptionShopAjouterWtf(Base):
     pass
 
 
-class ExceptionFilmsGenresAfficher(Base):
+class ExceptionEntrepriseShopAfficher(Base):
     pass
 
 class ExceptionPersonnesAfficher(Base):
@@ -125,8 +125,20 @@ class ExceptionEditPersonnesEntrepriseSelected(Base):
 class ExceptionUpdatePersonnesEntrepriseSelected(Base):
     pass
 
+class ExceptionEntrepriseShopAfficher(Base):
+    pass
 
-class ExceptionEntreprisePersonnesAfficherData(Base):
+
+class ExceptionEditShopEntrepriseSelected(Base):
+    pass
+
+
+class ExceptionUpdateShopEntrepriseSelected(Base):
+    pass
+
+
+
+class ExceptionEntrepriseShopAfficherData(Base):
     pass
 
 
