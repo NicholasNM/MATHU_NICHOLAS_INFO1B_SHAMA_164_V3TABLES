@@ -51,7 +51,7 @@ try:
     from APP_FILMS_164.entreprise import gestion_entreprise_crud
     from APP_FILMS_164.entreprise import gestion_entreprise_wtf_forms
 
-    from APP_FILMS_164.genres import gestion_genres_crud
+    from APP_FILMS_164.shop import gestion_shop_crud
     from APP_FILMS_164.entreprise_personnes import gestion_entreprise_personnes_crud
 
 except Exception as Exception_init_app_films_164:

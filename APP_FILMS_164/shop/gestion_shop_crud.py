@@ -1,5 +1,5 @@
 """Gestion des "routes" FLASK et des données pour les shop.
-Fichier : gestion_genres_crud.py
+Fichier : gestion_shop_crud.py
 Auteur : OM 2021.03.16
 """
 from pathlib import Path
@@ -12,9 +12,9 @@ from flask import url_for
 from APP_FILMS_164 import app
 from APP_FILMS_164.database.database_tools import DBconnection
 from APP_FILMS_164.erreurs.exceptions import *
-from APP_FILMS_164.genres.gestion_genres_wtf_forms import FormWTFAjouterGenres
-from APP_FILMS_164.genres.gestion_genres_wtf_forms import FormWTFDeleteGenre
-from APP_FILMS_164.genres.gestion_genres_wtf_forms import FormWTFUpdateGenre
+from APP_FILMS_164.shop.gestion_shop_wtf_forms import FormWTFAjouterGenres
+from APP_FILMS_164.shop.gestion_shop_wtf_forms import FormWTFDeleteGenre
+from APP_FILMS_164.shop.gestion_shop_wtf_forms import FormWTFUpdateGenre
 
 """
     Auteur : OM 2021.03.16
