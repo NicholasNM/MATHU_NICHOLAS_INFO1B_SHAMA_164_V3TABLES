@@ -1,8 +1,11 @@
 {% extends "base.html" %}
-{% block title %} Afficher ENTREPRISES {% endblock %}
+{% block title %} Afficher Shops {% endblock %}
 {% block body %}
 <div class="container">
 	<div class="col-md-12">
+		<th class="align-middle">
+            <a class="btn btn-primary" href="{{ url_for('shop_add_wtf') }}" role="button">Ajouter</a>
+        </th>
 		<table class="table table-responsive-sm">
             {% if data %}
 				<thead>
@@ -14,7 +17,7 @@
 						  Nom
 						</th>
 						<th class="" >
-						  Numéro
+						  Numero
 						</th>
 						<th class="" >
 						  Email
@@ -32,34 +35,23 @@
 						{{ row.nom_entreprise }}
 					  </th>
 					  <th class="align-middle">
-						{{ row.num_entreprise|default("", True) }}
+						{{ row.num_entreprise }}
 					  </th>
 					  <th class="align-middle">
-						{{ row.email_entreprise|default("", True) }}
-					  </th>
-					  <th class="align-middle">
-						<a class="btn btn-primary" href="{{ url_for('avertissement_sympa_pour_geeks') }}" role="button">Ajouter</a>
+						{{ row.email_entreprise|default }}
 					  </th>
 					  <th class="align-middle">
 						<a class="btn btn-warning" href="{{ url_for('entreprise_update_wtf', id_entreprise_btn_edit_html=row.id_entreprise) }}" role="button">Edit</a>
 					  </th>
 					  <th class="align-middle">
-						<a class="btn btn-danger" href="{{ url_for('avertissement_sympa_pour_geeks') }}" role="button">Delete</a>
+						<a class="btn btn-danger" href="{{ url_for('entreprise_delete_wtf', id_entreprise_btn_delete_html=row.id_entreprise ) }}" role="button">Delete</a>
 					  </th>
 					<tr>
 						<td class="align-middle">
-							<a class="btn btn-warning" href="{{ url_for('edit_entreprise_personnes_selected', id_entreprise_personnes_edit_html=row.id_entreprise) }}" role="button">Modifier1</a>
+							<a class="btn btn-warning" href="{{ url_for('edit_shop_entreprise_selected', id_entreprise_shop_edit_html=row.id_entreprise) }}" role="button">Modifier</a>
 						</td>
 						<td class="align-middle" colspan="5">
-							{{ row.EntreprisePersonnes|default("PAS DE PERSONNES", True) }}
-						</td>
-					</tr>
-					<tr>
-						<td class="align-middle">
-							<a class="btn btn-warning" href="{{ url_for('edit_shop_entreprise_selected', id_entreprise_shop_edit_html=row.id_entreprise) }}" role="button">Modifier2</a>
-						</td>
-						<td class="align-middle" colspan="5">
-							{{ row.EntrepriseShop|default("PAS DE SHOPS", True) }}
+							{{ row.EntrepriseShop|default("PAS DE PARTICIPANT ATTRIBUE", True) }}
 						</td>
 					</tr>
 				</tr>
@@ -68,7 +60,7 @@
 				<tbody>
 					<tr>
 						<td>
-							Aucune Entreprise
+							Aucun shop.
 						</td>
 						<td>
 							<a class="btn btn-primary" href="{{ url_for('avertissement_sympa_pour_geeks') }}" role="button">Add</a>
