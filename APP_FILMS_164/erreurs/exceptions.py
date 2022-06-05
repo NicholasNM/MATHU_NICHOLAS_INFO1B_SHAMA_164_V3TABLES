@@ -94,9 +94,12 @@ class ExceptionShopUpdateWtf(Base):
 class ExceptionShopAjouterWtf(Base):
     pass
 
+class ExceptionShopEntrepriseAfficherData(Base):
+    pass
 
 class ExceptionEntrepriseShopAfficher(Base):
     pass
+
 
 class ExceptionPersonnesAfficher(Base):
     pass
