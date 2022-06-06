@@ -34,8 +34,8 @@ def personnes_afficher(order_by, id_personnes_sel):
         try:
             with DBconnection() as mc_afficher:
                 if order_by == "ASC" and id_personnes_sel == 0:
-                    strsql_personnes_afficher = """SELECT id_personnes, nom_personnes, prenom_personnes
-                    FROM t_personnes ORDER BY id_personnes ASC"""
+                    strsql_personnes_afficher = """SELECT id_personnes, nom_personnes, prenom_personnes, num_personnes, 
+                    email_personnes, date_naissance FROM t_personnes ORDER BY id_personnes ASC"""
                     mc_afficher.execute(strsql_personnes_afficher)
                 elif order_by == "ASC":
                     # C'EST LA QUE VOUS ALLEZ DEVOIR PLACER VOTRE PROPRE LOGIQUE MySql
@@ -44,12 +44,14 @@ def personnes_afficher(order_by, id_personnes_sel):
                     # donc, je précise les champs à afficher
                     # Constitution d'un dictionnaire pour associer l'id du genre sélectionné avec un nom de variable
                     valeur_id_personnes_selected_dictionnaire = {"value_id_personnes_selected": id_personnes_sel}
-                    strsql_personnes_afficher = """SELECT id_personnes, nom_personnes, prenom_personnes 
+                    strsql_personnes_afficher = """SELECT id_personnes, nom_personnes, prenom_personnes, num_personnes, 
+                    email_personnes, date_naissance 
                     FROM t_personnes WHERE id_personnes = %(value_id_personnes_selected)s"""
 
                     mc_afficher.execute(strsql_personnes_afficher, valeur_id_personnes_selected_dictionnaire)
                 else:
-                    strsql_personnes_afficher = """SELECT id_personnes, nom_personnes, prenom_personnes 
+                    strsql_personnes_afficher = """SELECT id_personnes, nom_personnes, prenom_personnes, num_personnes, 
+                    email_personnes, date_naissance 
                     FROM t_personnes ORDER BY id_personnes  DESC"""
 
                     mc_afficher.execute(strsql_personnes_afficher)
@@ -106,13 +108,20 @@ def personnes_ajouter_wtf():
             if form.validate_on_submit():
                 nom_personnes_wtf = form.nom_personnes_wtf.data
                 prenom_personnes_wtf = form.prenom_personnes_wtf.data
+                num_personnes_wtf = form.num_personnes_wtf.data
+                email_personnes_wtf = form.email_personnes_wtf.data
+                date_naissance_wtf = form.date_naissance_wtf.data
                 valeurs_insertion_dictionnaire = {"value_nom_personnes": nom_personnes_wtf,
-                                                  "value_prenom_personnes": prenom_personnes_wtf
+                                                  "value_prenom_personnes": prenom_personnes_wtf,
+                                                  "value_num_personnes": num_personnes_wtf,
+                                                  "value_email_personnes": email_personnes_wtf,
+                                                  "value_date_naissance": date_naissance_wtf
                                                   }
 
                 print("valeurs_insertion_dictionnaire ", valeurs_insertion_dictionnaire)
 
-                strsql_insert_personnes = """INSERT INTO t_personnes (id_personnes, nom_personnes, prenom_personnes) 
+                strsql_insert_personnes = """INSERT INTO t_personnes (id_personnes, nom_personnes, prenom_personnes, 
+                num_personnes, email_personnes, date_naissance) 
                 VALUES (NULL,%(value_nom_personnes)s,%(value_prenom_personnes)s) """
                 with DBconnection() as mconn_bd:
                     mconn_bd.execute(strsql_insert_personnes, valeurs_insertion_dictionnaire)
