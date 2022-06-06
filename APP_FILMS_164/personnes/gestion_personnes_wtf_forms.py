@@ -23,15 +23,15 @@ class FormWTFAjouterPersonnes(FlaskForm):
 
                                                                     ])
 
-    num_personnes_wtf = StringField("Écrivez le nom ", validators=[Length(min=2, max=20, message="min 2 max 20"),
+    num_personnes_wtf = StringField("Écrivez le numéro de téléphone", validators=[Length(min=2, max=20, message="min 2 max 20"),
 
                                                                    ])
-    email_personnes_wtf = StringField("Écrivez le prénom ", validators=[Length(min=2, max=20, message="min 2 max 20"),
+    email_personnes_wtf = StringField("Écrivez l'email de la personne", validators=[Length(min=2, max=20, message="min 2 max 20"),
 
                                                                          ])
 
-    date_naissance_wtf = DateField("Essai date", validators=[InputRequired("Date obligatoire"),
-                                                             DataRequired("Date non valide")])
+    date_naissance_wtf = DateField("Insérez la date de naissance", validators=[InputRequired("Date obligatoire"),
+                                                                               DataRequired("Date non valide")])
 
     submit = SubmitField("Enregistrer la personne")
 
@@ -48,15 +48,15 @@ class FormWTFUpdatePersonnes(FlaskForm):
     prenom_personnes_update_wtf = StringField("Changez le prénom ", validators=[Length(min=2, max=20, message="min 2 max 20"),
 
                                                                           ])
-    num_personnes_update_wtf = StringField("Écrivez le nom ", validators=[Length(min=2, max=20, message="min 2 max 20"),
+    num_personnes_update_wtf = StringField("Écrivez le numéro de téléphone ", validators=[Length(min=2, max=20, message="min 2 max 20"),
 
                                                                    ])
-    email_personnes_update_wtf = StringField("Écrivez le prénom ", validators=[Length(min=2, max=20, message="min 2 max 20"),
+    email_personnes_update_wtf = StringField("Écrivez l'email de la personne", validators=[Length(min=2, max=20, message="min 2 max 20"),
 
                                                                         ])
 
-    date_naissance_update_wtf = DateField("Essai date", validators=[InputRequired("Date obligatoire"),
-                                                                    DataRequired("Date non valide")])
+    date_naissance_update_wtf = DateField("Insérez la date de naissance", validators=[InputRequired("Date obligatoire"),
+                                                                                      DataRequired("Date non valide")])
 
     submit = SubmitField("Enregistrer la modification")
 

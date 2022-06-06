@@ -122,7 +122,7 @@ def personnes_ajouter_wtf():
 
                 strsql_insert_personnes = """INSERT INTO t_personnes (id_personnes, nom_personnes, prenom_personnes, 
                 num_personnes, email_personnes, date_naissance) 
-                VALUES (NULL,%(value_nom_personnes)s,%(value_prenom_personnes)s) """
+                VALUES (NULL,%(value_nom_personnes)s,%(value_prenom_personnes)s,%(value_num_personnes)s,%(value_email_personnes)s,%(value_date_naissance)s) """
                 with DBconnection() as mconn_bd:
                     mconn_bd.execute(strsql_insert_personnes, valeurs_insertion_dictionnaire)
 
@@ -174,15 +174,24 @@ def personnes_update_wtf():
             # Puis la convertir en lettres minuscules.
             nom_personnes_update = form_update.nom_personnes_update_wtf.data
             prenom_personnes_update = form_update.prenom_personnes_update_wtf.data
+            num_personnes_update_wtf = form_update.num_personnes_update_wtf.data
+            email_personnes_update_wtf = form_update.email_personnes_update_wtf.data
+            date_naissance_update_wtf = form_update.date_naissance_update_wtf.data
 
             valeur_update_dictionnaire = {"value_id_personnes": id_personnes_update,
                                           "value_nom_personnes": nom_personnes_update,
-                                          "value_prenom_personnes": prenom_personnes_update
+                                          "value_prenom_personnes": prenom_personnes_update,
+                                          "value_num_personnes": num_personnes_update_wtf,
+                                          "value_email_personnes": email_personnes_update_wtf,
+                                          "value_date_naissance": date_naissance_update_wtf
                                           }
             print("valeur_update_dictionnaire ", valeur_update_dictionnaire)
 
             str_sql_update_nom_personnes = """UPDATE t_personnes SET nom_personnes = %(value_nom_personnes)s, 
-                                              prenom_personnes = %(value_prenom_personnes)s 
+                                              prenom_personnes = %(value_prenom_personnes)s, 
+                                              num_personnes = %(value_num_personnes)s, 
+                                              email_personnes = %(value_email_personnes)s, 
+                                              date_naissance = %(value_date_naissance)s 
                                               WHERE id_personnes = %(value_id_personnes)s """
             with DBconnection() as mconn_bd:
                 mconn_bd.execute(str_sql_update_nom_personnes, valeur_update_dictionnaire)
@@ -195,7 +204,8 @@ def personnes_update_wtf():
             return redirect(url_for('personnes_afficher', order_by="ASC", id_personnes_sel=id_personnes_update))
         elif request.method == "GET":
             # Opération sur la BD pour récupérer "id_genre" et "intitule_genre" de la "t_personnes"
-            str_sql_id_personnes = "SELECT id_personnes, nom_personnes, prenom_personnes FROM t_personnes " \
+            str_sql_id_personnes = "SELECT id_personnes, nom_personnes, prenom_personnes," \
+                                   "num_personnes, email_personnes, date_naissance FROM t_personnes " \
                                    "WHERE id_personnes = %(value_id_personnes)s"
             valeur_select_dictionnaire = {"value_id_personnes": id_personnes_update}
             with DBconnection() as mybd_conn:
@@ -298,7 +308,8 @@ def personnes_delete_wtf():
                 session['data_entreprise_attribue_personnes_delete'] = data_entreprise_attribue_personnes_delete
 
                 # Opération sur la BD pour récupérer "id_genre" et "intitule_genre" de la "t_personnes"
-                str_sql_id_personnes = "SELECT id_personnes, nom_personnes FROM t_personnes " \
+                str_sql_id_personnes = "SELECT id_personnes, nom_personnes, num_personnes, email_personnes, " \
+                                       "date_naissance FROM t_personnes " \
                                        "WHERE id_personnes = %(value_id_personnes)s"
 
                 mydb_conn.execute(str_sql_id_personnes, valeur_select_dictionnaire)
