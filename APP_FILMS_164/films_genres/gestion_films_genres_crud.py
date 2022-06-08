@@ -32,11 +32,11 @@ def films_genres_afficher(id_film_sel):
     if request.method == "GET":
         try:
             with DBconnection() as mc_afficher:
-                strsql_genres_films_afficher_data = """SELECT id_film, nom_film, duree_film, description_film, cover_link_film, date_sortie_film,
-                                                            GROUP_CONCAT(intitule_genre) as GenresFilms FROM t_genre_film
-                                                            RIGHT JOIN t_film ON t_film.id_film = t_genre_film.fk_film
-                                                            LEFT JOIN t_genre ON t_genre.id_genre = t_genre_film.fk_genre
-                                                            GROUP BY id_film"""
+                strsql_genres_films_afficher_data = """SELECT id_adresse, Rue, Numero, Localite,
+                                                            GROUP_CONCAT(nom_personnes) as GenresFilms FROM t_pers_adresse
+                                                            RIGHT JOIN t_adresse ON t_adresse.id_adresse = t_pers_adresse.fk_adresse
+                                                            LEFT JOIN t_personnes ON t_personnes.id_personnes = t_pers_adresse.fk_personnes
+                                                            GROUP BY id_adresse"""
                 if id_film_sel == 0:
                     # le paramètre 0 permet d'afficher tous les films
                     # Sinon le paramètre représente la valeur de l'id du film
