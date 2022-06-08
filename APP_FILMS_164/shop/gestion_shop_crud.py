@@ -326,4 +326,4 @@ def shop_delete_wtf():
     return render_template("shop/shop_delete_wtf.html",
                            form_delete=form_delete,
                            btn_submit_del=btn_submit_del,
-                           data_films_associes=data_entreprise_attribue_shop_delete)
+                           data_entreprise_associes=data_entreprise_attribue_shop_delete)

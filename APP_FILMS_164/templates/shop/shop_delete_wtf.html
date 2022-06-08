@@ -11,12 +11,12 @@
 				<!-- Protection contre les attaques Cross-Site Request Forgery (CSRF) -->
 				{{ form_delete.hidden_tag() }}
 				<table class="table table-bordered table-sm">
-					{% if data_films_associes %}
+					{% if data_entreprise_associes %}
 						<h3>Ce shop est associé avec l'(s) entreprise(s) suivant(s) :</h3>
 					{% else %}
 						<h3>Ce shop à effacer n'est associé à aucune entreprise.</h3>
 					{% endif %}
-					{% if data_films_associes %}
+					{% if data_entreprise_associes %}
 						<thead>
 							<tr>
 								<th>
@@ -24,7 +24,7 @@
 								</th>
 							</tr>
 						</thead>
-						{% for row in data_films_associes %}
+						{% for row in data_entreprise_associes %}
 							<tbody>
 								<tr>
 									<td>
