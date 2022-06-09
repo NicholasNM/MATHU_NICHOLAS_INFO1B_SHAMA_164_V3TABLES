@@ -11,19 +11,13 @@
 						  Id
 						</th>
 						<th class="" >
-						  Nom
+						  Rue
 						</th>
 						<th class="" >
-						  Durée
+						  Numero
 						</th>
 						<th class="" >
-						  Date de sortie
-						</th>
-						<th class="" >
-						  Description
-						</th>
-						<th class="" >
-						  Affiche
+						  Localite
 						</th>
 					</tr>
 				</thead>
@@ -32,22 +26,16 @@
 			<tbody>
 				<tr>
 					  <th class="align-middle">
-						  {{ row.id_film }}
+						  {{ row.id_adresse }}
 					  </th>
 					  <th class="align-middle">
-						{{ row.nom_film }}
+						{{ row.Rue }}
 					  </th>
 					  <th class="align-middle">
-						{{ row.duree_film|default("", True) }}
+						{{ row.Numero|default("", True) }}
 					  </th>
 					  <th class="align-middle">
-						{{ row.date_sortie_film|default("", True) }}
-					  </th>
-					  <th class="align-middle">
-						{{ row.description_film|default("", True) }}
-					  </th>
-					  <th class="align-middle">
-						<img class="img" src={{ row.cover_link_film|default(None, True) }} style="border: 0;display:block; width:150px; max-height:auto;"  alt = "image masquée FFP8 (in COVID-19 Memory) (absente) mod 164">
+						{{ row.Localite|default("", True) }}
 					  </th>
 					  <th class="align-middle">
 						<a class="btn btn-primary" href="{{ url_for('film_add_wtf') }}" role="button">Ajouter</a>

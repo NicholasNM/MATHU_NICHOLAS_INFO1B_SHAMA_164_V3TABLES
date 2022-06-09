@@ -32,7 +32,7 @@ def films_genres_afficher(id_film_sel):
     if request.method == "GET":
         try:
             with DBconnection() as mc_afficher:
-                strsql_genres_films_afficher_data = """SELECT id_adresse, Rue, Numero, Localite,
+                strsql_genres_films_afficher_data = """SELECT id_adresse, Rue, Numero, Localite, 
                                                             GROUP_CONCAT(nom_personnes) as GenresFilms FROM t_pers_adresse
                                                             RIGHT JOIN t_adresse ON t_adresse.id_adresse = t_pers_adresse.fk_adresse
                                                             LEFT JOIN t_personnes ON t_personnes.id_personnes = t_pers_adresse.fk_personnes
@@ -276,20 +276,20 @@ def genres_films_afficher_data(valeur_id_film_selected_dict):
     print("valeur_id_film_selected_dict...", valeur_id_film_selected_dict)
     try:
 
-        strsql_film_selected = """SELECT id_film, nom_film, duree_film, description_film, cover_link_film, date_sortie_film, GROUP_CONCAT(id_genre) as GenresFilms FROM t_genre_film
-                                        INNER JOIN t_film ON t_film.id_film = t_genre_film.fk_film
-                                        INNER JOIN t_genre ON t_genre.id_genre = t_genre_film.fk_genre
-                                        WHERE id_film = %(value_id_film_selected)s"""
+        strsql_film_selected = """SELECT id_adresse, Rue, Numero, Localite, GROUP_CONCAT(id_personnes) as GenresFilms FROM t_pers_adresse
+                                        INNER JOIN t_adresse ON t_adresse.id_adresse = t_pers_adresse.fk_adresse
+                                        INNER JOIN t_personnes ON t_personnes.id_personnes = t_pers_adresse.fk_personnes
+                                        WHERE id_adresse = %(value_id_film_selected)s"""
 
-        strsql_genres_films_non_attribues = """SELECT id_genre, intitule_genre FROM t_genre WHERE id_genre not in(SELECT id_genre as idGenresFilms FROM t_genre_film
-                                                    INNER JOIN t_film ON t_film.id_film = t_genre_film.fk_film
-                                                    INNER JOIN t_genre ON t_genre.id_genre = t_genre_film.fk_genre
-                                                    WHERE id_film = %(value_id_film_selected)s)"""
+        strsql_genres_films_non_attribues = """SELECT id_personnes, nom_personnes FROM t_personnes WHERE id_personnes not in(SELECT id_personnes as idGenresFilms FROM t_pers_adresse
+                                                    INNER JOIN t_adresse ON t_adresse.id_adresse = t_pers_adresse.fk_adresse
+                                                    INNER JOIN t_personnes ON t_personnes.id_personnes = t_pers_adresse.fk_personnes
+                                                    WHERE id_adresse = %(value_id_film_selected)s)"""
 
-        strsql_genres_films_attribues = """SELECT id_film, id_genre, intitule_genre FROM t_genre_film
-                                            INNER JOIN t_film ON t_film.id_film = t_genre_film.fk_film
-                                            INNER JOIN t_genre ON t_genre.id_genre = t_genre_film.fk_genre
-                                            WHERE id_film = %(value_id_film_selected)s"""
+        strsql_genres_films_attribues = """SELECT id_adresse, id_personnes, Rue FROM t_pers_adresse
+                                            INNER JOIN t_adresse ON t_adresse.id_adresse = t_pers_adresse.fk_adresse
+                                            INNER JOIN t_personnes ON t_personnes.id_personnes = t_pers_adresse.fk_personnes
+                                            WHERE id_adresse = %(value_id_film_selected)s"""
 
         # Du fait de l'utilisation des "context managers" on accède au curseur grâce au "with".
         with DBconnection() as mc_afficher:

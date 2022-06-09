@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %} Afficher Adresses {% endblock %}
+{% block title %} Afficher FILMS {% endblock %}
 {% block body %}
 <div class="container">
 	<div class="col-md-12">
@@ -17,7 +17,7 @@
 						  Numero
 						</th>
 						<th class="" >
-						  Localité
+						  Localite
 						</th>
 					</tr>
 				</thead>
@@ -29,7 +29,7 @@
 						  {{ row.id_adresse }}
 					  </th>
 					  <th class="align-middle">
-						{{ row.Rue }}
+						{{ row.Rue}}
 					  </th>
 					  <th class="align-middle">
 						{{ row.Numero|default("", True) }}
