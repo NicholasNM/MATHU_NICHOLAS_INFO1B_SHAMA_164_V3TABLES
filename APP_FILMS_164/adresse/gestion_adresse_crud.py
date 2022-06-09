@@ -101,12 +101,12 @@ def adresse_update_wtf():
                                           }
             print("valeur_update_dictionnaire ", valeur_update_dictionnaire)
 
-            str_sql_update_nom_film = """UPDATE t_adresse SET Rue = %(value_rue)s,
+            str_sql_update_adresse = """UPDATE t_adresse SET Rue = %(value_rue)s,
                                                             Numero = %(value_numero)s,
                                                             Localite = %(value_localite)s
                                                             WHERE id_adresse = %(value_id_adresse)s"""
             with DBconnection() as mconn_bd:
-                mconn_bd.execute(str_sql_update_nom_film, valeur_update_dictionnaire)
+                mconn_bd.execute(str_sql_update_adresse, valeur_update_dictionnaire)
 
             flash(f"Donnée mise à jour !!", "success")
             print(f"Donnée mise à jour !!")
@@ -121,19 +121,19 @@ def adresse_update_wtf():
             with DBconnection() as mybd_conn:
                 mybd_conn.execute(str_sql_id_adresse, valeur_select_dictionnaire)
             # Une seule valeur est suffisante "fetchone()", vu qu'il n'y a qu'un seul champ "nom genre" pour l'UPDATE
-            data_film = mybd_conn.fetchone()
-            print("data_film ", data_film, " type ", type(data_film), " personnes ",
-                  data_film["Rue"])
+            data_adresse = mybd_conn.fetchone()
+            print("data_adresse ", data_adresse, " type ", type(data_adresse), " personnes ",
+                  data_adresse["Rue"])
 
             # Afficher la valeur sélectionnée dans le champ du formulaire "adresse_update_wtf.html"
-            form_update_adresse.rue_update_wtf.data = data_film["Rue"]
-            form_update_adresse.numero_update_wtf.data = data_film["Numero"]
-            form_update_adresse.localite_update_wtf.data = data_film["Localite"]
+            form_update_adresse.rue_update_wtf.data = data_adresse["Rue"]
+            form_update_adresse.numero_update_wtf.data = data_adresse["Numero"]
+            form_update_adresse.localite_update_wtf.data = data_adresse["Localite"]
             # Debug simple pour contrôler la valeur dans la console "run" de PyCharm
-            print(f" Localite  ", data_film["Localite"], "  type ", type(data_film["Localite"]))
+            print(f" Localite  ", data_adresse["Localite"], "  type ", type(data_adresse["Localite"]))
 
     except Exception as Exception_adresse_update_wtf:
-        raise ExceptionFilmUpdateWtf(f"fichier : {Path(__file__).name}  ;  "
+        raise ExceptionAdresseUpdateWtf(f"fichier : {Path(__file__).name}  ;  "
                                      f"{adresse_update_wtf.__name__} ; "
                                      f"{Exception_adresse_update_wtf}")
 
@@ -156,7 +156,7 @@ Remarque :  Dans le champ "nom_film_delete_wtf" du formulaire "adresse/adresse_d
 @app.route("/film_delete", methods=['GET', 'POST'])
 def film_delete_wtf():
     # Pour afficher ou cacher les boutons "EFFACER"
-    data_film_delete = None
+    data_adresse_delete = None
     btn_submit_del = None
     # L'utilisateur vient de cliquer sur le bouton "DELETE". Récupère la valeur de "id_adresse"
     id_adresse_delete = request.values['id_adresse_btn_delete_html']
@@ -171,8 +171,8 @@ def film_delete_wtf():
         if form_delete_film.submit_btn_conf_del_film.data:
             # Récupère les données afin d'afficher à nouveau
             # le formulaire "adresse/adresse_delete_wtf.html" lorsque le bouton "Etes-vous sur d'effacer ?" est cliqué.
-            data_film_delete = session['data_film_delete']
-            print("data_film_delete ", data_film_delete)
+            data_adresse_delete = session['data_adresse_delete']
+            print("data_adresse_delete ", data_adresse_delete)
 
             flash(f"Effacer l'adresse de façon définitive de la BD !!!", "danger")
             # L'utilisateur vient de cliquer sur le bouton de confirmation pour effacer...
@@ -206,12 +206,12 @@ def film_delete_wtf():
 
             with DBconnection() as mydb_conn:
                 mydb_conn.execute(str_sql_genres_films_delete, valeur_select_dictionnaire)
-                data_film_delete = mydb_conn.fetchall()
-                print("data_film_delete...", data_film_delete)
+                data_adresse_delete = mydb_conn.fetchall()
+                print("data_adresse_delete...", data_adresse_delete)
 
                 # Nécessaire pour mémoriser les données afin d'afficher à nouveau
                 # le formulaire "adresse/adresse_delete_wtf.html" lorsque le bouton "Etes-vous sur d'effacer ?" est cliqué.
-                session['data_film_delete'] = data_film_delete
+                session['data_adresse_delete'] = data_adresse_delete
 
             # Le bouton pour l'action "DELETE" dans le form. "adresse_delete_wtf.html" est caché.
             btn_submit_del = False
@@ -224,5 +224,5 @@ def film_delete_wtf():
     return render_template("adresse/adresse_delete_wtf.html",
                            form_delete_film=form_delete_film,
                            btn_submit_del=btn_submit_del,
-                           data_film_del=data_film_delete
+                           data_adresse_del=data_adresse_delete
                            )

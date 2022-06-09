@@ -11,12 +11,12 @@
 				<!-- Protection contre les attaques Cross-Site Request Forgery (CSRF) -->
 				{{ form_delete.hidden_tag() }}
 				<table class="table table-bordered table-sm">
-					{% if data_films_associes %}
+					{% if data_adresse_associes %}
 						<h3>Ce genre est associé avec le(s) film(s) suivant(s) :</h3>
 					{% else %}
 						<h3>Ce genre à effacer n'est associé à aucun film.</h3>
 					{% endif %}
-					{% if data_films_associes %}
+					{% if data_adresse_associes %}
 						<thead>
 							<tr>
 								<th>
@@ -24,7 +24,7 @@
 								</th>
 							</tr>
 						</thead>
-						{% for row in data_films_associes %}
+						{% for row in data_adresse_associes %}
 							<tbody>
 								<tr>
 									<td>

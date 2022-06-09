@@ -179,7 +179,7 @@ class ExceptionFilmDeleteWtf(Base):
     pass
 
 
-class ExceptionFilmUpdateWtf(Base):
+class ExceptionAdresseUpdateWtf(Base):
     pass
 
 
