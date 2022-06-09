@@ -52,8 +52,8 @@ def film_add_wtf():
                 flash(f"Données insérées !!", "success")
                 print(f"Données insérées !!")
 
-                # Pour afficher et constater l'insertion du nouveau film (id_film_sel=0 => afficher tous les adresse)
-                return redirect(url_for('films_genres_afficher', id_film_sel=0))
+                # Pour afficher et constater l'insertion du nouveau film (id_adresse_sel=0 => afficher tous les adresse)
+                return redirect(url_for('adresse_personnes_afficher', id_adresse_sel=0))
 
         except Exception as Exception_genres_ajouter_wtf:
             raise ExceptionGenresAjouterWtf(f"fichier : {Path(__file__).name}  ;  "
@@ -113,7 +113,7 @@ def film_update_wtf():
 
             # afficher et constater que la donnée est mise à jour.
             # Afficher seulement le film modifié, "ASC" et l'"id_film_update"
-            return redirect(url_for('films_genres_afficher', id_film_sel=id_film_update))
+            return redirect(url_for('adresse_personnes_afficher', id_adresse_sel=id_film_update))
         elif request.method == "GET":
             # Opération sur la BD pour récupérer "id_film" et "intitule_genre" de la "t_genre"
             str_sql_id_film = "SELECT * FROM t_adresse WHERE id_adresse = %(value_id_adresse)s"
@@ -166,7 +166,7 @@ def film_delete_wtf():
     try:
         # Si on clique sur "ANNULER", afficher tous les adresse.
         if form_delete_film.submit_btn_annuler.data:
-            return redirect(url_for("films_genres_afficher", id_film_sel=0))
+            return redirect(url_for("adresse_personnes_afficher", id_adresse_sel=0))
 
         if form_delete_film.submit_btn_conf_del_film.data:
             # Récupère les données afin d'afficher à nouveau
@@ -196,7 +196,7 @@ def film_delete_wtf():
             print(f"Adresse définitivement effacé !!")
 
             # afficher les données
-            return redirect(url_for('films_genres_afficher', id_film_sel=0))
+            return redirect(url_for('adresse_personnes_afficher', id_adresse_sel=0))
         if request.method == "GET":
             valeur_select_dictionnaire = {"value_id_adresse": id_film_delete}
             print(id_film_delete, type(id_film_delete))

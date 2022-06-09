@@ -163,7 +163,7 @@ class ExceptionEntrepriseDeleteWtf(Base):
     pass
 
 
-class ExceptionFilmsGenresAfficher(Base):
+class ExceptionAdressePersonnesAfficher(Base):
     pass
 
 
