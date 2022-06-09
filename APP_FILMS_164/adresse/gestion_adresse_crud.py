@@ -11,25 +11,25 @@ from flask import url_for
 
 from APP_FILMS_164.database.database_tools import DBconnection
 from APP_FILMS_164.erreurs.exceptions import *
-from APP_FILMS_164.adresse.gestion_adresse_wtf_forms import FormWTFUpdateFilm, FormWTFAddFilm, FormWTFDeleteFilm
+from APP_FILMS_164.adresse.gestion_adresse_wtf_forms import FormWTFUpdateAdresse, FormWTFAddFilm, FormWTFDeleteFilm
 
 """Ajouter un film grâce au formulaire "adresse_add_wtf.html"
 Auteur : OM 2022.04.11
-Définition d'une "route" /film_add
+Définition d'une "route" /adresse_add
 
 Test : exemple: cliquer sur le menu "Films/Genres" puis cliquer sur le bouton "ADD" d'un "film"
 
 Paramètres : sans
 
 
-Remarque :  Dans le champ "nom_film_update_wtf" du formulaire "adresse/films_update_wtf.html",
+Remarque :  Dans le champ "nom_adresse_update_wtf" du formulaire "adresse/films_update_wtf.html",
             le contrôle de la saisie s'effectue ici en Python dans le fichier ""
             On ne doit pas accepter un champ vide.
 """
 
 
-@app.route("/film_add", methods=['GET', 'POST'])
-def film_add_wtf():
+@app.route("/adresse_add", methods=['GET', 'POST'])
+def adresse_add_wtf():
     # Objet formulaire pour AJOUTER un film
     form_add_film = FormWTFAddFilm()
     if request.method == "POST":
@@ -44,10 +44,10 @@ def film_add_wtf():
                                                   "value_localite": localite_add}
                 print("valeurs_insertion_dictionnaire ", valeurs_insertion_dictionnaire)
 
-                strsql_insert_film = """INSERT INTO t_adresse (id_adresse, Rue, Numero, Localite) VALUES
+                strsql_insert_adresse = """INSERT INTO t_adresse (id_adresse, Rue, Numero, Localite) VALUES
                                         (NULL,%(value_rue)s,%(value_numero)s,%(value_localite)s) """
                 with DBconnection() as mconn_bd:
-                    mconn_bd.execute(strsql_insert_film, valeurs_insertion_dictionnaire)
+                    mconn_bd.execute(strsql_insert_adresse, valeurs_insertion_dictionnaire)
 
                 flash(f"Données insérées !!", "success")
                 print(f"Données insérées !!")
@@ -55,17 +55,17 @@ def film_add_wtf():
                 # Pour afficher et constater l'insertion du nouveau film (id_adresse_sel=0 => afficher tous les adresse)
                 return redirect(url_for('adresse_personnes_afficher', id_adresse_sel=0))
 
-        except Exception as Exception_genres_ajouter_wtf:
-            raise ExceptionGenresAjouterWtf(f"fichier : {Path(__file__).name}  ;  "
-                                            f"{film_add_wtf.__name__} ; "
-                                            f"{Exception_genres_ajouter_wtf}")
+        except Exception as Exception_personnes_ajouter_wtf:
+            raise ExceptionPersonnesAjouterWtf(f"fichier : {Path(__file__).name}  ;  "
+                                            f"{adresse_add_wtf.__name__} ; "
+                                            f"{Exception_personnes_ajouter_wtf}")
 
     return render_template("adresse/adresse_add_wtf.html", form_add_film=form_add_film)
 
 
 """Editer(update) un film qui a été sélectionné dans le formulaire "adresse_personnes_afficher.html"
 Auteur : OM 2022.04.11
-Définition d'une "route" /film_update
+Définition d'une "route" /adresse_update
 
 Test : exemple: cliquer sur le menu "Films/Genres" puis cliquer sur le bouton "EDIT" d'un "film"
 
@@ -73,28 +73,28 @@ Paramètres : sans
 
 But : Editer(update) un genre qui a été sélectionné dans le formulaire "genres_afficher.html"
 
-Remarque :  Dans le champ "nom_film_update_wtf" du formulaire "adresse/films_update_wtf.html",
+Remarque :  Dans le champ "nom_adresse_update_wtf" du formulaire "adresse/films_update_wtf.html",
             le contrôle de la saisie s'effectue ici en Python.
             On ne doit pas accepter un champ vide.
 """
 
 
-@app.route("/film_update", methods=['GET', 'POST'])
-def film_update_wtf():
-    # L'utilisateur vient de cliquer sur le bouton "EDIT". Récupère la valeur de "id_film"
-    id_film_update = request.values['id_film_btn_edit_html']
+@app.route("/adresse_update", methods=['GET', 'POST'])
+def adresse_update_wtf():
+    # L'utilisateur vient de cliquer sur le bouton "EDIT". Récupère la valeur de "id_adresse"
+    id_adresse_update = request.values['id_adresse_btn_edit_html']
 
     # Objet formulaire pour l'UPDATE
-    form_update_film = FormWTFUpdateFilm()
+    form_update_adresse = FormWTFUpdateAdresse()
     try:
-        print(" on submit ", form_update_film.validate_on_submit())
-        if form_update_film.validate_on_submit():
+        print(" on submit ", form_update_adresse.validate_on_submit())
+        if form_update_adresse.validate_on_submit():
             # Récupèrer la valeur du champ depuis "genre_update_wtf.html" après avoir cliqué sur "SUBMIT".
-            rue_update = form_update_film.rue_update_wtf.data
-            numero_update = form_update_film.numero_update_wtf.data
-            localite_update = form_update_film.localite_update_wtf.data
+            rue_update = form_update_adresse.rue_update_wtf.data
+            numero_update = form_update_adresse.numero_update_wtf.data
+            localite_update = form_update_adresse.localite_update_wtf.data
 
-            valeur_update_dictionnaire = {"value_id_adresse": id_film_update,
+            valeur_update_dictionnaire = {"value_id_adresse": id_adresse_update,
                                           "value_rue": rue_update,
                                           "value_numero": numero_update,
                                           "value_localite": localite_update
@@ -112,32 +112,32 @@ def film_update_wtf():
             print(f"Donnée mise à jour !!")
 
             # afficher et constater que la donnée est mise à jour.
-            # Afficher seulement le film modifié, "ASC" et l'"id_film_update"
-            return redirect(url_for('adresse_personnes_afficher', id_adresse_sel=id_film_update))
+            # Afficher seulement le film modifié, "ASC" et l'"id_adresse_update"
+            return redirect(url_for('adresse_personnes_afficher', id_adresse_sel=id_adresse_update))
         elif request.method == "GET":
-            # Opération sur la BD pour récupérer "id_film" et "intitule_genre" de la "t_genre"
-            str_sql_id_film = "SELECT * FROM t_adresse WHERE id_adresse = %(value_id_adresse)s"
-            valeur_select_dictionnaire = {"value_id_adresse": id_film_update}
+            # Opération sur la BD pour récupérer "id_adresse" et "intitule_genre" de la "t_genre"
+            str_sql_id_adresse = "SELECT * FROM t_adresse WHERE id_adresse = %(value_id_adresse)s"
+            valeur_select_dictionnaire = {"value_id_adresse": id_adresse_update}
             with DBconnection() as mybd_conn:
-                mybd_conn.execute(str_sql_id_film, valeur_select_dictionnaire)
+                mybd_conn.execute(str_sql_id_adresse, valeur_select_dictionnaire)
             # Une seule valeur est suffisante "fetchone()", vu qu'il n'y a qu'un seul champ "nom genre" pour l'UPDATE
             data_film = mybd_conn.fetchone()
             print("data_film ", data_film, " type ", type(data_film), " personnes ",
                   data_film["Rue"])
 
             # Afficher la valeur sélectionnée dans le champ du formulaire "adresse_update_wtf.html"
-            form_update_film.rue_update_wtf.data = data_film["Rue"]
-            form_update_film.numero_update_wtf.data = data_film["Numero"]
-            form_update_film.localite_update_wtf.data = data_film["Localite"]
+            form_update_adresse.rue_update_wtf.data = data_film["Rue"]
+            form_update_adresse.numero_update_wtf.data = data_film["Numero"]
+            form_update_adresse.localite_update_wtf.data = data_film["Localite"]
             # Debug simple pour contrôler la valeur dans la console "run" de PyCharm
             print(f" Localite  ", data_film["Localite"], "  type ", type(data_film["Localite"]))
 
-    except Exception as Exception_film_update_wtf:
+    except Exception as Exception_adresse_update_wtf:
         raise ExceptionFilmUpdateWtf(f"fichier : {Path(__file__).name}  ;  "
-                                     f"{film_update_wtf.__name__} ; "
-                                     f"{Exception_film_update_wtf}")
+                                     f"{adresse_update_wtf.__name__} ; "
+                                     f"{Exception_adresse_update_wtf}")
 
-    return render_template("adresse/adresse_update_wtf.html", form_update_film=form_update_film)
+    return render_template("adresse/adresse_update_wtf.html", form_update_adresse=form_update_adresse)
 
 
 """Effacer(delete) un film qui a été sélectionné dans le formulaire "adresse_personnes_afficher.html"
@@ -158,8 +158,8 @@ def film_delete_wtf():
     # Pour afficher ou cacher les boutons "EFFACER"
     data_film_delete = None
     btn_submit_del = None
-    # L'utilisateur vient de cliquer sur le bouton "DELETE". Récupère la valeur de "id_film"
-    id_film_delete = request.values['id_film_btn_delete_html']
+    # L'utilisateur vient de cliquer sur le bouton "DELETE". Récupère la valeur de "id_adresse"
+    id_adresse_delete = request.values['id_adresse_btn_delete_html']
 
     # Objet formulaire pour effacer le film sélectionné.
     form_delete_film = FormWTFDeleteFilm()
@@ -181,7 +181,7 @@ def film_delete_wtf():
 
         # L'utilisateur a vraiment décidé d'effacer.
         if form_delete_film.submit_btn_del_film.data:
-            valeur_delete_dictionnaire = {"value_id_adresse": id_film_delete}
+            valeur_delete_dictionnaire = {"value_id_adresse": id_adresse_delete}
             print("valeur_delete_dictionnaire ", valeur_delete_dictionnaire)
 
             str_sql_delete_fk_film_genre = """DELETE FROM t_pers_adresse WHERE fk_adresse = %(value_id_adresse)s"""
@@ -198,8 +198,8 @@ def film_delete_wtf():
             # afficher les données
             return redirect(url_for('adresse_personnes_afficher', id_adresse_sel=0))
         if request.method == "GET":
-            valeur_select_dictionnaire = {"value_id_adresse": id_film_delete}
-            print(id_film_delete, type(id_film_delete))
+            valeur_select_dictionnaire = {"value_id_adresse": id_adresse_delete}
+            print(id_adresse_delete, type(id_adresse_delete))
 
             # Requête qui affiche le film qui doit être efffacé.
             str_sql_genres_films_delete = """SELECT * FROM t_adresse WHERE id_adresse = %(value_id_adresse)s"""

@@ -116,10 +116,10 @@ def genres_ajouter_wtf():
                 # Pour afficher et constater l'insertion de la valeur, on affiche en ordre inverse. (DESC)
                 return redirect(url_for('genres_afficher', order_by='DESC', id_genre_sel=0))
 
-        except Exception as Exception_genres_ajouter_wtf:
-            raise ExceptionGenresAjouterWtf(f"fichier : {Path(__file__).name}  ;  "
+        except Exception as Exception_personnes_ajouter_wtf:
+            raise ExceptionPersonnesAjouterWtf(f"fichier : {Path(__file__).name}  ;  "
                                             f"{genres_ajouter_wtf.__name__} ; "
-                                            f"{Exception_genres_ajouter_wtf}")
+                                            f"{Exception_personnes_ajouter_wtf}")
 
     return render_template("genres/genres_ajouter_wtf.html", form=form)
 
@@ -267,7 +267,7 @@ def genre_delete_wtf():
 
             # Requête qui affiche tous les adresse_personnes qui ont le genre que l'utilisateur veut effacer
             str_sql_genres_films_delete = """SELECT id_genre_film, nom_film, id_genre, intitule_genre FROM t_genre_film 
-                                            INNER JOIN t_film ON t_genre_film.fk_film = t_film.id_film
+                                            INNER JOIN t_film ON t_genre_film.fk_film = t_film.id_adresse
                                             INNER JOIN t_genre ON t_genre_film.fk_genre = t_genre.id_genre
                                             WHERE fk_genre = %(value_id_genre)s"""
 

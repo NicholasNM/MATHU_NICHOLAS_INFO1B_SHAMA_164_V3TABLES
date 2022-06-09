@@ -85,7 +85,7 @@ Remarque :  Dans le champ "nom_entreprise_update_wtf" du formulaire "entreprise/
 
 @app.route("/entreprise_update", methods=['GET', 'POST'])
 def entreprise_update_wtf():
-    # L'utilisateur vient de cliquer sur le bouton "EDIT". Récupère la valeur de "id_film"
+    # L'utilisateur vient de cliquer sur le bouton "EDIT". Récupère la valeur de "id_adresse"
     id_entreprise_update = request.values['id_entreprise_btn_edit_html']
 
     # Objet formulaire pour l'UPDATE
@@ -119,7 +119,7 @@ def entreprise_update_wtf():
             # Afficher seulement le film modifié, "ASC" et l'"id_entreprise_update"
             return redirect(url_for('entreprise_personnes_afficher', id_entreprise_sel=id_entreprise_update))
         elif request.method == "GET":
-            # Opération sur la BD pour récupérer "id_film" et "intitule_genre" de la "t_genre"
+            # Opération sur la BD pour récupérer "id_adresse" et "intitule_genre" de la "t_genre"
             str_sql_id_entreprise = "SELECT * FROM t_entreprise WHERE id_entreprise = %(value_id_entreprise)s"
             valeur_select_dictionnaire = {"value_id_entreprise": id_entreprise_update}
             with DBconnection() as mybd_conn:
@@ -164,7 +164,7 @@ def entreprise_delete_wtf():
     # Pour afficher ou cacher les boutons "EFFACER"
     data_entreprise_delete = None
     btn_submit_del = None
-    # L'utilisateur vient de cliquer sur le bouton "DELETE". Récupère la valeur de "id_film"
+    # L'utilisateur vient de cliquer sur le bouton "DELETE". Récupère la valeur de "id_adresse"
     id_entreprise_delete = request.values['id_entreprise_btn_delete_html']
 
     # Objet formulaire pour effacer le film sélectionné.

@@ -58,7 +58,7 @@ def entreprise_personnes_afficher(id_entreprise_sel):
                 if not data_personnes_entreprise_afficher and id_entreprise_sel == 0:
                     flash("""La table "t_entreprise" est vide. !""", "warning")
                 elif not data_personnes_entreprise_afficher and id_entreprise_sel > 0:
-                    # Si l'utilisateur change l'id_film dans l'URL et qu'il ne correspond à aucun film
+                    # Si l'utilisateur change l'id_adresse dans l'URL et qu'il ne correspond à aucun film
                     flash(f"L'Entreprise {id_entreprise_sel} demandé n'existe pas !!", "warning")
                 else:
                     flash(f"Les Entreprises et leur personnel son affichés !!", "success")
@@ -99,10 +99,10 @@ def edit_entreprise_personnes_selected():
             data_personnes_all = mc_afficher.fetchall()
             print("dans edit_entreprise_personnes_selected ---> data_personnes_all", data_personnes_all)
 
-            # Récupère la valeur de "id_film" du formulaire html "entreprise_personnes_afficher.html"
-            # l'utilisateur clique sur le bouton "Modifier" et on récupère la valeur de "id_film"
+            # Récupère la valeur de "id_adresse" du formulaire html "entreprise_personnes_afficher.html"
+            # l'utilisateur clique sur le bouton "Modifier" et on récupère la valeur de "id_adresse"
             # grâce à la variable "id_entreprise_personnes_edit_html" dans le fichier "entreprise_personnes_afficher.html"
-            # href="{{ url_for('edit_entreprise_personnes_selected', id_entreprise_personnes_edit_html=row.id_film) }}"
+            # href="{{ url_for('edit_entreprise_personnes_selected', id_entreprise_personnes_edit_html=row.id_adresse) }}"
             id_entreprise_personnes_edit = request.values['id_entreprise_personnes_edit_html']
 
             # Mémorise l'id du film dans une variable de session
@@ -221,11 +221,11 @@ def update_personnes_entreprise_selected():
             print("lst_diff_personnes_insert_a ", lst_diff_personnes_insert_a)
 
             # SQL pour insérer une nouvelle association entre
-            # "fk_film"/"id_film" et "fk_genre"/"id_genre" dans la "t_genre_film"
+            # "fk_film"/"id_adresse" et "fk_genre"/"id_genre" dans la "t_genre_film"
             strsql_insert_personnes_entreprise = """INSERT INTO t_e_personnes (id_e_personnes, fk_personnes, fk_entreprise)
                                                     VALUES (NULL, %(value_fk_personnes)s, %(value_fk_entreprise)s)"""
 
-            # SQL pour effacer une (des) association(s) existantes entre "id_film" et "id_genre" dans la "t_genre_film"
+            # SQL pour effacer une (des) association(s) existantes entre "id_adresse" et "id_genre" dans la "t_genre_film"
             strsql_delete_personnes_entreprise = """DELETE FROM t_e_personnes WHERE fk_personnes = %(value_fk_personnes)s AND fk_entreprise = %(value_fk_entreprise)s"""
 
             with DBconnection() as mconn_bd:

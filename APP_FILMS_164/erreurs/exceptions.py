@@ -131,7 +131,7 @@ class ExceptionUpdatePersonnesEntrepriseSelected(Base):
     pass
 
 
-class ExceptionEntrepriseShopAfficher(Base):
+class ExceptionPersonnesAdresseAfficherData(Base):
     pass
 
 
@@ -171,7 +171,7 @@ class ExceptionAdressePersonnesAfficher(Base):
     pass
 
 
-class ExceptionGenresAjouterWtf(Base):
+class ExceptionPersonnesAjouterWtf(Base):
     pass
 
 

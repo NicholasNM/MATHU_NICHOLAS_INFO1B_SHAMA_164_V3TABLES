@@ -30,7 +30,7 @@ class FormWTFAddFilm(FlaskForm):
     submit = SubmitField("Enregistrer l'adresse")
 
 
-class FormWTFUpdateFilm(FlaskForm):
+class FormWTFUpdateAdresse(FlaskForm):
     """
         Dans le formulaire "adresse_update_wtf.html" on impose que le champ soit rempli.
         Définition d'un "bouton" submit avec un libellé personnalisé.

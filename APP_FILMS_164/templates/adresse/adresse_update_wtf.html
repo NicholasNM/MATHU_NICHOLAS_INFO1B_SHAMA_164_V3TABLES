@@ -9,31 +9,31 @@
 			</p>
 			<form action="" method="POST" novalidate>
 				<!-- Protection contre les attaques Cross-Site Request Forgery (CSRF) -->
-				{{ form_update_film.hidden_tag() }}
+				{{ form_update_adresse.hidden_tag() }}
 				<div class="form-group">
 					<p>
-						{{ form_update_film.rue_update_wtf.label }}<br>
-						{{ form_update_film.rue_update_wtf(cols=50, rows=3) }}<br>
-						{% for error in form_update_film.rue_update_wtf.errors %}
+						{{ form_update_adresse.rue_update_wtf.label }}<br>
+						{{ form_update_adresse.rue_update_wtf(cols=50, rows=3) }}<br>
+						{% for error in form_update_adresse.rue_update_wtf.errors %}
 						<span style="color: red;">[{{ error }}]</span>
 						{% endfor %}
 					</p>
 					<p>
-						{{ form_update_film.numero_update_wtf.label }}<br>
-						{{ form_update_film.numero_update_wtf(size=32) }}<br>
-						{% for error in form_update_film.numero_update_wtf.errors %}
+						{{ form_update_adresse.numero_update_wtf.label }}<br>
+						{{ form_update_adresse.numero_update_wtf(size=32) }}<br>
+						{% for error in form_update_adresse.numero_update_wtf.errors %}
 						<span style="color: red;">[{{ error }}]</span>
 						{% endfor %}
 					</p>
 					<p>
-						{{ form_update_film.localite_update_wtf.label }}<br>
-						{{ form_update_film.localite_update_wtf(cols=50, rows=10) }}<br>
-						{% for error in form_update_film.localite_update_wtf.errors %}
+						{{ form_update_adresse.localite_update_wtf.label }}<br>
+						{{ form_update_adresse.localite_update_wtf(cols=50, rows=10) }}<br>
+						{% for error in form_update_adresse.localite_update_wtf.errors %}
 						<span style="color: red;">[{{ error }}]</span>
 						{% endfor %}
 					</p>
 				</div>
-				{{ form_update_film.submit(class="btn btn-primary") }}
+				{{ form_update_adresse.submit(class="btn btn-primary") }}
 			</form>
 		</div>
 	</div>

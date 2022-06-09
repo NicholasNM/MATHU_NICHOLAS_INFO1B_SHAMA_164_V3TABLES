@@ -33,7 +33,7 @@ def adresse_personnes_afficher(id_adresse_sel):
         try:
             with DBconnection() as mc_afficher:
                 strsql_personnes_adresse_afficher_data = """SELECT id_adresse, Rue, Numero, Localite, 
-                                                            GROUP_CONCAT(nom_personnes) as GenresFilms FROM t_pers_adresse
+                                                            GROUP_CONCAT(nom_personnes) as PersonnesAdresse FROM t_pers_adresse
                                                             RIGHT JOIN t_adresse ON t_adresse.id_adresse = t_pers_adresse.fk_adresse
                                                             LEFT JOIN t_personnes ON t_personnes.id_personnes = t_pers_adresse.fk_personnes
                                                             GROUP BY id_adresse"""
@@ -59,7 +59,7 @@ def adresse_personnes_afficher(id_adresse_sel):
                 if not data_personnes_adresse_afficher and id_adresse_sel == 0:
                     flash("""La table "t_adresse" est vide. !""", "warning")
                 elif not data_personnes_adresse_afficher and id_adresse_sel > 0:
-                    # Si l'utilisateur change l'id_film dans l'URL et qu'il ne correspond à aucun film
+                    # Si l'utilisateur change l'id_adresse dans l'URL et qu'il ne correspond à aucun film
                     flash(f"L'adresse' {id_adresse_sel} demandé n'existe pas !!", "warning")
                 else:
                     flash(f"Données adresse et personnes affichés !!", "success")
@@ -101,10 +101,10 @@ def edit_personnes_adresse_selected():
             data_personnes_all = mc_afficher.fetchall()
             print("dans edit_personnes_adresse_selected ---> data_personnes_all", data_personnes_all)
 
-            # Récupère la valeur de "id_film" du formulaire html "adresse_personnes_afficher.html"
-            # l'utilisateur clique sur le bouton "Modifier" et on récupère la valeur de "id_film"
+            # Récupère la valeur de "id_adresse" du formulaire html "adresse_personnes_afficher.html"
+            # l'utilisateur clique sur le bouton "Modifier" et on récupère la valeur de "id_adresse"
             # grâce à la variable "id_adresse_personnes_edit_html" dans le fichier "adresse_personnes_afficher.html"
-            # href="{{ url_for('edit_personnes_adresse_selected', id_adresse_personnes_edit_html=row.id_film) }}"
+            # href="{{ url_for('edit_personnes_adresse_selected', id_adresse_personnes_edit_html=row.id_adresse) }}"
             id_adresse_personnes_edit = request.values['id_adresse_personnes_edit_html']
 
             # Mémorise l'id du film dans une variable de session
@@ -223,11 +223,11 @@ def update_personnes_adresse_selected():
             print("lst_diff_personnes_insert_a ", lst_diff_personnes_insert_a)
 
             # SQL pour insérer une nouvelle association entre
-            # "fk_film"/"id_film" et "fk_genre"/"id_genre" dans la "t_genre_film"
+            # "fk_film"/"id_adresse" et "fk_genre"/"id_genre" dans la "t_genre_film"
             strsql_insert_personnes_adresse = """INSERT INTO t_pers_adresse (id_pers_adresse, fk_personnes, fk_adresse)
                                                     VALUES (NULL, %(value_fk_personnes)s, %(value_fk_adresse)s)"""
 
-            # SQL pour effacer une (des) association(s) existantes entre "id_film" et "id_genre" dans la "t_genre_film"
+            # SQL pour effacer une (des) association(s) existantes entre "id_adresse" et "id_genre" dans la "t_genre_film"
             strsql_delete_personnes_adresse = """DELETE FROM t_pers_adresse WHERE fk_personnes = %(value_fk_personnes)s AND fk_adresse = %(value_fk_adresse)s"""
 
             with DBconnection() as mconn_bd:
@@ -279,17 +279,17 @@ def personnes_adresse_afficher_data(valeur_id_adresse_selected_dict):
     print("valeur_id_adresse_selected_dict...", valeur_id_adresse_selected_dict)
     try:
 
-        strsql_film_selected = """SELECT id_adresse, Rue, Numero, Localite, GROUP_CONCAT(id_personnes) as GenresFilms FROM t_pers_adresse
+        strsql_adresse_selected = """SELECT id_adresse, Rue, Numero, Localite, GROUP_CONCAT(id_personnes) as PersonnesAdresse FROM t_pers_adresse
                                         INNER JOIN t_adresse ON t_adresse.id_adresse = t_pers_adresse.fk_adresse
                                         INNER JOIN t_personnes ON t_personnes.id_personnes = t_pers_adresse.fk_personnes
                                         WHERE id_adresse = %(value_id_adresse_selected)s"""
 
-        strsql_genres_films_non_attribues = """SELECT id_personnes, nom_personnes FROM t_personnes WHERE id_personnes not in(SELECT id_personnes as idGenresFilms FROM t_pers_adresse
+        strsql_personnes_adresse_non_attribues = """SELECT id_personnes, nom_personnes FROM t_personnes WHERE id_personnes not in(SELECT id_personnes as idPersonnesAdresse FROM t_pers_adresse
                                                     INNER JOIN t_adresse ON t_adresse.id_adresse = t_pers_adresse.fk_adresse
                                                     INNER JOIN t_personnes ON t_personnes.id_personnes = t_pers_adresse.fk_personnes
                                                     WHERE id_adresse = %(value_id_adresse_selected)s)"""
 
-        strsql_genres_films_attribues = """SELECT id_adresse, id_personnes, Rue FROM t_pers_adresse
+        strsql_personnes_adresse_attribues = """SELECT id_adresse, id_personnes, Rue FROM t_pers_adresse
                                             INNER JOIN t_adresse ON t_adresse.id_adresse = t_pers_adresse.fk_adresse
                                             INNER JOIN t_personnes ON t_personnes.id_personnes = t_pers_adresse.fk_personnes
                                             WHERE id_adresse = %(value_id_adresse_selected)s"""
@@ -297,7 +297,7 @@ def personnes_adresse_afficher_data(valeur_id_adresse_selected_dict):
         # Du fait de l'utilisation des "context managers" on accède au curseur grâce au "with".
         with DBconnection() as mc_afficher:
             # Envoi de la commande MySql
-            mc_afficher.execute(strsql_genres_films_non_attribues, valeur_id_adresse_selected_dict)
+            mc_afficher.execute(strsql_personnes_adresse_non_attribues, valeur_id_adresse_selected_dict)
             # Récupère les données de la requête.
             data_personnes_adresse_non_attribues = mc_afficher.fetchall()
             # Affichage dans la console
@@ -306,14 +306,14 @@ def personnes_adresse_afficher_data(valeur_id_adresse_selected_dict):
                   type(data_personnes_adresse_non_attribues))
 
             # Envoi de la commande MySql
-            mc_afficher.execute(strsql_film_selected, valeur_id_adresse_selected_dict)
+            mc_afficher.execute(strsql_adresse_selected, valeur_id_adresse_selected_dict)
             # Récupère les données de la requête.
             data_adresse_selected = mc_afficher.fetchall()
             # Affichage dans la console
             print("data_adresse_selected  ", data_adresse_selected, " Type : ", type(data_adresse_selected))
 
             # Envoi de la commande MySql
-            mc_afficher.execute(strsql_genres_films_attribues, valeur_id_adresse_selected_dict)
+            mc_afficher.execute(strsql_personnes_adresse_attribues, valeur_id_adresse_selected_dict)
             # Récupère les données de la requête.
             data_personnes_adresse_attribues = mc_afficher.fetchall()
             # Affichage dans la console
@@ -324,6 +324,6 @@ def personnes_adresse_afficher_data(valeur_id_adresse_selected_dict):
             return data_adresse_selected, data_personnes_adresse_non_attribues, data_personnes_adresse_attribues
 
     except Exception as Exception_personnes_adresse_afficher_data:
-        raise ExceptionGenresFilmsAfficherData(f"fichier : {Path(__file__).name}  ;  "
+        raise ExceptionPersonnesAdresseAfficherData(f"fichier : {Path(__file__).name}  ;  "
                                                f"{personnes_adresse_afficher_data.__name__} ; "
                                                f"{Exception_personnes_adresse_afficher_data}")

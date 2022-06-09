@@ -46,7 +46,7 @@ def entreprise_shop_afficher(id_entreprise_sel):
                     valeur_id_entreprise_selected_dictionnaire = {"value_id_entreprise_selected": id_entreprise_sel}
                     # En MySql l'instruction HAVING fonctionne comme un WHERE... mais doit être associée à un GROUP BY
                     # L'opérateur += permet de concaténer une nouvelle valeur à la valeur de gauche préalablement définie.
-                    strsql_shop_entreprise_afficher_data += """ HAVING id_film= %(value_id_entreprise_selected)s"""
+                    strsql_shop_entreprise_afficher_data += """ HAVING id_adresse= %(value_id_entreprise_selected)s"""
 
                     mc_afficher.execute(strsql_shop_entreprise_afficher_data, valeur_id_entreprise_selected_dictionnaire)
 
@@ -58,7 +58,7 @@ def entreprise_shop_afficher(id_entreprise_sel):
                 if not data_shop_entreprise_afficher and id_entreprise_sel == 0:
                     flash("""La table "t_entreprise" est vide. !""", "warning")
                 elif not data_shop_entreprise_afficher and id_entreprise_sel > 0:
-                    # Si l'utilisateur change l'id_film dans l'URL et qu'il ne correspond à aucun film
+                    # Si l'utilisateur change l'id_adresse dans l'URL et qu'il ne correspond à aucun film
                     flash(f"L'entreprise {id_entreprise_sel} demandé n'existe pas !!", "warning")
                 else:
                     flash(f"Données entreprise et shops affichés !!", "success")
@@ -98,10 +98,10 @@ def edit_shop_entreprise_selected():
             data_shop_all = mc_afficher.fetchall()
             print("dans edit_shop_entreprise_selected ---> data_shop_all", data_shop_all)
 
-            # Récupère la valeur de "id_film" du formulaire html "entreprise_shop_afficher.html"
-            # l'utilisateur clique sur le bouton "Modifier" et on récupère la valeur de "id_film"
+            # Récupère la valeur de "id_adresse" du formulaire html "entreprise_shop_afficher.html"
+            # l'utilisateur clique sur le bouton "Modifier" et on récupère la valeur de "id_adresse"
             # grâce à la variable "id_entreprise_shop_edit_html" dans le fichier "entreprise_shop_afficher.html"
-            # href="{{ url_for('edit_shop_entreprise_selected', id_entreprise_shop_edit_html=row.id_film) }}"
+            # href="{{ url_for('edit_shop_entreprise_selected', id_entreprise_shop_edit_html=row.id_adresse) }}"
             id_entreprise_shop_edit = request.values['id_entreprise_shop_edit_html']
 
             # Mémorise l'id du film dans une variable de session
@@ -221,11 +221,11 @@ def update_shop_entreprise_selected():
             print("lst_diff_shop_insert_a ", lst_diff_shop_insert_a)
 
             # SQL pour insérer une nouvelle association entre
-            # "fk_film"/"id_film" et "fk_genre"/"id_genre" dans la "t_genre_film"
+            # "fk_film"/"id_adresse" et "fk_genre"/"id_genre" dans la "t_genre_film"
             strsql_insert_shop_entreprise = """INSERT INTO t_e_shop (id_e_shop, fk_shop, fk_entreprise)
                                                VALUES (NULL, %(value_fk_shop)s, %(value_fk_entreprise)s)"""
 
-            # SQL pour effacer une (des) association(s) existantes entre "id_film" et "id_genre" dans la "t_genre_film"
+            # SQL pour effacer une (des) association(s) existantes entre "id_adresse" et "id_genre" dans la "t_genre_film"
             strsql_delete_shop_entreprise = """DELETE FROM t_e_shop WHERE fk_shop = %(value_fk_shop)s 
                                          AND fk_entreprise = %(value_fk_entreprise)s"""
 
