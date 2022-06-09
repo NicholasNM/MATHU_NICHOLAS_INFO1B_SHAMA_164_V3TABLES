@@ -139,7 +139,11 @@ class ExceptionEditShopEntrepriseSelected(Base):
 class ExceptionUpdateShopEntrepriseSelected(Base):
     pass
 
+class ExceptionEditGenreFilmSelected(Base):
+    pass
 
+class ExceptionUpdateGenreFilmSelected(Base):
+    pass
 
 class ExceptionEntrepriseShopAfficherData(Base):
     pass
