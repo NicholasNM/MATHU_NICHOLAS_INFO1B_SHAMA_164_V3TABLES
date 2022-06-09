@@ -135,6 +135,10 @@ class ExceptionEntrepriseShopAfficher(Base):
     pass
 
 
+class ExceptionUpdatePersonnesAdresseSelected(Base):
+    pass
+
+
 class ExceptionEditShopEntrepriseSelected(Base):
     pass
 
@@ -143,11 +147,11 @@ class ExceptionUpdateShopEntrepriseSelected(Base):
     pass
 
 
-class ExceptionEditGenreFilmSelected(Base):
+class ExceptionEditPersonnesAdresseSelected(Base):
     pass
 
 
-class ExceptionUpdateGenreFilmSelected(Base):
+class ExceptionUpdateFilmSelected(Base):
     pass
 
 

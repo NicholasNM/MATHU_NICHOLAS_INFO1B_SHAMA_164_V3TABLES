@@ -115,18 +115,18 @@ def edit_personnes_adresse_selected():
             # Constitution d'un dictionnaire pour associer l'id du film sélectionné avec un nom de variable
             valeur_id_adresse_selected_dictionnaire = {"value_id_adresse_selected": id_adresse_personnes_edit}
 
-            # Récupère les données grâce à 3 requêtes MySql définie dans la fonction genres_films_afficher_data
+            # Récupère les données grâce à 3 requêtes MySql définie dans la fonction personnes_adresse_afficher_data
             # 1) Sélection du film choisi
             # 2) Sélection des genres "déjà" attribués pour le film.
             # 3) Sélection des genres "pas encore" attribués pour le film choisi.
-            # ATTENTION à l'ordre d'assignation des variables retournées par la fonction "genres_films_afficher_data"
-            data_genre_film_selected, data_personnes_adresse_non_attribues, data_personnes_adresse_attribues = \
-                genres_films_afficher_data(valeur_id_adresse_selected_dictionnaire)
+            # ATTENTION à l'ordre d'assignation des variables retournées par la fonction "personnes_adresse_afficher_data"
+            data_personnes_adresse_selected, data_personnes_adresse_non_attribues, data_personnes_adresse_attribues = \
+                personnes_adresse_afficher_data(valeur_id_adresse_selected_dictionnaire)
 
-            print(data_genre_film_selected)
-            lst_data_film_selected = [item['id_adresse'] for item in data_genre_film_selected]
-            print("lst_data_film_selected  ", lst_data_film_selected,
-                  type(lst_data_film_selected))
+            print(data_personnes_adresse_selected)
+            lst_data_adresse_selected = [item['id_adresse'] for item in data_personnes_adresse_selected]
+            print("lst_data_adresse_selected  ", lst_data_adresse_selected,
+                  type(lst_data_adresse_selected))
 
             # Dans le composant "tags-selector-tagselect" on doit connaître
             # les genres qui ne sont pas encore sélectionnés.
@@ -142,7 +142,7 @@ def edit_personnes_adresse_selected():
             print("lst_data_personnes_adresse_old_attribues  ", lst_data_personnes_adresse_old_attribues,
                   type(lst_data_personnes_adresse_old_attribues))
 
-            print(" data data_genre_film_selected", data_genre_film_selected, "type ", type(data_genre_film_selected))
+            print(" data data_personnes_adresse_selected", data_personnes_adresse_selected, "type ", type(data_personnes_adresse_selected))
             print(" data data_personnes_adresse_non_attribues ", data_personnes_adresse_non_attribues, "type ",
                   type(data_personnes_adresse_non_attribues))
             print(" data_personnes_adresse_attribues ", data_personnes_adresse_attribues, "type ",
@@ -155,19 +155,19 @@ def edit_personnes_adresse_selected():
                   type(lst_data_personnes_adresse_non_attribues))
 
         except Exception as Exception_edit_personnes_adresse_selected:
-            raise ExceptionEditGenreFilmSelected(f"fichier : {Path(__file__).name}  ;  "
+            raise ExceptionEditPersonnesAdresseSelected(f"fichier : {Path(__file__).name}  ;  "
                                                  f"{edit_personnes_adresse_selected.__name__} ; "
                                                  f"{Exception_edit_personnes_adresse_selected}")
 
     return render_template("adresse_personnes/adresse_personnes_modifier_tags_dropbox.html",
                            data_personnes=data_personnes_all,
-                           data_film_selected=data_genre_film_selected,
+                           data_adresse_selected=data_personnes_adresse_selected,
                            data_personnes_attribues=data_personnes_adresse_attribues,
                            data_personnes_non_attribues=data_personnes_adresse_non_attribues)
 
 
 """
-    nom: update_genre_film_selected
+    nom: update_personnes_adresse_selected
 
     Récupère la liste de tous les genres du film sélectionné par le bouton "MODIFIER" de "adresse_personnes_afficher.html"
     
@@ -180,8 +180,8 @@ def edit_personnes_adresse_selected():
 """
 
 
-@app.route("/update_genre_film_selected", methods=['GET', 'POST'])
-def update_genre_film_selected():
+@app.route("/update_personnes_adresse_selected", methods=['GET', 'POST'])
+def update_personnes_adresse_selected():
     if request.method == "POST":
         try:
             # Récupère l'id du film sélectionné
@@ -201,64 +201,64 @@ def update_genre_film_selected():
 
             # Récupère ce que l'utilisateur veut modifier comme genres dans le composant "tags-selector-tagselect"
             # dans le fichier "genres_films_modifier_tags_dropbox.html"
-            new_lst_str_genres_films = request.form.getlist('name_select_tags')
-            print("new_lst_str_genres_films ", new_lst_str_genres_films)
+            new_lst_str_personnes_adresse = request.form.getlist('name_select_tags')
+            print("new_lst_str_personnes_adresse ", new_lst_str_personnes_adresse)
 
             # OM 2021.05.02 Exemple : Dans "name_select_tags" il y a ['4','65','2']
             # On transforme en une liste de valeurs numériques. [4,65,2]
-            new_lst_int_genre_film_old = list(map(int, new_lst_str_genres_films))
-            print("new_lst_genre_film ", new_lst_int_genre_film_old, "type new_lst_genre_film ",
-                  type(new_lst_int_genre_film_old))
+            new_lst_int_personnes_adresse_old = list(map(int, new_lst_str_personnes_adresse))
+            print("new_lst_personnes_adresse ", new_lst_int_personnes_adresse_old, "type new_lst_personnes_adresse ",
+                  type(new_lst_int_personnes_adresse_old))
 
             # Pour apprécier la facilité de la vie en Python... "les ensembles en Python"
             # https://fr.wikibooks.org/wiki/Programmation_Python/Ensembles
             # OM 2021.05.02 Une liste de "id_genre" qui doivent être effacés de la table intermédiaire "t_genre_film".
-            lst_diff_genres_delete_b = list(set(old_lst_data_personnes_adresse_attribues) -
-                                            set(new_lst_int_genre_film_old))
-            print("lst_diff_genres_delete_b ", lst_diff_genres_delete_b)
+            lst_diff_personnes_delete_b = list(set(old_lst_data_personnes_adresse_attribues) -
+                                            set(new_lst_int_personnes_adresse_old))
+            print("lst_diff_personnes_delete_b ", lst_diff_personnes_delete_b)
 
             # Une liste de "id_genre" qui doivent être ajoutés à la "t_genre_film"
-            lst_diff_genres_insert_a = list(
-                set(new_lst_int_genre_film_old) - set(old_lst_data_personnes_adresse_attribues))
-            print("lst_diff_genres_insert_a ", lst_diff_genres_insert_a)
+            lst_diff_personnes_insert_a = list(
+                set(new_lst_int_personnes_adresse_old) - set(old_lst_data_personnes_adresse_attribues))
+            print("lst_diff_personnes_insert_a ", lst_diff_personnes_insert_a)
 
             # SQL pour insérer une nouvelle association entre
             # "fk_film"/"id_film" et "fk_genre"/"id_genre" dans la "t_genre_film"
-            strsql_insert_genre_film = """INSERT INTO t_genre_film (id_genre_film, fk_genre, fk_film)
-                                                    VALUES (NULL, %(value_fk_genre)s, %(value_fk_film)s)"""
+            strsql_insert_personnes_adresse = """INSERT INTO t_pers_adresse (id_pers_adresse, fk_personnes, fk_adresse)
+                                                    VALUES (NULL, %(value_fk_personnes)s, %(value_fk_adresse)s)"""
 
             # SQL pour effacer une (des) association(s) existantes entre "id_film" et "id_genre" dans la "t_genre_film"
-            strsql_delete_genre_film = """DELETE FROM t_genre_film WHERE fk_genre = %(value_fk_genre)s AND fk_film = %(value_fk_film)s"""
+            strsql_delete_personnes_adresse = """DELETE FROM t_pers_adresse WHERE fk_personnes = %(value_fk_personnes)s AND fk_adresse = %(value_fk_adresse)s"""
 
             with DBconnection() as mconn_bd:
                 # Pour le film sélectionné, parcourir la liste des genres à INSÉRER dans la "t_genre_film".
                 # Si la liste est vide, la boucle n'est pas parcourue.
-                for id_genre_ins in lst_diff_genres_insert_a:
+                for id_personnes_ins in lst_diff_personnes_insert_a:
                     # Constitution d'un dictionnaire pour associer l'id du film sélectionné avec un nom de variable
-                    # et "id_genre_ins" (l'id du genre dans la liste) associé à une variable.
-                    valeurs_film_sel_genre_sel_dictionnaire = {"value_fk_film": id_adresse_selected,
-                                                               "value_fk_genre": id_genre_ins}
+                    # et "id_personnes_ins" (l'id du genre dans la liste) associé à une variable.
+                    valeurs_adresse_sel_personnes_sel_dictionnaire = {"value_fk_adresse": id_adresse_selected,
+                                                                      "value_fk_personnes": id_personnes_ins}
 
-                    mconn_bd.execute(strsql_insert_genre_film, valeurs_film_sel_genre_sel_dictionnaire)
+                    mconn_bd.execute(strsql_insert_personnes_adresse, valeurs_adresse_sel_personnes_sel_dictionnaire)
 
                 # Pour le film sélectionné, parcourir la liste des genres à EFFACER dans la "t_genre_film".
                 # Si la liste est vide, la boucle n'est pas parcourue.
-                for id_genre_del in lst_diff_genres_delete_b:
+                for id_personnes_del in lst_diff_personnes_delete_b:
                     # Constitution d'un dictionnaire pour associer l'id du film sélectionné avec un nom de variable
-                    # et "id_genre_del" (l'id du genre dans la liste) associé à une variable.
-                    valeurs_film_sel_genre_sel_dictionnaire = {"value_fk_film": id_adresse_selected,
-                                                               "value_fk_genre": id_genre_del}
+                    # et "id_personnes_del" (l'id du genre dans la liste) associé à une variable.
+                    valeurs_adresse_sel_personnes_sel_dictionnaire = {"value_fk_adresse": id_adresse_selected,
+                                                                      "value_fk_personnes": id_personnes_del}
 
                     # Du fait de l'utilisation des "context managers" on accède au curseur grâce au "with".
                     # la subtilité consiste à avoir une méthode "execute" dans la classe "DBconnection"
                     # ainsi quand elle aura terminé l'insertion des données le destructeur de la classe "DBconnection"
                     # sera interprété, ainsi on fera automatiquement un commit
-                    mconn_bd.execute(strsql_delete_genre_film, valeurs_film_sel_genre_sel_dictionnaire)
+                    mconn_bd.execute(strsql_delete_personnes_adresse, valeurs_adresse_sel_personnes_sel_dictionnaire)
 
-        except Exception as Exception_update_genre_film_selected:
-            raise ExceptionUpdateGenreFilmSelected(f"fichier : {Path(__file__).name}  ;  "
-                                                   f"{update_genre_film_selected.__name__} ; "
-                                                   f"{Exception_update_genre_film_selected}")
+        except Exception as Exception_update_personnes_adresse_selected:
+            raise ExceptionUpdatePersonnesAdresseSelected(f"fichier : {Path(__file__).name}  ;  "
+                                                   f"{update_personnes_adresse_selected.__name__} ; "
+                                                   f"{Exception_update_personnes_adresse_selected}")
 
     # Après cette mise à jour de la table intermédiaire "t_genre_film",
     # on affiche les adresse et le(urs) genre(s) associé(s).
@@ -266,7 +266,7 @@ def update_genre_film_selected():
 
 
 """
-    nom: genres_films_afficher_data
+    nom: personnes_adresse_afficher_data
 
     Récupère la liste de tous les genres du film sélectionné par le bouton "MODIFIER" de "adresse_personnes_afficher.html"
     Nécessaire pour afficher tous les "TAGS" des genres, ainsi l'utilisateur voit les genres à disposition
@@ -275,7 +275,7 @@ def update_genre_film_selected():
 """
 
 
-def genres_films_afficher_data(valeur_id_adresse_selected_dict):
+def personnes_adresse_afficher_data(valeur_id_adresse_selected_dict):
     print("valeur_id_adresse_selected_dict...", valeur_id_adresse_selected_dict)
     try:
 
@@ -301,16 +301,16 @@ def genres_films_afficher_data(valeur_id_adresse_selected_dict):
             # Récupère les données de la requête.
             data_personnes_adresse_non_attribues = mc_afficher.fetchall()
             # Affichage dans la console
-            print("genres_films_afficher_data ----> data_personnes_adresse_non_attribues ", data_personnes_adresse_non_attribues,
+            print("personnes_adresse_afficher_data ----> data_personnes_adresse_non_attribues ", data_personnes_adresse_non_attribues,
                   " Type : ",
                   type(data_personnes_adresse_non_attribues))
 
             # Envoi de la commande MySql
             mc_afficher.execute(strsql_film_selected, valeur_id_adresse_selected_dict)
             # Récupère les données de la requête.
-            data_film_selected = mc_afficher.fetchall()
+            data_adresse_selected = mc_afficher.fetchall()
             # Affichage dans la console
-            print("data_film_selected  ", data_film_selected, " Type : ", type(data_film_selected))
+            print("data_adresse_selected  ", data_adresse_selected, " Type : ", type(data_adresse_selected))
 
             # Envoi de la commande MySql
             mc_afficher.execute(strsql_genres_films_attribues, valeur_id_adresse_selected_dict)
@@ -321,9 +321,9 @@ def genres_films_afficher_data(valeur_id_adresse_selected_dict):
                   type(data_personnes_adresse_attribues))
 
             # Retourne les données des "SELECT"
-            return data_film_selected, data_personnes_adresse_non_attribues, data_personnes_adresse_attribues
+            return data_adresse_selected, data_personnes_adresse_non_attribues, data_personnes_adresse_attribues
 
-    except Exception as Exception_genres_films_afficher_data:
+    except Exception as Exception_personnes_adresse_afficher_data:
         raise ExceptionGenresFilmsAfficherData(f"fichier : {Path(__file__).name}  ;  "
-                                               f"{genres_films_afficher_data.__name__} ; "
-                                               f"{Exception_genres_films_afficher_data}")
+                                               f"{personnes_adresse_afficher_data.__name__} ; "
+                                               f"{Exception_personnes_adresse_afficher_data}")
