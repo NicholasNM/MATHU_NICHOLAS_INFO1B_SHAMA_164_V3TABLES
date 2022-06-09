@@ -11,7 +11,7 @@ from flask import url_for
 
 from APP_FILMS_164.database.database_tools import DBconnection
 from APP_FILMS_164.erreurs.exceptions import *
-from APP_FILMS_164.adresse.gestion_adresse_wtf_forms import FormWTFUpdateAdresse, FormWTFAddFilm, FormWTFDeleteFilm
+from APP_FILMS_164.adresse.gestion_adresse_wtf_forms import FormWTFUpdateAdresse, FormWTFAddAdresse, FormWTFDeleteAdresse
 
 """Ajouter un film grâce au formulaire "adresse_add_wtf.html"
 Auteur : OM 2022.04.11
@@ -31,7 +31,7 @@ Remarque :  Dans le champ "nom_adresse_update_wtf" du formulaire "adresse/films_
 @app.route("/adresse_add", methods=['GET', 'POST'])
 def adresse_add_wtf():
     # Objet formulaire pour AJOUTER un film
-    form_add_film = FormWTFAddFilm()
+    form_add_film = FormWTFAddAdresse()
     if request.method == "POST":
         try:
             if form_add_film.validate_on_submit():
@@ -142,19 +142,19 @@ def adresse_update_wtf():
 
 """Effacer(delete) un film qui a été sélectionné dans le formulaire "adresse_personnes_afficher.html"
 Auteur : OM 2022.04.11
-Définition d'une "route" /film_delete
+Définition d'une "route" /adresse_delete
     
 Test : ex. cliquer sur le menu "film" puis cliquer sur le bouton "DELETE" d'un "film"
     
 Paramètres : sans
 
-Remarque :  Dans le champ "nom_film_delete_wtf" du formulaire "adresse/adresse_delete_wtf.html"
+Remarque :  Dans le champ "nom_adresse_delete_wtf" du formulaire "adresse/adresse_delete_wtf.html"
             On doit simplement cliquer sur "DELETE"
 """
 
 
-@app.route("/film_delete", methods=['GET', 'POST'])
-def film_delete_wtf():
+@app.route("/adresse_delete", methods=['GET', 'POST'])
+def adresse_delete_wtf():
     # Pour afficher ou cacher les boutons "EFFACER"
     data_adresse_delete = None
     btn_submit_del = None
@@ -162,13 +162,13 @@ def film_delete_wtf():
     id_adresse_delete = request.values['id_adresse_btn_delete_html']
 
     # Objet formulaire pour effacer le film sélectionné.
-    form_delete_film = FormWTFDeleteFilm()
+    form_delete_adresse = FormWTFDeleteAdresse()
     try:
         # Si on clique sur "ANNULER", afficher tous les adresse.
-        if form_delete_film.submit_btn_annuler.data:
+        if form_delete_adresse.submit_btn_annuler.data:
             return redirect(url_for("adresse_personnes_afficher", id_adresse_sel=0))
 
-        if form_delete_film.submit_btn_conf_del_film.data:
+        if form_delete_adresse.submit_btn_conf_del_film.data:
             # Récupère les données afin d'afficher à nouveau
             # le formulaire "adresse/adresse_delete_wtf.html" lorsque le bouton "Etes-vous sur d'effacer ?" est cliqué.
             data_adresse_delete = session['data_adresse_delete']
@@ -180,17 +180,17 @@ def film_delete_wtf():
             btn_submit_del = True
 
         # L'utilisateur a vraiment décidé d'effacer.
-        if form_delete_film.submit_btn_del_film.data:
+        if form_delete_adresse.submit_btn_del_film.data:
             valeur_delete_dictionnaire = {"value_id_adresse": id_adresse_delete}
             print("valeur_delete_dictionnaire ", valeur_delete_dictionnaire)
 
-            str_sql_delete_fk_film_genre = """DELETE FROM t_pers_adresse WHERE fk_adresse = %(value_id_adresse)s"""
-            str_sql_delete_film = """DELETE FROM t_adresse WHERE id_adresse = %(value_id_adresse)s"""
+            str_sql_delete_fk_adresse_personnes = """DELETE FROM t_pers_adresse WHERE fk_adresse = %(value_id_adresse)s"""
+            str_sql_delete_adresse = """DELETE FROM t_adresse WHERE id_adresse = %(value_id_adresse)s"""
             # Manière brutale d'effacer d'abord la "fk_film", même si elle n'existe pas dans la "t_genre_film"
             # Ensuite on peut effacer le film vu qu'il n'est plus "lié" (INNODB) dans la "t_genre_film"
             with DBconnection() as mconn_bd:
-                mconn_bd.execute(str_sql_delete_fk_film_genre, valeur_delete_dictionnaire)
-                mconn_bd.execute(str_sql_delete_film, valeur_delete_dictionnaire)
+                mconn_bd.execute(str_sql_delete_fk_adresse_personnes, valeur_delete_dictionnaire)
+                mconn_bd.execute(str_sql_delete_adresse, valeur_delete_dictionnaire)
 
             flash(f"Adresse définitivement effacé !!", "success")
             print(f"Adresse définitivement effacé !!")
@@ -202,10 +202,10 @@ def film_delete_wtf():
             print(id_adresse_delete, type(id_adresse_delete))
 
             # Requête qui affiche le film qui doit être efffacé.
-            str_sql_genres_films_delete = """SELECT * FROM t_adresse WHERE id_adresse = %(value_id_adresse)s"""
+            str_sql_personnes_adresse_delete = """SELECT * FROM t_adresse WHERE id_adresse = %(value_id_adresse)s"""
 
             with DBconnection() as mydb_conn:
-                mydb_conn.execute(str_sql_genres_films_delete, valeur_select_dictionnaire)
+                mydb_conn.execute(str_sql_personnes_adresse_delete, valeur_select_dictionnaire)
                 data_adresse_delete = mydb_conn.fetchall()
                 print("data_adresse_delete...", data_adresse_delete)
 
@@ -216,13 +216,13 @@ def film_delete_wtf():
             # Le bouton pour l'action "DELETE" dans le form. "adresse_delete_wtf.html" est caché.
             btn_submit_del = False
 
-    except Exception as Exception_film_delete_wtf:
-        raise ExceptionFilmDeleteWtf(f"fichier : {Path(__file__).name}  ;  "
-                                     f"{film_delete_wtf.__name__} ; "
-                                     f"{Exception_film_delete_wtf}")
+    except Exception as Exception_adresse_delete_wtf:
+        raise ExceptionAdresseDeleteWtf(f"fichier : {Path(__file__).name}  ;  "
+                                     f"{adresse_delete_wtf.__name__} ; "
+                                     f"{Exception_adresse_delete_wtf}")
 
     return render_template("adresse/adresse_delete_wtf.html",
-                           form_delete_film=form_delete_film,
+                           form_delete_adresse=form_delete_adresse,
                            btn_submit_del=btn_submit_del,
                            data_adresse_del=data_adresse_delete
                            )

@@ -175,7 +175,7 @@ class ExceptionPersonnesAjouterWtf(Base):
     pass
 
 
-class ExceptionFilmDeleteWtf(Base):
+class ExceptionAdresseDeleteWtf(Base):
     pass
 
 
