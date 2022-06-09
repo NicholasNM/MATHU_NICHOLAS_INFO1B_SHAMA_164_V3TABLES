@@ -35,12 +35,17 @@ def film_add_wtf():
     if request.method == "POST":
         try:
             if form_add_film.validate_on_submit():
-                nom_film_add = form_add_film.nom_film_add_wtf.data
+                rue_add = form_add_film.rue_add_wtf.data
+                numero_add = form_add_film.numero_add_wtf.data
+                localite_add = form_add_film.localite_add_wtf.data
 
-                valeurs_insertion_dictionnaire = {"value_nom_film": nom_film_add}
+                valeurs_insertion_dictionnaire = {"value_rue": rue_add,
+                                                  "value_numero": numero_add,
+                                                  "value_localite": localite_add}
                 print("valeurs_insertion_dictionnaire ", valeurs_insertion_dictionnaire)
 
-                strsql_insert_film = """INSERT INTO t_film (id_film,nom_film) VALUES (NULL,%(value_nom_film)s) """
+                strsql_insert_film = """INSERT INTO t_adresse (id_adresse, Rue, Numero, Localite) VALUES
+                                        (NULL,%(value_rue)s,%(value_numero)s,%(value_localite)s) """
                 with DBconnection() as mconn_bd:
                     mconn_bd.execute(strsql_insert_film, valeurs_insertion_dictionnaire)
 
@@ -92,7 +97,7 @@ def film_update_wtf():
             datesortie_film_update = form_update_film.datesortie_film_update_wtf.data
 
             valeur_update_dictionnaire = {"value_id_film": id_film_update,
-                                          "value_nom_film": nom_film_update,
+                                          "value_rue": nom_film_update,
                                           "value_duree_film": duree_film_update,
                                           "value_description_film": description_film_update,
                                           "value_cover_link_film": cover_link_film_update,
@@ -100,7 +105,7 @@ def film_update_wtf():
                                           }
             print("valeur_update_dictionnaire ", valeur_update_dictionnaire)
 
-            str_sql_update_nom_film = """UPDATE t_film SET nom_film = %(value_nom_film)s,
+            str_sql_update_nom_film = """UPDATE t_film SET nom_film = %(value_rue)s,
                                                             duree_film = %(value_duree_film)s,
                                                             description_film = %(value_description_film)s,
                                                             cover_link_film = %(value_cover_link_film)s,

@@ -16,16 +16,18 @@ class FormWTFAddFilm(FlaskForm):
         Dans le formulaire "genres_ajouter_wtf.html" on impose que le champ soit rempli.
         Définition d'un "bouton" submit avec un libellé personnalisé.
     """
-    nom_film_regexp = ""
-    nom_film_add_wtf = StringField("Nom du film ", validators=[Length(min=2, max=2000, message="min 2 max 20"),
-                                                               Regexp(nom_film_regexp,
-                                                                      message="Pas de chiffres, de caractères "
-                                                                              "spéciaux, "
-                                                                              "d'espace à double, de double "
-                                                                              "apostrophe, de double trait union")
+
+    rue_add_wtf = StringField("Nom de la Rue ", validators=[Length(min=2, max=2000, message="min 2 max 20"),
+
+                                                               ])
+    numero_add_wtf = StringField("Numéro d'appartement/maison ", validators=[Length(min=2, max=2000, message="min 2 max 20"),
+
+                                                               ])
+    localite_add_wtf = StringField("Localité (NPA) ", validators=[Length(min=2, max=2000, message="min 2 max 20"),
+
                                                                ])
 
-    submit = SubmitField("Enregistrer film")
+    submit = SubmitField("Enregistrer l'adresse")
 
 
 class FormWTFUpdateFilm(FlaskForm):

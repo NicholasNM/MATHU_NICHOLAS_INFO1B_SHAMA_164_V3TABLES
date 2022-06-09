@@ -160,6 +160,8 @@ class ExceptionEntrepriseDeleteWtf(Base):
 class ExceptionFilmsGenresAfficher(Base):
     pass
 
+class ExceptionGenresAjouterWtf(Base):
+    pass
 
 
 class ExceptionInitAppFilms164(Base):
