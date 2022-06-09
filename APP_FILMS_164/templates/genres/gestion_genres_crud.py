@@ -265,7 +265,7 @@ def genre_delete_wtf():
             valeur_select_dictionnaire = {"value_id_genre": id_genre_delete}
             print(id_genre_delete, type(id_genre_delete))
 
-            # Requête qui affiche tous les films_genres qui ont le genre que l'utilisateur veut effacer
+            # Requête qui affiche tous les adresse_personnes qui ont le genre que l'utilisateur veut effacer
             str_sql_genres_films_delete = """SELECT id_genre_film, nom_film, id_genre, intitule_genre FROM t_genre_film 
                                             INNER JOIN t_film ON t_genre_film.fk_film = t_film.id_film
                                             INNER JOIN t_genre ON t_genre_film.fk_genre = t_genre.id_genre

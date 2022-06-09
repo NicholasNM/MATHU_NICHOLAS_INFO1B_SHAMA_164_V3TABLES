@@ -1,5 +1,5 @@
-"""Gestion des formulaires avec WTF pour les films
-Fichier : gestion_films_wtf_forms.py
+"""Gestion des formulaires avec WTF pour les adresse
+Fichier : gestion_adresse_wtf_forms.py
 Auteur : OM 2022.04.11
 
 """
@@ -32,7 +32,7 @@ class FormWTFAddFilm(FlaskForm):
 
 class FormWTFUpdateFilm(FlaskForm):
     """
-        Dans le formulaire "film_update_wtf.html" on impose que le champ soit rempli.
+        Dans le formulaire "adresse_update_wtf.html" on impose que le champ soit rempli.
         Définition d'un "bouton" submit avec un libellé personnalisé.
     """
 
@@ -50,7 +50,7 @@ class FormWTFUpdateFilm(FlaskForm):
 
 class FormWTFDeleteFilm(FlaskForm):
     """
-        Dans le formulaire "film_delete_wtf.html"
+        Dans le formulaire "adresse_delete_wtf.html"
 
         nom_film_delete_wtf : Champ qui reçoit la valeur du film, lecture seule. (readonly=true)
         submit_btn_del : Bouton d'effacement "DEFINITIF".

@@ -51,10 +51,10 @@ try:
     from APP_FILMS_164.entreprise import gestion_entreprise_crud
     from APP_FILMS_164.entreprise import gestion_entreprise_wtf_forms
 
-    from APP_FILMS_164.films import gestion_films_crud
-    from APP_FILMS_164.films_genres import gestion_films_genres_crud
+    from APP_FILMS_164.adresse import gestion_adresse_crud
+    from APP_FILMS_164.adresse_personnes import gestion_adresse_personnes_crud
 
-    from APP_FILMS_164.films import gestion_films_wtf_forms
+    from APP_FILMS_164.adresse import gestion_adresse_wtf_forms
 
     from APP_FILMS_164.shop import gestion_shop_crud
     from APP_FILMS_164.entreprise_personnes import gestion_entreprise_personnes_crud

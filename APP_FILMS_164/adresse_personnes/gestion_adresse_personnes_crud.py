@@ -1,7 +1,7 @@
 """
-    Fichier : gestion_films_genres_crud.py
+    Fichier : gestion_adresse_personnes_crud.py
     Auteur : OM 2021.05.01
-    Gestions des "routes" FLASK et des données pour l'association entre les films et les genres.
+    Gestions des "routes" FLASK et des données pour l'association entre les adresse et les genres.
 """
 from pathlib import Path
 
@@ -18,9 +18,9 @@ from APP_FILMS_164.erreurs.exceptions import *
     Auteur : OM 2021.05.01
     Définition d'une "route" /films_genres_afficher
     
-    But : Afficher les films avec les genres associés pour chaque film.
+    But : Afficher les adresse avec les genres associés pour chaque film.
     
-    Paramètres : id_genre_sel = 0 >> tous les films.
+    Paramètres : id_genre_sel = 0 >> tous les adresse.
                  id_genre_sel = "n" affiche le film dont l'id est "n"
                  
 """
@@ -38,7 +38,7 @@ def films_genres_afficher(id_film_sel):
                                                             LEFT JOIN t_personnes ON t_personnes.id_personnes = t_pers_adresse.fk_personnes
                                                             GROUP BY id_adresse"""
                 if id_film_sel == 0:
-                    # le paramètre 0 permet d'afficher tous les films
+                    # le paramètre 0 permet d'afficher tous les adresse
                     # Sinon le paramètre représente la valeur de l'id du film
                     mc_afficher.execute(strsql_genres_films_afficher_data)
                 else:
@@ -69,14 +69,14 @@ def films_genres_afficher(id_film_sel):
 
     print("films_genres_afficher  ", data_genres_films_afficher)
     # Envoie la page "HTML" au serveur.
-    return render_template("films_genres/films_genres_afficher.html", data=data_genres_films_afficher)
+    return render_template("adresse_personnes/adresse_personnes_afficher.html", data=data_genres_films_afficher)
 
 
 """
     nom: edit_genre_film_selected
     On obtient un objet "objet_dumpbd"
 
-    Récupère la liste de tous les genres du film sélectionné par le bouton "MODIFIER" de "films_genres_afficher.html"
+    Récupère la liste de tous les genres du film sélectionné par le bouton "MODIFIER" de "adresse_personnes_afficher.html"
     
     Dans une liste déroulante particulière (tags-selector-tagselect), on voit :
     1) Tous les genres contenus dans la "t_genre".
@@ -98,9 +98,9 @@ def edit_genre_film_selected():
             data_genres_all = mc_afficher.fetchall()
             print("dans edit_genre_film_selected ---> data_genres_all", data_genres_all)
 
-            # Récupère la valeur de "id_film" du formulaire html "films_genres_afficher.html"
+            # Récupère la valeur de "id_film" du formulaire html "adresse_personnes_afficher.html"
             # l'utilisateur clique sur le bouton "Modifier" et on récupère la valeur de "id_film"
-            # grâce à la variable "id_film_genres_edit_html" dans le fichier "films_genres_afficher.html"
+            # grâce à la variable "id_film_genres_edit_html" dans le fichier "adresse_personnes_afficher.html"
             # href="{{ url_for('edit_genre_film_selected', id_film_genres_edit_html=row.id_film) }}"
             id_film_genres_edit = request.values['id_film_genres_edit_html']
 
@@ -156,7 +156,7 @@ def edit_genre_film_selected():
                                                  f"{edit_genre_film_selected.__name__} ; "
                                                  f"{Exception_edit_genre_film_selected}")
 
-    return render_template("films_genres/films_genres_modifier_tags_dropbox.html",
+    return render_template("adresse_personnes/adresse_personnes_modifier_tags_dropbox.html",
                            data_genres=data_genres_all,
                            data_film_selected=data_genre_film_selected,
                            data_genres_attribues=data_genres_films_attribues,
@@ -166,7 +166,7 @@ def edit_genre_film_selected():
 """
     nom: update_genre_film_selected
 
-    Récupère la liste de tous les genres du film sélectionné par le bouton "MODIFIER" de "films_genres_afficher.html"
+    Récupère la liste de tous les genres du film sélectionné par le bouton "MODIFIER" de "adresse_personnes_afficher.html"
     
     Dans une liste déroulante particulière (tags-selector-tagselect), on voit :
     1) Tous les genres contenus dans la "t_genre".
@@ -258,14 +258,14 @@ def update_genre_film_selected():
                                                    f"{Exception_update_genre_film_selected}")
 
     # Après cette mise à jour de la table intermédiaire "t_genre_film",
-    # on affiche les films et le(urs) genre(s) associé(s).
+    # on affiche les adresse et le(urs) genre(s) associé(s).
     return redirect(url_for('films_genres_afficher', id_film_sel=id_film_selected))
 
 
 """
     nom: genres_films_afficher_data
 
-    Récupère la liste de tous les genres du film sélectionné par le bouton "MODIFIER" de "films_genres_afficher.html"
+    Récupère la liste de tous les genres du film sélectionné par le bouton "MODIFIER" de "adresse_personnes_afficher.html"
     Nécessaire pour afficher tous les "TAGS" des genres, ainsi l'utilisateur voit les genres à disposition
 
     On signale les erreurs importantes

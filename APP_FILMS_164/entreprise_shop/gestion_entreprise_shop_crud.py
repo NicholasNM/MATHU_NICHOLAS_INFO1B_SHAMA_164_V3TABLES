@@ -1,7 +1,7 @@
 """
     Fichier : gestion_entreprise_shop_crud.py
     Auteur : OM 2021.05.01
-    Gestions des "routes" FLASK et des données pour l'association entre les films et les genres.
+    Gestions des "routes" FLASK et des données pour l'association entre les adresse et les genres.
 """
 from pathlib import Path
 
@@ -18,9 +18,9 @@ from APP_FILMS_164.erreurs.exceptions import *
     Auteur : OM 2021.05.01
     Définition d'une "route" /entreprise_shop_afficher
     
-    But : Afficher les films avec les genres associés pour chaque film.
+    But : Afficher les adresse avec les genres associés pour chaque film.
     
-    Paramètres : id_shop_sel = 0 >> tous les films.
+    Paramètres : id_shop_sel = 0 >> tous les adresse.
                  id_shop_sel = "n" affiche le film dont l'id est "n"
                  
 """
@@ -38,7 +38,7 @@ def entreprise_shop_afficher(id_entreprise_sel):
                                                         Left JOIN t_shop sh ON sh.id_shop = t_e_shop.fk_shop
                                                         GROUP BY id_entreprise"""
                 if id_entreprise_sel == 0:
-                    # le paramètre 0 permet d'afficher tous les films
+                    # le paramètre 0 permet d'afficher tous les adresse
                     # Sinon le paramètre représente la valeur de l'id du film
                     mc_afficher.execute(strsql_shop_entreprise_afficher_data)
                 else:
@@ -157,7 +157,7 @@ def edit_shop_entreprise_selected():
                                                  f"{edit_shop_entreprise_selected.__name__} ; "
                                                  f"{Exception_edit_shop_entreprise_selected}")
 
-    return render_template("entreprise_shop/films_genres_modifier_tags_dropbox.html",
+    return render_template("entreprise_shop/adresse_personnes_modifier_tags_dropbox.html",
                            data_shop=data_shop_all,
                            data_entreprise_selected=data_shop_entreprise_selected,
                            data_shop_attribues=data_shop_entreprise_attribues,
@@ -260,7 +260,7 @@ def update_shop_entreprise_selected():
                                                    f"{Exception_update_shop_entreprise_selected}")
 
     # Après cette mise à jour de la table intermédiaire "t_genre_film",
-    # on affiche les films et le(urs) genre(s) associé(s).
+    # on affiche les adresse et le(urs) genre(s) associé(s).
     return redirect(url_for('entreprise_shop_afficher', id_entreprise_sel=id_entreprise_selected))
 
 
