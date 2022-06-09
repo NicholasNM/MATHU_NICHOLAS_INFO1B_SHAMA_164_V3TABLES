@@ -11,10 +11,10 @@ from flask import render_template
 from flask import request
 from flask import session
 
-from APP_FILMS_164 import app
-from APP_FILMS_164.database.database_tools import DBconnection
-from APP_FILMS_164.erreurs.msg_erreurs import *
-from APP_FILMS_164.essais_wtf_forms.wtf_forms_demo_select import DemoFormSelectWTF
+from APP_SHAMA_164 import app
+from APP_SHAMA_164.database.database_tools import DBconnection
+from APP_SHAMA_164.erreurs.msg_erreurs import *
+from APP_SHAMA_164.essais_wtf_forms.wtf_forms_demo_select import DemoFormSelectWTF
 
 """
     Auteur : OM 2021.04.08

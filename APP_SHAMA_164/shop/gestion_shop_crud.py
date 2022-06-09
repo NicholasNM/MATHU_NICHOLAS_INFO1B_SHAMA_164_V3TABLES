@@ -9,12 +9,12 @@ from flask import request
 from flask import session
 from flask import url_for
 
-from APP_FILMS_164 import app
-from APP_FILMS_164.database.database_tools import DBconnection
-from APP_FILMS_164.erreurs.exceptions import *
-from APP_FILMS_164.shop.gestion_shop_wtf_forms import FormWTFAjouterShop
-from APP_FILMS_164.shop.gestion_shop_wtf_forms import FormWTFDeleteShop
-from APP_FILMS_164.shop.gestion_shop_wtf_forms import FormWTFUpdateShop
+from APP_SHAMA_164 import app
+from APP_SHAMA_164.database.database_tools import DBconnection
+from APP_SHAMA_164.erreurs.exceptions import *
+from APP_SHAMA_164.shop.gestion_shop_wtf_forms import FormWTFAjouterShop
+from APP_SHAMA_164.shop.gestion_shop_wtf_forms import FormWTFDeleteShop
+from APP_SHAMA_164.shop.gestion_shop_wtf_forms import FormWTFUpdateShop
 
 """
     Auteur : OM 2021.03.16

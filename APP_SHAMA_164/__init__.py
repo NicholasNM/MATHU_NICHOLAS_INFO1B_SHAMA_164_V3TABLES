@@ -38,27 +38,27 @@ try:
         Tout commence ici. Il faut "indiquer" les routes de l'applicationn.    
         Dans l'application les lignes ci-dessous doivent se trouver ici... soit après l'instanciation de la classe "Flask"
     """
-    from APP_FILMS_164.database import database_tools
-    from APP_FILMS_164.essais_wtf_forms import gestion_essai_wtf
-    from APP_FILMS_164.essais_wtf_forms import gestion_wtf_forms_demo_select
-    from APP_FILMS_164.personnes import gestion_personnes_crud
-    from APP_FILMS_164.demos_om_164 import routes_demos
+    from APP_SHAMA_164.database import database_tools
+    from APP_SHAMA_164.essais_wtf_forms import gestion_essai_wtf
+    from APP_SHAMA_164.essais_wtf_forms import gestion_wtf_forms_demo_select
+    from APP_SHAMA_164.personnes import gestion_personnes_crud
+    from APP_SHAMA_164.demos_om_164 import routes_demos
 
-    from APP_FILMS_164.entreprise_personnes import gestion_entreprise_personnes_crud
+    from APP_SHAMA_164.entreprise_personnes import gestion_entreprise_personnes_crud
 
-    from APP_FILMS_164.erreurs import msg_avertissements
+    from APP_SHAMA_164.erreurs import msg_avertissements
 
-    from APP_FILMS_164.entreprise import gestion_entreprise_crud
-    from APP_FILMS_164.entreprise import gestion_entreprise_wtf_forms
+    from APP_SHAMA_164.entreprise import gestion_entreprise_crud
+    from APP_SHAMA_164.entreprise import gestion_entreprise_wtf_forms
 
-    from APP_FILMS_164.adresse import gestion_adresse_crud
-    from APP_FILMS_164.adresse_personnes import gestion_adresse_personnes_crud
+    from APP_SHAMA_164.adresse import gestion_adresse_crud
+    from APP_SHAMA_164.adresse_personnes import gestion_adresse_personnes_crud
 
-    from APP_FILMS_164.adresse import gestion_adresse_wtf_forms
+    from APP_SHAMA_164.adresse import gestion_adresse_wtf_forms
 
-    from APP_FILMS_164.shop import gestion_shop_crud
-    from APP_FILMS_164.entreprise_personnes import gestion_entreprise_personnes_crud
-    from APP_FILMS_164.entreprise_shop import gestion_entreprise_shop_crud
+    from APP_SHAMA_164.shop import gestion_shop_crud
+    from APP_SHAMA_164.entreprise_personnes import gestion_entreprise_personnes_crud
+    from APP_SHAMA_164.entreprise_shop import gestion_entreprise_shop_crud
 
 except Exception as Exception_init_app_films_164:
     print(f"4567756434 Une erreur est survenue {type(Exception_init_app_films_164)} dans"

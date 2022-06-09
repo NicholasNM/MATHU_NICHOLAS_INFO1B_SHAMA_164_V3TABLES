@@ -9,9 +9,9 @@ from flask import request
 from flask import session
 from flask import url_for
 
-from APP_FILMS_164.database.database_tools import DBconnection
-from APP_FILMS_164.erreurs.exceptions import *
-from APP_FILMS_164.adresse.gestion_adresse_wtf_forms import FormWTFUpdateAdresse, FormWTFAddAdresse, FormWTFDeleteAdresse
+from APP_SHAMA_164.database.database_tools import DBconnection
+from APP_SHAMA_164.erreurs.exceptions import *
+from APP_SHAMA_164.adresse.gestion_adresse_wtf_forms import FormWTFUpdateAdresse, FormWTFAddAdresse, FormWTFDeleteAdresse
 
 """Ajouter un film grâce au formulaire "adresse_add_wtf.html"
 Auteur : OM 2022.04.11

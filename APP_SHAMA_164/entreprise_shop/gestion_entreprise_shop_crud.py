@@ -10,8 +10,8 @@ from flask import request
 from flask import session
 from flask import url_for
 
-from APP_FILMS_164.database.database_tools import DBconnection
-from APP_FILMS_164.erreurs.exceptions import *
+from APP_SHAMA_164.database.database_tools import DBconnection
+from APP_SHAMA_164.erreurs.exceptions import *
 
 """
     Nom : entreprise_shop_afficher
