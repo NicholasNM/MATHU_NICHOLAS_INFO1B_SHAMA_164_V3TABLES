@@ -1,11 +1,11 @@
 {% extends "base.html" %}
-{% block title %} Effacer un FILM (WTF) {% endblock %}
+{% block title %} Effacer une Adresse (WTF) {% endblock %}
 {% block body %}
 <div class="container">
 	<div class="row">
 		<div class="col-md-12">
 			<p>
-				Effacer un FILM
+				Effacer une Adresse
 			</p>
 			<table class="table table-responsive-sm">
 				{% if data_film_del %}
@@ -15,20 +15,15 @@
 						Id
 					</th>
 					<th class="">
-						Nom
+						Rue
 					</th>
 					<th class="">
-						Durée
+						Numero
 					</th>
 					<th class="">
-						Date de sortie
+						Localite
 					</th>
-					<th class="">
-						Description
-					</th>
-					<th class="">
-						Affiche
-					</th>
+
 				</tr>
 				</thead>
 				{% endif %}
@@ -36,24 +31,16 @@
 				<tbody>
 				<tr>
 					<th class="align-middle">
-						{{ row.id_film }}
+						{{ row.id_adresse }}
 					</th>
 					<th class="align-middle">
-						{{ row.nom_film }}
+						{{ row.Rue }}
 					</th>
 					<th class="align-middle">
-						{{ row.duree_film|default("", True) }}
+						{{ row.Numero|default("", True) }}
 					</th>
 					<th class="align-middle">
-						{{ row.date_sortie_film|default("", True) }}
-					</th>
-					<th class="align-middle">
-						{{ row.description_film|default("", True) }}
-					</th>
-					<th class="align-middle">
-						<img class="img" src={{ row.cover_link_film|default(None, True) }}
-							 style="border: 0;display:block; width:150px; max-height:auto;"
-							 alt="image masquée FFP8 (in COVID-19 Memory) (absente) mod 164">
+						{{ row.Localite|default("", True) }}
 					</th>
 
 				<tr>
