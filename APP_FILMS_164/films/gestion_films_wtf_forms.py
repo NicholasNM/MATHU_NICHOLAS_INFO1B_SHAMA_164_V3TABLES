@@ -36,22 +36,16 @@ class FormWTFUpdateFilm(FlaskForm):
         Définition d'un "bouton" submit avec un libellé personnalisé.
     """
 
-    nom_film_update_wtf = StringField("Clavioter le titre", widget=TextArea())
-    duree_film_update_wtf = IntegerField("Durée du film (minutes)", validators=[NumberRange(min=1, max=5000,
-                                                                                            message=u"Min %(min)d et "
-                                                                                                    u"max %(max)d "
-                                                                                                    u"Selon Wikipédia "
-                                                                                                    u"L'Incendie du "
-                                                                                                    u"monastère du "
-                                                                                                    u"Lotus rouge "
-                                                                                                    u"durée 1620 "
-                                                                                                    u"min")])
+    rue_update_wtf = StringField("Nom de la Rue ", validators=[Length(min=2, max=2000, message="min 2 max 20"),
 
-    description_film_update_wtf = StringField("Description du film ", widget=TextArea())
-    cover_link_film_update_wtf = StringField("Lien de l'affiche du film ", widget=TextArea())
-    datesortie_film_update_wtf = DateField("Date de sortie du film", validators=[InputRequired("Date obligatoire"),
-                                                                                 DataRequired("Date non valide")])
-    submit = SubmitField("Update film")
+                                                            ])
+    numero_update_wtf = StringField("Numéro d'appartement/maison ", validators=[Length(min=2, max=2000,
+                                                                                       message="min 2 max 20"), ])
+
+    localite_update_wtf = StringField("Localité (NPA) ", validators=[Length(min=2, max=2000, message="min 2 max 20"),
+
+                                                                  ])
+    submit = SubmitField("Update adresse")
 
 
 class FormWTFDeleteFilm(FlaskForm):

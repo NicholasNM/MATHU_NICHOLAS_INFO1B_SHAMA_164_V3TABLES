@@ -43,10 +43,10 @@ def films_genres_afficher(id_film_sel):
                     mc_afficher.execute(strsql_genres_films_afficher_data)
                 else:
                     # Constitution d'un dictionnaire pour associer l'id du film sélectionné avec un nom de variable
-                    valeur_id_film_selected_dictionnaire = {"value_id_film_selected": id_film_sel}
+                    valeur_id_film_selected_dictionnaire = {"value_id_adresse_selected": id_film_sel}
                     # En MySql l'instruction HAVING fonctionne comme un WHERE... mais doit être associée à un GROUP BY
                     # L'opérateur += permet de concaténer une nouvelle valeur à la valeur de gauche préalablement définie.
-                    strsql_genres_films_afficher_data += """ HAVING id_adresse= %(value_id_film_selected)s"""
+                    strsql_genres_films_afficher_data += """ HAVING id_adresse= %(value_id_adresse_selected)s"""
 
                     mc_afficher.execute(strsql_genres_films_afficher_data, valeur_id_film_selected_dictionnaire)
 
@@ -110,7 +110,7 @@ def edit_genre_film_selected():
             session['session_id_film_genres_edit'] = id_film_genres_edit
 
             # Constitution d'un dictionnaire pour associer l'id du film sélectionné avec un nom de variable
-            valeur_id_film_selected_dictionnaire = {"value_id_film_selected": id_film_genres_edit}
+            valeur_id_film_selected_dictionnaire = {"value_id_adresse_selected": id_film_genres_edit}
 
             # Récupère les données grâce à 3 requêtes MySql définie dans la fonction genres_films_afficher_data
             # 1) Sélection du film choisi
@@ -279,17 +279,17 @@ def genres_films_afficher_data(valeur_id_film_selected_dict):
         strsql_film_selected = """SELECT id_adresse, Rue, Numero, Localite, GROUP_CONCAT(id_personnes) as GenresFilms FROM t_pers_adresse
                                         INNER JOIN t_adresse ON t_adresse.id_adresse = t_pers_adresse.fk_adresse
                                         INNER JOIN t_personnes ON t_personnes.id_personnes = t_pers_adresse.fk_personnes
-                                        WHERE id_adresse = %(value_id_film_selected)s"""
+                                        WHERE id_adresse = %(value_id_adresse_selected)s"""
 
         strsql_genres_films_non_attribues = """SELECT id_personnes, nom_personnes FROM t_personnes WHERE id_personnes not in(SELECT id_personnes as idGenresFilms FROM t_pers_adresse
                                                     INNER JOIN t_adresse ON t_adresse.id_adresse = t_pers_adresse.fk_adresse
                                                     INNER JOIN t_personnes ON t_personnes.id_personnes = t_pers_adresse.fk_personnes
-                                                    WHERE id_adresse = %(value_id_film_selected)s)"""
+                                                    WHERE id_adresse = %(value_id_adresse_selected)s)"""
 
         strsql_genres_films_attribues = """SELECT id_adresse, id_personnes, Rue FROM t_pers_adresse
                                             INNER JOIN t_adresse ON t_adresse.id_adresse = t_pers_adresse.fk_adresse
                                             INNER JOIN t_personnes ON t_personnes.id_personnes = t_pers_adresse.fk_personnes
-                                            WHERE id_adresse = %(value_id_film_selected)s"""
+                                            WHERE id_adresse = %(value_id_adresse_selected)s"""
 
         # Du fait de l'utilisation des "context managers" on accède au curseur grâce au "with".
         with DBconnection() as mc_afficher:

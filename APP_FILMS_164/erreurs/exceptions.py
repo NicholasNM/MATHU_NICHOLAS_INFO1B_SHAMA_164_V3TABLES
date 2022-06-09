@@ -94,8 +94,10 @@ class ExceptionShopUpdateWtf(Base):
 class ExceptionShopAjouterWtf(Base):
     pass
 
+
 class ExceptionShopEntrepriseAfficherData(Base):
     pass
+
 
 class ExceptionEntrepriseShopAfficher(Base):
     pass
@@ -128,6 +130,7 @@ class ExceptionEditPersonnesEntrepriseSelected(Base):
 class ExceptionUpdatePersonnesEntrepriseSelected(Base):
     pass
 
+
 class ExceptionEntrepriseShopAfficher(Base):
     pass
 
@@ -139,11 +142,14 @@ class ExceptionEditShopEntrepriseSelected(Base):
 class ExceptionUpdateShopEntrepriseSelected(Base):
     pass
 
+
 class ExceptionEditGenreFilmSelected(Base):
     pass
 
+
 class ExceptionUpdateGenreFilmSelected(Base):
     pass
+
 
 class ExceptionEntrepriseShopAfficherData(Base):
     pass
@@ -160,10 +166,16 @@ class ExceptionEntrepriseDeleteWtf(Base):
 class ExceptionFilmsGenresAfficher(Base):
     pass
 
+
 class ExceptionGenresAjouterWtf(Base):
     pass
 
+
 class ExceptionFilmDeleteWtf(Base):
+    pass
+
+
+class ExceptionFilmUpdateWtf(Base):
     pass
 
 
