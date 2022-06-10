@@ -51,7 +51,7 @@
 							<a class="btn btn-warning" href="{{ url_for('edit_shop_entreprise_selected', id_entreprise_shop_edit_html=row.id_entreprise) }}" role="button">Modifier</a>
 						</td>
 						<td class="align-middle" colspan="5">
-							{{ row.EntrepriseShop|default("PAS DE PARTICIPANT ATTRIBUE", True) }}
+							{{ row.EntrepriseShop|default("Pas de Personne contribuable", True) }}
 						</td>
 					</tr>
 				</tr>
