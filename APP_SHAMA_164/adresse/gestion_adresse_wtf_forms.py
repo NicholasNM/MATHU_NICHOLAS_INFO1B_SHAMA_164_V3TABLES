@@ -18,7 +18,7 @@ class FormWTFAddAdresse(FlaskForm):
     """
     #rue_regexp = "^([A-Z]|[a-zÀ-ÖØ-öø-ÿ])[A-Za-zÀ-ÖØ-öø-ÿ]*['\- ]?[A-Za-zÀ-ÖØ-öø-ÿ]+$"
     rue_add_wtf = StringField("Nom de la Rue ", validators=[Length(min=2, max=2000, message="min 2 max 20"),
-                                                            Regexp(rue_regexp,
+                                                            #Regexp(rue_regexp,
                                                                    #message="Pas de chiffres, de caractères "
                                                                            #"spéciaux, "
                                                                            #"d'espace à double, de double "
