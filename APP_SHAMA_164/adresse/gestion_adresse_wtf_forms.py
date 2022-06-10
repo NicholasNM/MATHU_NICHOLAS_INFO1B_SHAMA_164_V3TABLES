@@ -16,15 +16,30 @@ class FormWTFAddAdresse(FlaskForm):
         Dans le formulaire "genres_ajouter_wtf.html" on impose que le champ soit rempli.
         Définition d'un "bouton" submit avec un libellé personnalisé.
     """
-
+    #rue_regexp = "^([A-Z]|[a-zÀ-ÖØ-öø-ÿ])[A-Za-zÀ-ÖØ-öø-ÿ]*['\- ]?[A-Za-zÀ-ÖØ-öø-ÿ]+$"
     rue_add_wtf = StringField("Nom de la Rue ", validators=[Length(min=2, max=2000, message="min 2 max 20"),
-
+                                                            Regexp(rue_regexp,
+                                                                   #message="Pas de chiffres, de caractères "
+                                                                           #"spéciaux, "
+                                                                           #"d'espace à double, de double "
+                                                                           #"apostrophe, de double trait union")
                                                                ])
+    #numero_regexp = "^([A-Z]|[a-zÀ-ÖØ-öø-ÿ])[A-Za-zÀ-ÖØ-öø-ÿ]*['\- ]?[A-Za-zÀ-ÖØ-öø-ÿ]+$"
     numero_add_wtf = StringField("Numéro d'appartement/maison ", validators=[Length(min=2, max=2000, message="min 2 max 20"),
+                                                                             #Regexp(numero_regexp,
+                                                                                    #message="Pas de chiffres, de caractères "
+                                                                                            #"spéciaux, "
+                                                                                            #"d'espace à double, de double "
+                                                                                            #"apostrophe, de double trait union")
+                                                                              ])
 
-                                                               ])
+    #numero_regexp = "^([A-Z]|[a-zÀ-ÖØ-öø-ÿ])[A-Za-zÀ-ÖØ-öø-ÿ]*['\- ]?[A-Za-zÀ-ÖØ-öø-ÿ]+$"                                                           ])
     localite_add_wtf = StringField("Localité (NPA) ", validators=[Length(min=2, max=2000, message="min 2 max 20"),
-
+                                                                  # Regexp(numero_regexp,
+                                                                  # message="Pas de chiffres, de caractères "
+                                                                  # "spéciaux, "
+                                                                  # "d'espace à double, de double "
+                                                                  # "apostrophe, de double trait union")
                                                                ])
 
     submit = SubmitField("Enregistrer l'adresse")
