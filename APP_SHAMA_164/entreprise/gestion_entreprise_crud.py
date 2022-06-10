@@ -119,7 +119,7 @@ def entreprise_update_wtf():
             # Afficher seulement le film modifié, "ASC" et l'"id_entreprise_update"
             return redirect(url_for('entreprise_personnes_afficher', id_entreprise_sel=id_entreprise_update))
         elif request.method == "GET":
-            # Opération sur la BD pour récupérer "id_adresse" et "intitule_genre" de la "t_genre"
+            # Opération sur la BD pour récupérer "id_adresse" et "nom_personnes" de la "t_genre"
             str_sql_id_entreprise = "SELECT * FROM t_entreprise WHERE id_entreprise = %(value_id_entreprise)s"
             valeur_select_dictionnaire = {"value_id_entreprise": id_entreprise_update}
             with DBconnection() as mybd_conn:

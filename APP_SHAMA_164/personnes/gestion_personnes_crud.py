@@ -203,7 +203,7 @@ def personnes_update_wtf():
             # Affiche seulement la valeur modifiée, "ASC" et l'"value_id_personnes"
             return redirect(url_for('personnes_afficher', order_by="ASC", id_personnes_sel=id_personnes_update))
         elif request.method == "GET":
-            # Opération sur la BD pour récupérer "id_genre" et "intitule_genre" de la "t_personnes"
+            # Opération sur la BD pour récupérer "id_genre" et "nom_personnes" de la "t_personnes"
             str_sql_id_personnes = "SELECT id_personnes, nom_personnes, prenom_personnes," \
                                    "num_personnes, email_personnes, date_naissance FROM t_personnes " \
                                    "WHERE id_personnes = %(value_id_personnes)s"
@@ -307,7 +307,7 @@ def personnes_delete_wtf():
                 # le formulaire "personnes/personnes_delete_wtf.html" lorsque le bouton "Etes-vous sur d'effacer ?" est cliqué.
                 session['data_entreprise_attribue_personnes_delete'] = data_entreprise_attribue_personnes_delete
 
-                # Opération sur la BD pour récupérer "id_genre" et "intitule_genre" de la "t_personnes"
+                # Opération sur la BD pour récupérer "id_genre" et "nom_personnes" de la "t_personnes"
                 str_sql_id_personnes = "SELECT id_personnes, nom_personnes, num_personnes, email_personnes, " \
                                        "date_naissance FROM t_personnes " \
                                        "WHERE id_personnes = %(value_id_personnes)s"

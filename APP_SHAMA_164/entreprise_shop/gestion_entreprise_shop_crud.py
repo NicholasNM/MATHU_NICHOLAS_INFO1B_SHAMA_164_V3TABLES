@@ -146,7 +146,7 @@ def edit_shop_entreprise_selected():
             print(" data_shop_entreprise_attribues ", data_shop_entreprise_attribues, "type ",
                   type(data_shop_entreprise_attribues))
 
-            # Extrait les valeurs contenues dans la table "t_genres", colonne "intitule_genre"
+            # Extrait les valeurs contenues dans la table "t_genres", colonne "nom_personnes"
             # Le composant javascript "tagify" pour afficher les tags n'a pas besoin de l'id_genre
             lst_data_shop_entreprise_non_attribues = [item['nom_shop'] for item in data_shop_entreprise_non_attribues]
             print("lst_all_genres gf_edit_shop_entreprise_selected ", lst_data_shop_entreprise_non_attribues,

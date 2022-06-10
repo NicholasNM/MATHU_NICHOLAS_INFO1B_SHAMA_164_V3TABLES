@@ -115,7 +115,7 @@ def adresse_update_wtf():
             # Afficher seulement le film modifié, "ASC" et l'"id_adresse_update"
             return redirect(url_for('adresse_personnes_afficher', id_adresse_sel=id_adresse_update))
         elif request.method == "GET":
-            # Opération sur la BD pour récupérer "id_adresse" et "intitule_genre" de la "t_genre"
+            # Opération sur la BD pour récupérer "id_adresse" et "nom_personnes" de la "t_genre"
             str_sql_id_adresse = "SELECT * FROM t_adresse WHERE id_adresse = %(value_id_adresse)s"
             valeur_select_dictionnaire = {"value_id_adresse": id_adresse_update}
             with DBconnection() as mybd_conn:

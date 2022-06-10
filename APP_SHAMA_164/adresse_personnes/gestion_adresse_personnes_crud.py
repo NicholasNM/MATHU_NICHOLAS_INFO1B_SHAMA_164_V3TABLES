@@ -148,7 +148,7 @@ def edit_personnes_adresse_selected():
             print(" data_personnes_adresse_attribues ", data_personnes_adresse_attribues, "type ",
                   type(data_personnes_adresse_attribues))
 
-            # Extrait les valeurs contenues dans la table "t_genres", colonne "intitule_genre"
+            # Extrait les valeurs contenues dans la table "t_genres", colonne "nom_personnes"
             # Le composant javascript "tagify" pour afficher les tags n'a pas besoin de l'id_genre
             lst_data_personnes_adresse_non_attribues = [item['nom_personnes'] for item in data_personnes_adresse_non_attribues]
             print("lst_all_genres gf_edit_personnes_adresse_selected ", lst_data_personnes_adresse_non_attribues,

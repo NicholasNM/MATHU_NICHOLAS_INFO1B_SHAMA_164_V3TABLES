@@ -197,7 +197,7 @@ def shop_update_wtf():
             # Affiche seulement la valeur modifiée, "ASC" et l'"id_shop_update"
             return redirect(url_for('shop_afficher', order_by="ASC", id_shop_sel=id_shop_update))
         elif request.method == "GET":
-            # Opération sur la BD pour récupérer "id_genre" et "intitule_genre" de la "t_genre"
+            # Opération sur la BD pour récupérer "id_genre" et "nom_personnes" de la "t_genre"
             str_sql_id_shop = "SELECT id_shop, nom_shop, email_shop, volumes_shop, argent_shop FROM t_shop" \
                                " WHERE id_shop = %(value_id_shop)s"
             valeur_select_dictionnaire = {"value_id_shop": id_shop_update}
@@ -301,7 +301,7 @@ def shop_delete_wtf():
                 # le formulaire "shop/shop_delete_wtf.html" lorsque le bouton "Etes-vous sur d'effacer ?" est cliqué.
                 session['data_entreprise_attribue_shop_delete'] = data_entreprise_attribue_shop_delete
 
-                # Opération sur la BD pour récupérer "id_genre" et "intitule_genre" de la "t_genre"
+                # Opération sur la BD pour récupérer "id_genre" et "nom_personnes" de la "t_genre"
                 str_sql_id_shop = "SELECT id_shop, nom_shop, email_shop, volumes_shop, argent_shop FROM t_shop" \
                                    " WHERE id_shop = %(value_id_shop)s"
 
